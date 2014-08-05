@@ -4,6 +4,7 @@ var path = require('path');
 
 app.set('view engine', 'jade');
 app.set('views', path.join(__dirname, 'public'));
+app.use(express.static('public'));
 
 app.get('/', function (req, res) {
 	res.render('index.jade', {title: 'FitStudio'});
