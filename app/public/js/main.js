@@ -4,15 +4,17 @@ require.config({
         underscore: 'libs/underscore',
         backbone: 'libs/backbone',
         text: 'libs/text',
-        templates: '../templates'
+        templates: '../templates',
+        bootstrap: 'http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min'
     },
 
     shim: {
         backbone: ['underscore', 'jquery'],
-        FitStudio: ['backbone']
+        FitStudio: ['backbone'],
+        bootstrap: ['jquery']
     }
 });
 
-require(['FitStudio'], function (FitStudio) {
+require(['FitStudio', 'bootstrap'], function (FitStudio) {
     FitStudio.initialize();
 });
