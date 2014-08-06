@@ -48,6 +48,18 @@ module.exports = function (mongoose, nodemailer, config) {
         console.log('Save command was sent');
     };
 
+    changePassword = function (accountId, newPassword) {
+        var shaSum = crypto.createHash('sha256');
+        shaSum.update(newPassword);
+        Account.update({_id: accountId}, {$set: {password: shaSum.digest('hex')}}, {upsert: false}, function changePasswordCallback (err) {
+            if (err) {
+                console.log('Change password failed for account ' + accountId + ' with an error: ' + err);
+            } else {
+                console.log('Change password done for account ' + accountId);
+            }
+        });
+    };
+
     forgotPassword = function (email, resetPasswordUrl) {
         Account.findOne({
                 email: email
@@ -83,6 +95,7 @@ module.exports = function (mongoose, nodemailer, config) {
         login: login,
         register: register,
         Account: Account,
-        forgotPassword: forgotPassword
+        forgotPassword: forgotPassword,
+        changePassword: changePassword
     };
 };
