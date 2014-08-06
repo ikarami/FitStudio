@@ -24,8 +24,9 @@ var config = {
 
 var Account = require('./models/Account')(mongoose, nodemailer, config);
 
-app.set('view engine', 'jade');
+app.engine('html', require('ejs').renderFile);
 app.set('views', path.join(__dirname, 'public'));
+app.set('view options', {layout: false});
 app.use(express.static('public'));
 //app.use(bodyParser.json());
 app.use(cookieParser());
@@ -52,7 +53,7 @@ app.use(session({
 
 
 app.get('/', function (req, res) {
-    res.render('index.jade', {title: 'FitStudio'});
+    res.render('index.html');
 });
 
 app.post('/login', function (req, res) {
