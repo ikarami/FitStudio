@@ -23,6 +23,7 @@ var config = {
 };
 
 var Account = require('./models/Account')(mongoose, nodemailer, config);
+var Course = require('./models/Course')(mongoose, nodemailer, config);
 
 app.engine('html', require('ejs').renderFile);
 app.set('views', path.join(__dirname, 'public'));
@@ -30,7 +31,7 @@ app.set('view options', {layout: false});
 app.use(express.static('public'));
 //app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(session({
         secret: 'FitStudio app secret',
         store: new MemoryStore(),
@@ -67,13 +68,14 @@ app.post('/login', function (req, res) {
         return;
     }
 
-    Account.login(email, password, function (success) {
-        if (!success) {
+    Account.login(email, password, function (account) {
+        if (!account) {
             res.status(401).end();
             return;
         }
         console.log('login was successful');
         req.session.loggedIn = true;
+        req.session.accountId = account._id;
         res.status(200).end();
     });
 });
@@ -129,6 +131,22 @@ app.get('/account/authenticated', function (req, res) {
     } else {
         res.status(401).end();
     }
+});
+
+app.get('/courses/:id', function (req, res) {
+    var accountId = req.params.id == 'me' ? req.session.accountId : req.params.id;
+    Course.findAll(accountId, function (courses) {
+        res.send(courses);
+    });
+});
+
+app.post('/addCourse', function (req, res) {
+    var data = req.params;
+    data.accountId = req.session.accountId;
+    console.log('addCourse ' + JSON.stringify(data));
+    Course.add(data, function() {
+        res.status(200).end();
+    });
 });
 
 app.listen(8080);
