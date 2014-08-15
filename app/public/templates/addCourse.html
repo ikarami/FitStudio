@@ -5,32 +5,32 @@
         <legend>Name</legend>
         <label>
             Short:
-            <input type="text" name="shortName">
+            <input type="text" data-bind="value: shortName">
         </label>
         <label>
             Regular:
-            <input type="text" name="regularName">
+            <input type="text" data-bind="value: regularName">
         </label>
     </fieldset>
     <fieldset>
         <legend>Description</legend>
         <label>
             Description:
-            <input type="text" name="description">
+            <input type="text" data-bind="value: description">
         </label>
         <label>
             Instructors:
-            <input type="text" name="instructors">
+            <input type="text" data-bind="value: instructors">
         </label>
     </fieldset>
     <fieldset>
-        <legend>Time</legend>
+        <legend>time</legend>
         <label>
             time:
-            <input type="string" name="time">
+            <input type="string" data-bind="value: time">
         </label>
     </fieldset>
     <p>
-        <input type="submit" value="Add course">
+        <button data-bind="click: addCourse">Add course</button>
     </p>
 </form>

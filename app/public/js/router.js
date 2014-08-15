@@ -27,9 +27,18 @@ define(['backbone',
         changeView: function (view) {
             if (this.currentView !== null) {
                 this.currentView.undelegateEvents();
+                if (this.currentView.onHide) {
+                    this.currentView.onHide();
+                }
             }
             this.currentView = view;
-            this.currentView.render();
+            if (this.currentView.show) {
+                // with ko and the stuff, it's show
+                this.currentView.show();
+            } else {
+                // for older views which are not updated
+                this.currentView.render();
+            }
         },
 
         index: function () {

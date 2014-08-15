@@ -1,27 +1,49 @@
 define(['jquery',
-    'text!templates/addCourse.html'], function ($, addCourseTemplate) {
+    'ko',
+    'text!templates/addCourse.html'], function ($, ko, addCourseTemplate) {
     var AddCourseView = Backbone.View.extend({
         el: $('#content'),
         events: {
             "submit form": "addCourse"
         },
         initialize: function () {
+            var ViewModel = function () {
+                var self = this;
 
+                self.regularName = ko.observable();
+                self.shortName = ko.observable();
+                self.description = ko.observable();
+                self.instructors = ko.observable();
+                self.time = ko.observable();
+
+                self.addCourse = function (event) {
+                    $.post('/course/me', {
+                        name:  self.regularName(),
+                        shortName:  self.shortName(),
+                        description:  self.description(),
+                        instructors:  self.instructors(),
+                        time:  self.time()
+                    }, function () {
+                        window.location.hash='#courses';
+                    });
+                };
+            };
+            this.viewModel = new ViewModel();
+        },
+        show: function () {
+            this.render();
+            this.bind();
         },
         render: function() {
             this.$el.html(addCourseTemplate);
         },
-        addCourse: function (event) {
-            $.post('/addCourse', {
-                name:  $('input[name=regularName]').val(),
-                shortName:  $('input[name=shortName]').val(),
-                description:  $('input[name=description]').val(),
-                instructors:  $('input[name=instructors]').val(),
-                time:  $('input[name=time]').val()
-            }, function () {
-                window.location.hash='#courses';
-            });
-            return false;
+
+        bind: function () {
+            ko.applyBindings(this.viewModel, this.el);
+        },
+
+        onHide: function () {
+            ko.cleanNode(this.el);
         }
     });
     return AddCourseView;

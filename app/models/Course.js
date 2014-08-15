@@ -1,5 +1,5 @@
 module.exports = function (mongoose, nodemailer, config) {
-    var crypto, CourseSchema, Course, findAll, add;
+    var crypto, CourseSchema, Course, findAll, findById, add;
 
     crypto = require('crypto');
 
@@ -13,6 +13,13 @@ module.exports = function (mongoose, nodemailer, config) {
     });
 
     Course = mongoose.model('Course', CourseSchema);
+
+    findById = function (ids, callback) {
+        console.log('Course.findAll ' + ids.accountId);
+        Course.findOne({accountId: ids.accountId, _id: ids.courseId}, function (err, docs) {
+            callback(docs || false);
+        });
+    };
 
     findAll = function (accountId, callback) {
         console.log('Course.findAll ' + accountId);
@@ -38,6 +45,7 @@ module.exports = function (mongoose, nodemailer, config) {
 
     return {
         findAll: findAll,
-        add: add
+        add: add,
+        findById: findById
     };
 };

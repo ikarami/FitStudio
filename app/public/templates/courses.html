@@ -1,6 +1,13 @@
-<div class="courses_list">
-</div>
+<ul class="courses_list" data-bind="foreach: courses">
+	<li>
+		<span data-bind="text: name"></span>
+		<span data-bind="text: shortName"></span>
+		<span data-bind="text: time"></span>
+		<span data-bind="text: instructors"></span>
+		<button data-bind="click: $parent.removeCourse">Remove this course</button>
+	</li>
+</ul>
 
 <p>
-	<a href="#addCourse">Add Course</a>
+	<button data-bind="click: addCourse">Add Course</button>
 </p>

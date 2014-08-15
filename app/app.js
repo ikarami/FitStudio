@@ -140,12 +140,40 @@ app.get('/courses/:id', function (req, res) {
     });
 });
 
-app.post('/addCourse', function (req, res) {
+app.get('/course/:id', function (req, res) {
+    console.log('Getting details for course id: ' + req.params.id);
+    var accountId = req.session.accountId;
+
+    Course.findById({accountId: accountId, courseId: req.params.id}, function (course) {
+        if (!course) {
+            res.status(404).end();
+        } else {
+            res.send(course);
+        }
+    });
+});
+
+app.post('/course/:id', function (req, res) {
     var data = req.body;
     data.accountId = req.session.accountId;
     console.log('addCourse ' + JSON.stringify(data));
     Course.add(data, function() {
         res.status(200).end();
+    });
+});
+
+app.delete('/course/:id', function (req, res) {
+    console.log('Deleting course id: ' + req.params.id);
+    var accountId = req.session.accountId;
+
+    Course.findById({accountId: accountId, courseId: req.params.id}, function (course) {
+        if (!course) {
+            res.status(404).end();
+        } else {
+            course.remove(function (err) {
+                res.status(200).end();
+            });
+        }
     });
 });
 
