@@ -68,7 +68,7 @@ app.post('/login', function (req, res) {
         return;
     }
 
-    Account.login(email, password, function (account) {
+    Account.login(email, password, function accountCallback(account) {
         if (!account) {
             res.status(401).end();
             return;
@@ -141,7 +141,7 @@ app.get('/courses/:id', function (req, res) {
 });
 
 app.post('/addCourse', function (req, res) {
-    var data = req.params;
+    var data = req.body;
     data.accountId = req.session.accountId;
     console.log('addCourse ' + JSON.stringify(data));
     Course.add(data, function() {

@@ -26,7 +26,7 @@ module.exports = function (mongoose, nodemailer, config) {
         var shaSum = crypto.createHash('sha256');
         shaSum.update(password);
         Account.findOne({email: email, password: shaSum.digest('hex')}, function (err, doc) {
-            callback(null !== doc);
+            callback(doc || false);
         });
     };
 
