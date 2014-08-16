@@ -12,10 +12,13 @@ define(['jquery',
                 self.addCourse = function () {
                     window.location.hash='#addCourse';
                 };
+                self.goToDashboard = function () {
+                    window.location.hash='#index';
+                };
                 self.removeCourse = function () {
                     $.ajax({
                         method: 'DELETE',
-                        url: '/course/'+this._id,
+                        url: '/courses/'+this._id,
                         success: function () {
                             self.courses.remove(this);
                         }.bind(this)
@@ -29,7 +32,7 @@ define(['jquery',
             this.render();
             this.bind();
 
-            $.get('/courses/me').success(function (data) {
+            $.get('/courses/').success(function (data) {
                 console.log('data arrived');
                 _.forEach(data, function (course) {
                     this.viewModel.courses.push(course);

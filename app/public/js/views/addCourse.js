@@ -16,8 +16,12 @@ define(['jquery',
                 self.instructors = ko.observable();
                 self.time = ko.observable();
 
+                self.goToList = function () {
+                    window.location.hash='#courses';
+                };
+
                 self.addCourse = function (event) {
-                    $.post('/course/me', {
+                    $.post('/courses/me', {
                         name:  self.regularName(),
                         shortName:  self.shortName(),
                         description:  self.description(),
