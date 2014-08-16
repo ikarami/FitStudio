@@ -1,5 +1,5 @@
 module.exports = function (mongoose, nodemailer, config) {
-    var InstructorSchema, Instructor, findAll, findById, add;
+    var InstructorSchema, Instructor, findAll, findById, add, edit;
 
     InstructorSchema = new mongoose.Schema({
         accountId: {type: mongoose.Schema.Types.ObjectId},
@@ -41,9 +41,31 @@ module.exports = function (mongoose, nodemailer, config) {
         console.log('Save command was sent');
     };
 
+    edit = function (data, callback) {
+        Instructor.update({accountId: data.accountId,
+                _id: data.instructorId
+            }, {
+                firstName: data.firstName,
+                lastName: data.lastName,
+                email: data.email || '',
+                phone: data.phone || '',
+                classes: data.classes || []
+            }, function (err, numberAffected) {
+                if (err) {
+                    console.log('Error occurred: ' + err);
+                    callback(500);
+                } else {
+                    console.log('The number of updated documents was %d', numberAffected);
+                    callback(200);
+                }
+            }
+        );
+    };
+
     return {
         findAll: findAll,
         add: add,
-        findById: findById
+        findById: findById,
+        edit: edit
     };
 };

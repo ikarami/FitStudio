@@ -6,6 +6,7 @@ define(['jquery',
         el: $('#content'),
 
         initialize: function () {
+            var view = this;
             var ViewModel = function () {
                 var self = this;
                 self.instructors = ko.observableArray();
@@ -22,6 +23,12 @@ define(['jquery',
                         success: function () {
                             self.instructors.remove(this);
                         }.bind(this)
+                    });
+                };
+                self.edit = function () {
+                    view.trigger('navigate', {
+                        route: '#instructors/' + this._id,
+                        model: this
                     });
                 };
             };

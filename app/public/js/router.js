@@ -27,17 +27,19 @@ define(['backbone',
             courses: 'courses',
             addCourse: 'addCourse',
             instructors: 'instructors',
-            'instructors/:id': 'editInstrcutors'
+            'instructors/:id': 'editInstructors'
         },
 
         changeView: function (view) {
             if (this.currentView !== null) {
                 this.currentView.undelegateEvents();
+                this.currentView.off('navigate');
                 if (this.currentView.onHide) {
                     this.currentView.onHide();
                 }
             }
             this.currentView = view;
+            this.currentView.on('navigate', this.navigate, this);
             if (this.currentView.show) {
                 // with ko and the stuff, it's show
                 this.currentView.show();
@@ -45,6 +47,13 @@ define(['backbone',
                 // for older views which are not updated
                 this.currentView.render();
             }
+        },
+
+        navigate: function (params) {
+            var route = params.route;
+            delete params.route;
+            this.params = params;
+            window.location.hash = route;
         },
 
         index: function () {
@@ -75,8 +84,13 @@ define(['backbone',
             this.changeView(new InstructorsView());
         },
 
-        editInstrcutors: function (id) {
-            this.changeView(new EditInstructorView({id: id}));
+        editInstructors: function (id) {
+            var params = {};
+            if (this.params) {
+                params = this.params;
+                this.params = null;
+            }
+            this.changeView(new EditInstructorView({id: id, data: params.model}));
         }
     });
 

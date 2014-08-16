@@ -28,6 +28,17 @@ module.exports = function (app, models) {
         });
     });
 
+    app.put('/instructors/:id', function (req, res) {
+        var data = req.body;
+        data.accountId = req.session.accountId;
+        data.instructorId = req.params.id;
+
+        console.log('editInstructor ' + JSON.stringify(data));
+        models.Instructor.edit(data, function(code) {
+            res.status(code).end();
+        });
+    });
+
     app.delete('/instructors/:id', function (req, res) {
         console.log('Deleting instructor id: ' + req.params.id);
         var accountId = req.session.accountId;
