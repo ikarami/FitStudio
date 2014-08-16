@@ -4,14 +4,16 @@ define(['backbone',
     'views/register',
     'views/forgotPassword',
     'views/courses',
-    'views/addCourse'
+    'views/addCourse',
+    'views/instructors'
     ], function (Backobne,
     IndexView,
     LoginView,
     RegisterView,
     ForgotPassword,
     CoursesView,
-    AddCourseView) {
+    AddCourseView,
+    InstructorsView) {
     var FitStudioRouter = Backbone.Router.extend({
         currentView: null,
 
@@ -21,7 +23,8 @@ define(['backbone',
             register: 'register',
             forgotpassword: 'forgotpassword',
             courses: 'courses',
-            addCourse: 'addCourse'
+            addCourse: 'addCourse',
+            instructors: 'instructors'
         },
 
         changeView: function (view) {
@@ -63,6 +66,10 @@ define(['backbone',
 
         addCourse: function () {
             this.changeView(new AddCourseView());
+        },
+
+        instructors: function () {
+            this.changeView(new InstructorsView());
         }
     });
 

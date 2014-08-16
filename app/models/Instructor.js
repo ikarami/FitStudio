@@ -21,14 +21,14 @@ module.exports = function (mongoose, nodemailer, config) {
 
     findAll = function (accountId, callback) {
         console.log('Instructor.findAll ' + accountId);
-        Course.find({accountId: accountId}, function (err, docs) {
+        Instructor.find({accountId: accountId}, function (err, docs) {
             callback(docs);
         });
     };
 
     add = function (data, callback) {
         console.log('Adding Instructor ' + data.name);
-        var course = new Course({
+        var course = new Instructor({
             accountId: data.accountId,
             firstName: data.firstName,
             lastName: data.lastName,

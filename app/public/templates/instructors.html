@@ -1,0 +1,19 @@
+<ul class="instructors_list" data-bind="foreach: instructors">
+	<li>
+		<p>
+			<span data-bind="text: firstName + ' ' + lastName"></span>
+		</p>
+		<p>
+			<span data-bind="text: email"></span> - <span data-bind="text: phone"></span>
+		</p>
+		<ul data-bind="foreach: classes">
+			<li data-bind="text: name"></li>
+		</ul>
+		<button data-bind="click: $parent.remove">Remove this instructor</button>
+	</li>
+</ul>
+
+<p>
+	<button data-bind="click: add">Add Instructor</button>
+	<button data-bind="click: goToDashboard">Go to dashboard</button>
+</p>
