@@ -6,16 +6,24 @@ define(['jquery',
         el: $('#content'),
 
         initialize: function () {
-            var view = this;
-            var ViewModel = function () {
+            var ViewModel, view = this;
+
+            ViewModel = function () {
                 var self = this;
                 self.instructors = ko.observableArray();
+
                 self.add = function () {
-                    window.location.hash='#instructors/new';
+                    view.trigger('navigate', {
+                        route: '#instructors/new'
+                    });
                 };
+
                 self.goToDashboard = function () {
-                    window.location.hash='#index';
+                    view.trigger('navigate', {
+                        route: '#index'
+                    });
                 };
+
                 self.remove = function () {
                     $.ajax({
                         method: 'DELETE',
@@ -25,6 +33,7 @@ define(['jquery',
                         }.bind(this)
                     });
                 };
+
                 self.edit = function () {
                     view.trigger('navigate', {
                         route: '#instructors/' + this._id,

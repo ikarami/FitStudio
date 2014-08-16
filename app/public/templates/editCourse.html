@@ -1,4 +1,5 @@
-<h1>Add course</h1>
+<h1 data-bind="visible: addMode">Add course</h1>
+<h1 data-bind="visible: !addMode">Edit course</h1>
 
 <form name="addCourse">
     <fieldset>
@@ -31,7 +32,8 @@
         </label>
     </fieldset>
     <p>
-        <button data-bind="click: addCourse">Add course</button>
+        <button data-bind="click: add, visible: addMode">Add course</button>
+        <button data-bind="click: save, visible: !addMode">Save course</button>
         <button data-bind="click: goToList">Go to list of all courses</button>
     </p>
 </form>

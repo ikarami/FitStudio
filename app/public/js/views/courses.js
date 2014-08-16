@@ -6,16 +6,32 @@ define(['jquery',
         el: $('#content'),
 
         initialize: function () {
-            var ViewModel = function () {
+            var viewModel, view = this;
+
+            ViewModel = function () {
                 var self = this;
                 self.courses = ko.observableArray();
+
                 self.addCourse = function () {
-                    window.location.hash='#addCourse';
+                    view.trigger('navigate', {
+                        route: '#courses/new'
+                    });
                 };
+
                 self.goToDashboard = function () {
-                    window.location.hash='#index';
+                    view.trigger('navigate', {
+                        route: '#index'
+                    });
                 };
-                self.removeCourse = function () {
+
+                self.edit = function () {
+                    view.trigger('navigate', {
+                        route: '#courses/' + this._id,
+                        model: this
+                    });
+                };
+
+                self.remove = function () {
                     $.ajax({
                         method: 'DELETE',
                         url: '/courses/'+this._id,

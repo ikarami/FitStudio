@@ -1,5 +1,5 @@
 module.exports = function (mongoose, nodemailer, config) {
-    var crypto, CourseSchema, Course, findAll, findById, add;
+    var crypto, CourseSchema, Course, findAll, findById, add, edit;
 
     crypto = require('crypto');
 
@@ -43,9 +43,31 @@ module.exports = function (mongoose, nodemailer, config) {
         console.log('Save command was sent');
     };
 
+    edit = function (data, callback) {
+        Course.update({accountId: data.accountId,
+                _id: data.courseId
+            }, {
+                name: data.name || '',
+                shortName: data.shortName || '',
+                description: data.description || '',
+                instructors: data.instructors || '',
+                time: data.time || ''
+            }, function (err, numberAffected) {
+                if (err) {
+                    console.log('Error occurred: ' + err);
+                    callback(500);
+                } else {
+                    console.log('The number of updated documents was %d', numberAffected);
+                    callback(200);
+                }
+            }
+        );
+    };
+
     return {
         findAll: findAll,
         add: add,
-        findById: findById
+        findById: findById,
+        edit: edit
     };
 };

@@ -28,6 +28,16 @@ module.exports = function (app, models) {
         });
     });
 
+    app.put('/courses/:id', function (req, res) {
+        var data = req.body;
+        data.accountId = req.session.accountId;
+        data.courseId = req.params.id;
+        console.log('editCourse ' + JSON.stringify(data));
+        models.Course.edit(data, function(code) {
+            res.status(code).end();
+        });
+    });
+
     app.delete('/courses/:id', function (req, res) {
         console.log('Deleting course id: ' + req.params.id);
         var accountId = req.session.accountId;

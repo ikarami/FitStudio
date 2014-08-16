@@ -4,8 +4,6 @@ define(['jquery',
     var AddCourseView = Backbone.View.extend({
         el: $('#content'),
 
-        addMode: undefined,
-
         initialize: function (args) {
             if (!args.data) {
                 args.data = {};
