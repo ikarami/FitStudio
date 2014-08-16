@@ -6,12 +6,12 @@
 		<p>
 			<span data-bind="text: time"></span> - <span data-bind="text: instructors"></span>
 		</p>
-		<button data-bind="click: $parent.edit">Edit</button>
-		<button data-bind="click: $parent.remove">Remove</button>
+		<button class="btn btn-primary" data-bind="click: $parent.edit">Edit</button>
+		<button class="btn btn-danger" data-bind="click: $parent.remove">Remove</button>
 	</li>
 </ul>
 
 <p>
-	<button data-bind="click: addCourse">Add Course</button>
-	<button data-bind="click: goToDashboard">Go to dashboard</button>
+	<button class="btn btn-primary" data-bind="click: addCourse">Add Course</button>
+	<button class="btn btn-default" data-bind="click: goToDashboard">Go to dashboard</button>
 </p>

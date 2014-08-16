@@ -9,12 +9,12 @@
 		<ul class="list-group" data-bind="foreach: classes">
 			<li class="list-group-item" data-bind="text: $data"></li>
 		</ul>
-		<button data-bind="click: $parent.edit">Edit</button>
-		<button data-bind="click: $parent.remove">Remove</button>
+		<button class="btn btn-primary" data-bind="click: $parent.edit">Edit</button>
+		<button class="btn btn-danger"data-bind="click: $parent.remove">Remove</button>
 	</li>
 </ul>
 
 <p>
-	<button data-bind="click: add">Add Instructor</button>
-	<button data-bind="click: goToDashboard">Go to dashboard</button>
+	<button class="btn btn-primary" data-bind="click: add">Add Instructor</button>
+	<button class="btn btn-default" data-bind="click: goToDashboard">Go to dashboard</button>
 </p>
