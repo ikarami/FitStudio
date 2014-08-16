@@ -1,13 +1,13 @@
-<ul class="instructors_list" data-bind="foreach: instructors">
-	<li>
+<ul class="list-group" data-bind="foreach: instructors">
+	<li class="list-group-item">
 		<p>
 			<span data-bind="text: firstName + ' ' + lastName"></span>
 		</p>
 		<p>
 			<span data-bind="text: email"></span> - <span data-bind="text: phone"></span>
 		</p>
-		<ul data-bind="foreach: classes">
-			<li data-bind="text: $data"></li>
+		<ul class="list-group" data-bind="foreach: classes">
+			<li class="list-group-item" data-bind="text: $data"></li>
 		</ul>
 		<button data-bind="click: $parent.edit">Edit</button>
 		<button data-bind="click: $parent.remove">Remove</button>
