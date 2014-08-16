@@ -22,7 +22,7 @@ module.exports = function (app, models) {
         });
     });
 
-    app.get('/account/logout', function (req, res) {
+    app.get('/account/logout', [app.authChecker], function (req, res) {
         req.session.destroy(function(err) {
             if (err) {
                 console.log('logout error: ' + err);

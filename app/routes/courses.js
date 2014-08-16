@@ -1,12 +1,12 @@
 module.exports = function (app, models) {
-    app.get('/courses/', function (req, res) {
+    app.get('/courses/', [app.authChecker], function (req, res) {
         var accountId = req.session.accountId;
         models.Course.findAll(accountId, function (courses) {
             res.send(courses);
         });
     });
 
-    app.get('/courses/:id', function (req, res) {
+    app.get('/courses/:id', [app.authChecker], function (req, res) {
         console.log('Getting details for course id: ' + req.params.id);
         var accountId = req.session.accountId;
 
@@ -19,7 +19,7 @@ module.exports = function (app, models) {
         });
     });
 
-    app.post('/courses/:id', function (req, res) {
+    app.post('/courses/:id', [app.authChecker], function (req, res) {
         var data = req.body;
         data.accountId = req.session.accountId;
         console.log('addCourse ' + JSON.stringify(data));
@@ -28,7 +28,7 @@ module.exports = function (app, models) {
         });
     });
 
-    app.put('/courses/:id', function (req, res) {
+    app.put('/courses/:id', [app.authChecker], function (req, res) {
         var data = req.body;
         data.accountId = req.session.accountId;
         data.courseId = req.params.id;
@@ -38,7 +38,7 @@ module.exports = function (app, models) {
         });
     });
 
-    app.delete('/courses/:id', function (req, res) {
+    app.delete('/courses/:id', [app.authChecker], function (req, res) {
         console.log('Deleting course id: ' + req.params.id);
         var accountId = req.session.accountId;
 

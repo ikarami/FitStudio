@@ -48,6 +48,15 @@ app.use(session({
         cookie: { maxAge: 900000 }
     })
 );
+
+app.authChecker = function (req, res, next) {
+    if (req.session.loggedIn) {
+        next();
+    } else {
+       res.status(401).end();
+    }
+};
+
 /*app.use(function (req, res, next) {
     getRawBody(req, {
         limit: '1mb'

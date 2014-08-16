@@ -1,12 +1,12 @@
 module.exports = function (app, models) {
-    app.get('/instructors/', function (req, res) {
+    app.get('/instructors/', [app.authChecker], function (req, res) {
         var accountId = req.session.accountId;
         models.Instructor.findAll(accountId, function (instructors) {
             res.send(instructors);
         });
     });
 
-    app.get('/instructors/:id', function (req, res) {
+    app.get('/instructors/:id', [app.authChecker], function (req, res) {
         console.log('Getting details for instructor id: ' + req.params.id);
         var accountId = req.session.accountId;
 
@@ -19,7 +19,7 @@ module.exports = function (app, models) {
         });
     });
 
-    app.post('/instructors/:id', function (req, res) {
+    app.post('/instructors/:id', [app.authChecker], function (req, res) {
         var data = req.body;
         data.accountId = req.session.accountId;
         console.log('addInstructor ' + JSON.stringify(data));
@@ -28,7 +28,7 @@ module.exports = function (app, models) {
         });
     });
 
-    app.put('/instructors/:id', function (req, res) {
+    app.put('/instructors/:id', [app.authChecker], function (req, res) {
         var data = req.body;
         data.accountId = req.session.accountId;
         data.instructorId = req.params.id;
@@ -39,7 +39,7 @@ module.exports = function (app, models) {
         });
     });
 
-    app.delete('/instructors/:id', function (req, res) {
+    app.delete('/instructors/:id', [app.authChecker], function (req, res) {
         console.log('Deleting instructor id: ' + req.params.id);
         var accountId = req.session.accountId;
 
