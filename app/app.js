@@ -5,6 +5,8 @@ var getRawBody = require('raw-body');
 var MemoryStore = require('connect').session.MemoryStore;
 var nodemailer = require('nodemailer');
 var fs = require('fs');
+var morgan = require('morgan');
+
 
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
@@ -32,6 +34,8 @@ var models = {
 app.engine('html', require('ejs').renderFile);
 app.set('views', path.join(__dirname, 'public'));
 app.set('view options', {layout: false});
+// logging every request:
+//app.use(morgan('combined'));
 app.use(express.static('public'));
 //app.use(bodyParser.json());
 app.use(cookieParser());
