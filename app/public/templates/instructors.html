@@ -7,7 +7,7 @@
 			<span data-bind="text: email"></span> - <span data-bind="text: phone"></span>
 		</p>
 		<ul data-bind="foreach: classes">
-			<li data-bind="text: name"></li>
+			<li data-bind="text: $data"></li>
 		</ul>
 		<button data-bind="click: $parent.remove">Remove this instructor</button>
 	</li>

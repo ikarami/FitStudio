@@ -40,7 +40,8 @@ app.use(session({
         secret: 'FitStudio app secret',
         store: new MemoryStore(),
         saveUninitialized: true,
-        resave: true
+        resave: true,
+        cookie: { maxAge: 900000 }
     })
 );
 /*app.use(function (req, res, next) {

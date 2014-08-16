@@ -14,7 +14,7 @@ module.exports = function (mongoose, nodemailer, config) {
 
     findById = function (ids, callback) {
         console.log('Instructor.findAll ' + ids.accountId);
-        Instructor.findOne({accountId: ids.accountId, _id: ids.courseId}, function (err, docs) {
+        Instructor.findOne({accountId: ids.accountId, _id: ids.instructorId}, function (err, docs) {
             callback(docs || false);
         });
     };
@@ -27,13 +27,13 @@ module.exports = function (mongoose, nodemailer, config) {
     };
 
     add = function (data, callback) {
-        console.log('Adding Instructor ' + data.name);
+        console.log('Adding Instructor ' + data.firstName + ' ' + data.lastName);
         var course = new Instructor({
             accountId: data.accountId,
             firstName: data.firstName,
             lastName: data.lastName,
-            email: data.email,
-            phone: data.phone,
+            email: data.email || '',
+            phone: data.phone || '',
             classes: data.classes || []
         });
 

@@ -1,0 +1,39 @@
+<h1 data-bind="visible: addMode">Add Instructor</h1>
+<h1 data-bind="visible: !addMode">Edit Instructor</h1>
+
+<form name="addInstructor">
+    <fieldset>
+        <legend>Name</legend>
+        <label>
+            First:
+            <input type="text" data-bind="value: firstName">
+        </label>
+        <label>
+            Last:
+            <input type="text" data-bind="value: lastName">
+        </label>
+    </fieldset>
+    <fieldset>
+        <legend>Personal details</legend>
+        <label>
+            Email:
+            <input type="email" data-bind="value: email">
+        </label>
+        <label>
+            phone:
+            <input type="number" data-bind="value: phone">
+        </label>
+    </fieldset>
+    <fieldset>
+        <legend>Classes (comma delimited):</legend>
+        <label>
+            Classes:
+            <input type="string" data-bind="value: classes">
+        </label>
+    </fieldset>
+    <p>
+        <button data-bind="click: add, visible: addMode">Add Instructor</button>
+        <button data-bind="click: save, visible: !addMode">Save Instructor</button>
+        <button data-bind="click: goToList">Go to list of all courses</button>
+    </p>
+</form>

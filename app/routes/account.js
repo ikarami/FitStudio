@@ -1,5 +1,5 @@
 module.exports = function (app, models) {
-    app.post('/login', function (req, res) {
+    app.post('/account/login', function (req, res) {
         console.log('login request');
         var email, password;
         email = req.param('email', null);
@@ -22,7 +22,18 @@ module.exports = function (app, models) {
         });
     });
 
-    app.post('/register', function (req, res) {
+    app.get('/account/logout', function (req, res) {
+        req.session.destroy(function(err) {
+            if (err) {
+                console.log('logout error: ' + err);
+                res.status(500).end();
+                return;
+            }
+            res.status(200).end();
+        });
+    });
+
+    app.post('/account/register', function (req, res) {
         console.log('REGISTER');
         var personData = {
             firstName: req.param('firstName', ''),
@@ -40,10 +51,10 @@ module.exports = function (app, models) {
         res.status(200).end();
     });
 
-    app.post('/forgotpassword', function (req, res) {
+    app.post('/account/forgotpassword', function (req, res) {
         var hostname, resetPasswordUrl, email;
         hostname = req.headers.host;
-        resetPasswordUrl = 'http://' + hostname + '/resetpassword';
+        resetPasswordUrl = 'http://' + hostname + '/account/resetpassword';
         email = req.param('email', null);
         if (email === null || email.lenth < 1) {
             res.status(400).end();
@@ -53,12 +64,12 @@ module.exports = function (app, models) {
         res.status(200).end();
     });
 
-    app.get('/resetPassword', function (req, res) {
+    app.get('/account/resetPassword', function (req, res) {
         var accountId = req.param('account', null);
         res.render('resetPassword.jade', {locals: {accountId: accountId }});
     });
 
-    app.post('/resetPassword', function (req, res) {
+    app.post('/account/resetPassword', function (req, res) {
         var accountId = req.param('account', null);
         var password = req.param('password', null);
         if (accountId !== null && password !== null) {

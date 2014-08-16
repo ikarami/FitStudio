@@ -10,12 +10,12 @@ define(['jquery',
                 var self = this;
                 self.instructors = ko.observableArray();
                 self.add = function () {
-                    window.location.hash='#addInstructor';
+                    window.location.hash='#instructors/new';
                 };
                 self.goToDashboard = function () {
                     window.location.hash='#index';
                 };
-                self.removeCourse = function () {
+                self.remove = function () {
                     $.ajax({
                         method: 'DELETE',
                         url: '/instructors/'+this._id,

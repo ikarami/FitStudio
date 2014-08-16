@@ -8,7 +8,7 @@ define(['jquery', 'text!templates/forgotPassword.html'], function ($, forgotPass
             this.$el.html(forgotPasswordTemplate);
         },
         resetPassword: function () {
-            $.post('/forgotPassword', {
+            $.post('/account/forgotPassword', {
                 email: $('input[name=email]').val()
             }, function () {
                 //window.location.hash = '#index';

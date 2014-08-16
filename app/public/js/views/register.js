@@ -8,7 +8,7 @@ define(['jquery', 'text!templates/register.html'], function ($, registerTemplate
             this.$el.html(registerTemplate);
         },
         register: function () {
-            $.post('/register', {
+            $.post('/account/register', {
                 firstName: $('input[name=firstName]').val(),
                 lastName: $('input[name=lastName]').val(),
                 email: $('input[name=email]').val(),

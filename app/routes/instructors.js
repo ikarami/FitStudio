@@ -7,7 +7,7 @@ module.exports = function (app, models) {
     });
 
     app.get('/instructors/:id', function (req, res) {
-        console.log('Getting details for instrcutor id: ' + req.params.id);
+        console.log('Getting details for instructor id: ' + req.params.id);
         var accountId = req.session.accountId;
 
         models.Instructor.findById({accountId: accountId, instructorId: req.params.id}, function (instructor) {

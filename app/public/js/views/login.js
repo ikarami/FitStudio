@@ -8,7 +8,7 @@ define(['jquery', 'text!templates/login.html'], function ($, loginTemplate) {
             this.$el.html(loginTemplate);
         },
         login: function () {
-            $.post('/login', {
+            $.post('/account/login', {
                 email: $('input[name=email]').val(),
                 password: $('input[name=password]').val()
             }, function () {
