@@ -17,7 +17,7 @@ define(['jquery',
                 self.lastName = ko.observable(args.data.lastName);
                 self.email = ko.observable(args.data.email);
                 self.phone = ko.observable(args.data.phone);
-                self.classes = ko.observable(args.data.classes);
+                self.classes = ko.observable(args.data.classes ? args.data.classes.join(', ') : '');
                 _id = args.data._id;
 
                 self.goToList = function () {
@@ -44,7 +44,9 @@ define(['jquery',
                             lastName:  self.lastName(),
                             email:  self.email(),
                             phone:  self.phone(),
-                            classes:  self.classes().split(',')
+                            classes:  self.classes().split(',').map(function (item) {
+                                return item.trim();
+                            })
                         },
                         success: function () {
                             window.location.hash='#instructors';
