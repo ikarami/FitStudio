@@ -35,7 +35,9 @@ app.engine('html', require('ejs').renderFile);
 app.set('views', path.join(__dirname, 'public'));
 app.set('view options', {layout: false});
 // logging every request:
-//app.use(morgan('combined'));
+app.use(morgan('combined', {
+    stream: fs.createWriteStream('./logs/access-combined.log', {flags: 'a'})
+}));
 app.use(express.static('public'));
 //app.use(bodyParser.json());
 app.use(cookieParser());

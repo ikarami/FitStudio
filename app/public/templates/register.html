@@ -1,40 +1,54 @@
-<h1>Register</h1>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h1 class="panel-title">Register</h1>
+    </div>
 
-<form>
-    <fieldset>
-        <legend>Your Name</legend>
-        <label>
-            First:
-            <input type="text" name="firstName">
-        </label>
-        <label>
-            Last:
-            <input type="text" name="lastName">
-        </label>
-    </fieldset>
-    <fieldset>
-        <legend>Email</legend>
-        <label>
-            Email:
-            <input type="text" name="email">
-        </label>
-        <label>
-            Confirm Email:
-            <input type="text" name="cemail">
-        </label>
-    </fieldset>
-    <fieldset>
-        <legend>Password</legend>
-        <label>
-            Password:
-            <input type="password" name="password">
-        </label>
-        <label>
-            Confirm Password:
-            <input type="password" name="cpassword">
-        </label>
-    </fieldset>
-    <p>
-        <input type="submit" value="Register now">
-    </p>
-</form>
+    <div class="panel-body">
+        <div class="alert alert-danger" role="alert" data-bind="visible: validationFailed">
+            <span data-bind="html: errorMessage"></span>
+        </div>
+        <form>
+            <fieldset>
+                <legend>Your Name</legend>
+                <label>
+                    First:
+                    <input type="text" class="form-control input-lg" data-bind="value: firstName">
+                </label>
+                <label>
+                    Last:
+                    <input type="text" class="form-control input-lg" data-bind="value: lastName">
+                </label>
+            </fieldset>
+            <fieldset>
+                <legend>E-mail</legend>
+                <label>
+                    E-mail:
+                    <input type="email" name="email" class="form-control input-lg" data-bind="value: email">
+                </label>
+                <label>
+                    Confirm e-mail:
+                    <input type="email" name="cemail" class="form-control input-lg" data-bind="value: cemail">
+                </label>
+            </fieldset>
+            <fieldset>
+                <legend>Password</legend>
+                <label>
+                    Password:
+                    <input type="password" name="password" class="form-control input-lg" data-bind="value: password">
+                </label>
+                <label>
+                    Confirm Password:
+                    <input type="password" name="cpassword" class="form-control input-lg" data-bind="value: cpassword">
+                </label>
+            </fieldset>
+            <br />
+            <p>
+                <button class="btn btn-primary btn-block" data-bind="click: register">Register now</button>
+            </p>
+        </form>
+        <br />
+        <div class="list-group">
+            <a class="list-group-item" href="#login">Display login form</a>
+        </div>
+    </div>
+</div>

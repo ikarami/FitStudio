@@ -1,29 +1,38 @@
-<h1>Login</h1>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h1 class="panel-title">Login</h1>
+    </div>
+    <div class="panel-body">
+        <div class="alert alert-danger" role="alert" data-bind="visible: validationFailed">
+            <strong>Unable to login!</strong> Check your credentials and try again.
+        </div>
 
-<form role="form">
-    <fieldset>
-        <legend>Credentials</legend>
+        <form role="form" class="form-horizontal">
+            <fieldset>
+                <legend>Credentials</legend>
 
-        <p class="error"></p>
+                <label>
+                    Email:
+                    <input type="email" class="form-control input-lg" placeholder="Please enter email" name="email" data-bind="value: email">
+                </label>
 
-        <label>
-            Email:
-            <input type="email" class="form-control input-lg" placeholder="Please enter email" name="email">
-        </label>
+                <br />
+
+                <label>
+                    Password:
+                    <input type="password" class="form-control input-lg" placeholder="Please enter password" name="password" data-bind="value: password">
+                </label>
+            </fieldset>
+            <br />
+            <p>
+                <button class="btn btn-primary btn-block" data-bind="click: login">Login</button>
+            </p>
+        </form>
 
         <br />
-
-        <label>
-            Password:
-            <input type="password" class="form-control input-lg" placeholder="Please enter password" name="password">
-        </label>
-    </fieldset>
-    <p>
-        <input type="submit" class="btn btn-primary" value="Login">
-    </p>
-</form>
-
-<ul>
-    <li><a href="#register">Sign up</a></li>
-    <li><a href="#forgotpassword">Forgot password?</a></li>
-</ul>
+        <div class="list-group">
+            <a class="list-group-item" href="#register">Sign up</a>
+            <a class="list-group-item" href="#forgotpassword">Forgot password?</a>
+        </div>
+    </div>
+</div>
