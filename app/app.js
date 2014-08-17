@@ -28,7 +28,8 @@ var config = {
 var models = {
     Account: require('./models/Account')(mongoose, nodemailer, config),
     Course: require('./models/Course')(mongoose, config),
-    Instructor: require('./models/Instructor')(mongoose, config)
+    Instructor: require('./models/Instructor')(mongoose, config),
+    Location: require('./models/Location')(mongoose, config),
 };
 
 app.engine('html', require('ejs').renderFile);

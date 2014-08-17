@@ -1,4 +1,4 @@
-module.exports = function (mongoose, nodemailer, config) {
+module.exports = function (mongoose, config) {
     var crypto, CourseSchema, Course, findAll, findById, add, edit;
 
     crypto = require('crypto');

@@ -1,0 +1,44 @@
+<h1 data-bind="visible: addMode">Add location</h1>
+<h1 data-bind="visible: !addMode">Edit location</h1>
+
+<form name="addLocation">
+    <fieldset>
+        <legend>Location details</legend>
+        <label>
+            Name:
+            <input type="text" data-bind="value: name">
+        </label>
+        <label>
+            Description:
+            <input type="text" data-bind="value: description">
+        </label>
+    </fieldset>
+    <fieldset>
+        <legend>Address</legend>
+        <label>
+            Location:
+            <input type="text" data-bind="value: location">
+        </label>
+        <label>
+            Address:
+            <input type="text" data-bind="value: address">
+        </label>
+        <label>
+            Street:
+            <input type="text" data-bind="value: street">
+        </label>
+        <label>
+            City:
+            <input type="text" data-bind="value: city">
+        </label>
+        <label>
+            Code:
+            <input type="text" data-bind="value: code">
+        </label>
+    </fieldset>
+    <p>
+        <button class="btn btn-success" data-bind="click: add, visible: addMode">Add location</button>
+        <button class="btn btn-success" data-bind="click: save, visible: !addMode">Save location</button>
+        <button class="btn btn-default" data-bind="click: goToList">Go to list of all locations</button>
+    </p>
+</form>

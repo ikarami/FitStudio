@@ -1,0 +1,17 @@
+<ul class="list-group" data-bind="foreach: locations">
+    <li class="list-group-item">
+        <p>
+            <span data-bind="text: name"></span> - <span data-bind="text: description"></span>
+        </p>
+        <p>
+            <span data-bind="text: location"></span> (<span data-bind="text: address"></span>, <span data-bind="text: street"></span>, <span data-bind="text: city"></span><span data-bind="text: code"></span>)
+        </p>
+        <button class="btn btn-primary" data-bind="click: $parent.edit">Edit</button>
+        <button class="btn btn-danger" data-bind="click: $parent.remove">Remove</button>
+    </li>
+</ul>
+
+<p>
+    <button class="btn btn-primary" data-bind="click: addLocation">Add Location</button>
+    <button class="btn btn-default" data-bind="click: goToDashboard">Go to dashboard</button>
+</p>

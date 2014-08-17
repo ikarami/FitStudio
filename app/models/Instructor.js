@@ -1,4 +1,4 @@
-module.exports = function (mongoose, nodemailer, config) {
+module.exports = function (mongoose, config) {
     var InstructorSchema, Instructor, findAll, findById, add, edit;
 
     InstructorSchema = new mongoose.Schema({
