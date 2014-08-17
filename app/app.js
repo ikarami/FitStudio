@@ -30,6 +30,7 @@ var models = {
     Course: require('./models/Course')(mongoose, config),
     Instructor: require('./models/Instructor')(mongoose, config),
     Location: require('./models/Location')(mongoose, config),
+    Pouch: require('./models/Pouch')(mongoose, config)
 };
 
 app.engine('html', require('ejs').renderFile);
