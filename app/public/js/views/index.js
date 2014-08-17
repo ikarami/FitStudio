@@ -8,7 +8,7 @@ define(['jquery',
             var ViewModel = function () {
                 var self = this;
                 self.logout = function () {
-                    $.get('/account/logout').success(function () {
+                    $.get('/account/logout').always(function () {
                         window.location.hash = '#login';
                     });
                 };
