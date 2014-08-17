@@ -32,7 +32,7 @@ module.exports = function (mongoose, config) {
         var course = new Pouch({
             accountId: data.accountId,
             name: data.name,
-            created: date.created || new Date().getTime(),
+            created: data.created || new Date().getTime(),
             lastUpdated: data.lastUpdated || null,
             balance: data.balance || 0,
             operations: data.operations || [],
@@ -48,8 +48,7 @@ module.exports = function (mongoose, config) {
                 _id: data.pouchId
             }, {
                 name: data.name,
-                created: date.created || new Date().getTime(),
-                lastUpdated: data.lastUpdated || null,
+                lastUpdated: new Date().getTime(),
                 balance: data.balance || 0,
                 operations: data.operations || [],
                 owner: data.owner || ''

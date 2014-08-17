@@ -1,0 +1,25 @@
+<h1 data-bind="visible: addMode">Add Pouch</h1>
+<h1 data-bind="visible: !addMode">Edit Pouch</h1>
+
+<form name="addPouch">
+    <fieldset>
+        <legend>Location details</legend>
+        <label>
+            Name:
+            <input type="text" data-bind="value: name">
+        </label>
+        <label>
+            Owner:
+            <input type="text" data-bind="value: owner">
+        </label>
+        <label>
+            Balance:
+            <input type="text" data-bind="value: balance">
+        </label>
+    </fieldset>
+    <p>
+        <button class="btn btn-success" data-bind="click: add, visible: addMode">Add Pouch</button>
+        <button class="btn btn-success" data-bind="click: save, visible: !addMode">Save Pouch</button>
+        <button class="btn btn-default" data-bind="click: goToList">Go to list of all locations</button>
+    </p>
+</form>
