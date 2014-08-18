@@ -65,7 +65,22 @@ module.exports = function (mongoose, config) {
     };
 
     addOperation = function (data, callback) {
-        console.log('TODO: implement adding one operation for a particular pouch!');
+        this.findById({accountId: data.accountId, pouchId: data.pouchId}, function (pouch) {
+            if (!pouch) {
+                callback(404);
+                return;
+            }
+            pouch.operations.push(data.operation);
+            pouch.markModified('operations');
+            pouch.balance += Number(data.amount);
+            pouch.save(function (err) {
+                if (err) {
+                    callback(500);
+                    return;
+                }
+                callback(200);
+            });
+        });
     };
 
     return {

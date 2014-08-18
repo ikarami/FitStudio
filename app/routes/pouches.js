@@ -39,6 +39,17 @@ module.exports = function (app, models) {
         });
     });
 
+    app.post('/pouches/:id/operations/', function (req, res) {
+        console.log('Adding operation for pouch id ' + req.params.id);
+        var data = req.body;
+        data.accountId = req.session.accountId;
+        data.pouchId = req.params.id;
+
+        models.Pouch.addOperation(data, function (status) {
+            res.status(status).end();
+        });
+    });
+
     app.delete('/pouches/:id', [app.authChecker], function (req, res) {
         console.log('Deleting pouch id: ' + req.params.id);
         var accountId = req.session.accountId;
