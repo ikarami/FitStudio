@@ -40,6 +40,7 @@ var models = {
 };
 
 app.engine('html', require('ejs').renderFile);
+console.log('Views folder: ' + path.join(__dirname, 'public'));
 app.set('views', path.join(__dirname, 'public'));
 app.set('view options', {layout: false});
 // logging every request:
