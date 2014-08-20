@@ -47,7 +47,7 @@ app.set('view options', {layout: false});
 app.use(morgan('combined', {
     stream: fs.createWriteStream(process.env.OPENSHIFT_REPO_DIR ? process.env.OPENSHIFT_REPO_DIR + 'app/logs/access-combined.log' : './logs/access-combined.log', {flags: 'a'})
 }));
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 //app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: true}));
