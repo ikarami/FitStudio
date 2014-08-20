@@ -13,7 +13,13 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/test');
+
+
+//db.addUser('​fit4studio_test1','​SecretPassword1')
+// ComposeNokia
+
+//mongoose.connect('mongodb://localhost/test');
+mongoose.connect('mongodb://fit4studio_test1:SecretPassword1@kahana.mongohq.com:10003/fit4studio_test1');
 
 db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -86,4 +92,4 @@ app.get('/', function (req, res) {
 });
 
 
-app.listen(8080);
+app.listen(process.env.OPENSHIFT_NODEJS_PORT || 8080, process.env.OPENSHIFT_NODEJS_IP || 'localhost');
