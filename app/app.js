@@ -81,7 +81,11 @@ app.authChecker = function (req, res, next) {
 });*/
 
 // Import the routes
-fs.readdirSync('routes').forEach(function (file) {
+var dir = 'routes';
+if (process.env.OPENSHIFT_REPO_DIR) {
+    dir = process.env.OPENSHIFT_REPO_DIR + 'app/routes';
+}
+fs.readdirSync(dir).forEach(function (file) {
     if (file[0] === '.') return;
     var routeName = file.substr(0, file.indexOf('.'));
     require('./routes/' + routeName)(app, models);
