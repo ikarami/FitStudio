@@ -44,7 +44,7 @@ app.set('views', path.join(__dirname, 'public'));
 app.set('view options', {layout: false});
 // logging every request:
 app.use(morgan('combined', {
-    stream: fs.createWriteStream('./logs/access-combined.log', {flags: 'a'})
+    stream: fs.createWriteStream(process.env.OPENSHIFT_REPO_DIR ? process.env.OPENSHIFT_REPO_DIR + 'app/logs/access-combined.log' : './logs/access-combined.log', {flags: 'a'})
 }));
 app.use(express.static('public'));
 //app.use(bodyParser.json());
