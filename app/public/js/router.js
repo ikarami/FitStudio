@@ -10,6 +10,7 @@ define(['backbone',
     'views/locations',
     'views/editLocation',
     'views/pouches',
+    'views/pouchDetails',
     'views/editPouch'
     ], function (Backobne,
     IndexView,
@@ -23,6 +24,7 @@ define(['backbone',
     LocationsView,
     EditLocationView,
     PouchesView,
+    PouchDetailsView,
     EditPouchView) {
     var FitStudioRouter = Backbone.Router.extend({
         currentView: null,
@@ -39,7 +41,8 @@ define(['backbone',
             locations: 'locations',
             'locations/:id': 'editLocations',
             pouches: 'pouches',
-            'pouches/:id': 'editPouches'
+            'pouches/:id': 'pouchDetails',
+            'pouches/:id/edit': 'editPouches'
         },
 
         changeView: function (view) {
@@ -125,6 +128,15 @@ define(['backbone',
 
         pouches: function () {
             this.changeView(new PouchesView());
+        },
+
+        pouchDetails: function (id) {
+            var params = {};
+            if (this.params) {
+                params = this.params;
+                this.params = null;
+            }
+            this.changeView(new PouchDetailsView({id: id, data: params.model}));
         },
 
         editPouches: function (id) {

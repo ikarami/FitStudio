@@ -5,6 +5,19 @@ define(['jquery',
     var PouchesView = Backbone.View.extend({
         el: $('#content'),
 
+
+
+// !!!!!!!!!!! http://documentation.mailgun.com/
+// email as a service!!!
+// https://www.appfog.com/product/
+// https://dashboard.nexmo.com/register
+// for smses worldwide :)
+
+// http://www.appdynamics.com/pricing/
+// for monitoring
+
+// AN IDEA: simple uptime monitoring tools!!!
+
         initialize: function () {
             var viewModel, view = this;
 
@@ -12,9 +25,11 @@ define(['jquery',
                 var self = this;
                 self.pouches = ko.observableArray();
 
+//$.post('/pouches/53f1313c4e4866b0186ca943/operations/', {operation: {who: 'ME', amount: 20.2}, amount: 20.2})
+
                 self.addPouch = function () {
                     view.trigger('navigate', {
-                        route: '#pouches/new'
+                        route: '#pouches/new/edit'
                     });
                 };
 
@@ -24,9 +39,16 @@ define(['jquery',
                     });
                 };
 
-                self.edit = function () {
+                self.details = function () {
                     view.trigger('navigate', {
                         route: '#pouches/' + this._id,
+                        model: this
+                    });
+                };
+
+                self.edit = function () {
+                    view.trigger('navigate', {
+                        route: '#pouches/' + this._id + '/edit',
                         model: this
                     });
                 };

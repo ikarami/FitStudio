@@ -33,7 +33,7 @@ module.exports = function (mongoose, config) {
             accountId: data.accountId,
             name: data.name,
             created: data.created || new Date().getTime(),
-            lastUpdated: data.lastUpdated || null,
+            lastUpdated: data.lastUpdated || new Date().getTime(),
             balance: data.balance || 0,
             operations: data.operations || [],
             owner: data.owner || ''
@@ -72,7 +72,7 @@ module.exports = function (mongoose, config) {
             }
             pouch.operations.push(data.operation);
             pouch.markModified('operations');
-            pouch.balance += Number(data.amount);
+            pouch.balance += Number(data.operation.amount);
             pouch.save(function (err) {
                 if (err) {
                     callback(500);
