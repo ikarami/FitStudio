@@ -1,4 +1,4 @@
-module.exports = function (mongoose, config) {
+module.exports = function (mongoose) {
     var LocationSchema, Location, findAll, findById, add, edit;
 
     LocationSchema = new mongoose.Schema({

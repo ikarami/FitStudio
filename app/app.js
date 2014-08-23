@@ -34,6 +34,23 @@ var FitStudio = function () {
     /*  Helper functions.                                                 */
     /*  ================================================================  */
 
+    self.attachLogger = function () {
+        app.logger = {
+            log: function () {
+                console.log.apply(console, arguments);
+            },
+            error: function () {
+                console.error.apply(console, arguments);
+            },
+            warn: function () {
+                console.warn.apply(console, arguments);
+            },
+            debug: function () {
+                console.debug.apply(console, arguments);
+            },
+        };
+    };
+
     /**
      *  Set up server IP address and port # using env variables/defaults.
      */
@@ -45,7 +62,7 @@ var FitStudio = function () {
         if (typeof self.ipaddress === 'undefined') {
             //  Log errors on OpenShift but continue w/ 127.0.0.1 - this
             //  allows us to run/test the app locally.
-            console.warn('No OPENSHIFT_NODEJS_IP var, using localhost and 8080 as a port');
+            app.logger.warn('No OPENSHIFT_NODEJS_IP var, using localhost and 8080 as a port');
             self.ipaddress = 'localhost';
         }
 
@@ -63,11 +80,11 @@ var FitStudio = function () {
      */
     self.terminator = function(sig){
         if (typeof sig === 'string') {
-           console.log('%s: Received %s - terminating FitStudio app ...',
+           app.logger.log('%s: Received %s - terminating FitStudio app ...',
                        Date(Date.now()), sig);
            process.exit(1);
         }
-        console.log('%s: Node server stopped.', Date(Date.now()) );
+        app.logger.log('%s: Node server stopped.', Date(Date.now()) );
     };
 
     /**
@@ -99,7 +116,7 @@ var FitStudio = function () {
         self.db = mongoose.connection;
         self.db.on('error', console.error.bind(console, 'DB connection error: '));
         self.db.once('open', function callback () {
-            console.log('DB opened!');
+            app.logger.log('%s: DB opened!', Date(Date.now()));
         });
     };
 
@@ -109,10 +126,11 @@ var FitStudio = function () {
     self.initializeModels = function() {
         self.models = {
             Account: require('./models/Account')(mongoose, nodemailer, self.mailConfig),
-            Course: require('./models/Course')(mongoose, self.mailConfig),
-            Instructor: require('./models/Instructor')(mongoose, self.mailConfig),
-            Location: require('./models/Location')(mongoose, self.mailConfig),
-            Pouch: require('./models/Pouch')(mongoose, self.mailConfig)
+            Course: require('./models/Course')(mongoose),
+            Instructor: require('./models/Instructor')(mongoose),
+            Location: require('./models/Location')(mongoose),
+            Pouch: require('./models/Pouch')(mongoose),
+            User: require('./models/User')(mongoose),
         };
     };
 
@@ -122,7 +140,7 @@ var FitStudio = function () {
      */
     self.initializeServer = function() {
         app.engine('html', require('ejs').renderFile);
-        console.log('Views folder: ' + self.viewsPath);
+        app.logger.log('Views folder: ' + self.viewsPath);
         app.set('views', self.viewsPath);
         app.set('view options', {layout: false});
         // logging every request:
@@ -150,7 +168,7 @@ var FitStudio = function () {
      */
     self.initializePassport = function() {
         passport.serializeUser(function (user, done) {
-            console.log('serializeUser: ' + user._id);
+            app.logger.log('serializeUser: ' + user._id);
             done(null, user._id);
         });
 
@@ -158,7 +176,7 @@ var FitStudio = function () {
             done(null, {_id: id});
             /* there is no need to retrive the whole user object here, an id is sufficient...
             models.Account.findById({_id: id}, function (err, doc) {
-                console.log('deserializeUser: ' + id + ' found: ' + doc ? doc._id : '-');
+                app.logger.log('deserializeUser: ' + id + ' found: ' + doc ? doc._id : '-');
                 done(err, doc);
             });*/
         });
@@ -214,7 +232,8 @@ var FitStudio = function () {
      *  Initializes the sample application.
      */
     self.initialize = function() {
-        console.log('FitStudio initialize');
+        self.attachLogger();
+        app.logger.log('FitStudio initialize');
         self.setupVariables();
         self.setupTerminationHandlers();
 
@@ -230,10 +249,10 @@ var FitStudio = function () {
      *  Start the server (starts up the sample application).
      */
     self.start = function() {
-        console.log('FitStudio start');
+        app.logger.log('FitStudio start');
         //  Start the app on the specific interface (and port).
         app.listen(self.port, self.ipaddress, function() {
-            console.log('%s: Node server started on %s:%d ...',
+            app.logger.log('%s: Node server started on %s:%d ...',
                         Date(Date.now() ), self.ipaddress, self.port);
         });
     };

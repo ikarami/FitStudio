@@ -1,4 +1,4 @@
-module.exports = function (mongoose, config) {
+module.exports = function (mongoose) {
     var PouchSchema, Pouch, findAll, findById, add, edit, addOperation;
 
     PouchSchema = new mongoose.Schema({
@@ -14,7 +14,7 @@ module.exports = function (mongoose, config) {
     Pouch = mongoose.model('Pouch', PouchSchema);
 
     findById = function (ids, callback) {
-        console.log('Pouch.findAll ' + ids.accountId);
+        console.log('Pouch.findById ' + ids.accountId);
         Pouch.findOne({accountId: ids.accountId, _id: ids.pouchId}, function (err, docs) {
             callback(docs || false);
         });

@@ -1,4 +1,4 @@
-module.exports = function (mongoose, config) {
+module.exports = function (mongoose) {
     var crypto, CourseSchema, Course, findAll, findById, add, edit;
 
     crypto = require('crypto');
