@@ -18,6 +18,13 @@ define(['jquery',
                     });
                 };
 
+                self.details = function () {
+                    view.trigger('navigate', {
+                        route: '#users/' + this._id,
+                        model: this
+                    });
+                };
+
                 self.goToDashboard = function () {
                     view.trigger('navigate', {
                         route: '#index'

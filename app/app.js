@@ -125,12 +125,12 @@ var FitStudio = function () {
      */
     self.initializeModels = function() {
         self.models = {
-            Account: require('./models/Account')(mongoose, nodemailer, self.mailConfig),
-            Course: require('./models/Course')(mongoose),
-            Instructor: require('./models/Instructor')(mongoose),
-            Location: require('./models/Location')(mongoose),
-            Pouch: require('./models/Pouch')(mongoose),
-            User: require('./models/User')(mongoose),
+            Account: require('./models/Account')(app.logger, mongoose, nodemailer, self.mailConfig),
+            Course: require('./models/Course')(app.logger, mongoose),
+            Instructor: require('./models/Instructor')(app.logger, mongoose),
+            Location: require('./models/Location')(app.logger, mongoose),
+            Pouch: require('./models/Pouch')(app.logger, mongoose),
+            User: require('./models/User')(app.logger, mongoose),
         };
     };
 

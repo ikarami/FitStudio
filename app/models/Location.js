@@ -1,4 +1,4 @@
-module.exports = function (mongoose) {
+module.exports = function (logger, mongoose) {
     var LocationSchema, Location, findAll, findById, add, edit;
 
     LocationSchema = new mongoose.Schema({
@@ -15,21 +15,21 @@ module.exports = function (mongoose) {
     Location = mongoose.model('Location', LocationSchema);
 
     findById = function (ids, callback) {
-        app.logger.log('Location.findAll ' + ids.accountId);
+        logger.log('Location.findAll ' + ids.accountId);
         Location.findOne({accountId: ids.accountId, _id: ids.locationId}, function (err, docs) {
             callback(docs || false);
         });
     };
 
     findAll = function (accountId, callback) {
-        app.logger.log('Location.findAll ' + accountId);
+        logger.log('Location.findAll ' + accountId);
         Location.find({accountId: accountId}, function (err, docs) {
             callback(docs);
         });
     };
 
     add = function (data, callback) {
-        app.logger.log('Adding Location ' + data.name + ' ' + data.location);
+        logger.log('Adding Location ' + data.name + ' ' + data.location);
         var location = new Location({
             accountId: data.accountId,
             name: data.name,
@@ -42,7 +42,7 @@ module.exports = function (mongoose) {
         });
 
         location.save(callback);
-        app.logger.log('Save command was sent');
+        logger.log('Save command was sent');
     };
 
     edit = function (data, callback) {
@@ -58,10 +58,10 @@ module.exports = function (mongoose) {
                 code: data.code || ''
             }, function (err, numberAffected) {
                 if (err) {
-                    app.logger.error('Error occurred: ' + err);
+                    logger.error('Error occurred: ' + err);
                     callback(500);
                 } else {
-                    app.logger.log('The number of updated documents was %d', numberAffected);
+                    logger.log('The number of updated documents was %d', numberAffected);
                     callback(200);
                 }
             }

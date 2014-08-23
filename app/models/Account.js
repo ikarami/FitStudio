@@ -1,4 +1,4 @@
-module.exports = function (mongoose, nodemailer, config) {
+module.exports = function (logger, mongoose, nodemailer, config) {
     var crypto, AccountSchema, Account, registerCallback, changePassword, forgotPassword, login, register, findById;
 
     crypto = require('crypto');
@@ -17,9 +17,9 @@ module.exports = function (mongoose, nodemailer, config) {
 
     registerCallback = function (err) {
         if (err) {
-            return app.logger.error(err);
+            return logger.error(err);
         }
-        return app.logger.log('Account was created');
+        return logger.log('Account was created');
     };
 
     login = function (email, password, callback) {
@@ -35,7 +35,7 @@ module.exports = function (mongoose, nodemailer, config) {
         shaSum = crypto.createHash('sha256');
         shaSum.update(personData.password);
 
-        app.logger.log('Registering ' + personData.email);
+        logger.log('Registering ' + personData.email);
         user = new Account({
             email: personData.email,
             name: {
@@ -45,7 +45,7 @@ module.exports = function (mongoose, nodemailer, config) {
             password: shaSum.digest('hex')
         });
         user.save(registerCallback);
-        app.logger.log('Save command was sent');
+        logger.log('Save command was sent');
     };
 
     changePassword = function (accountId, newPassword) {
@@ -53,9 +53,9 @@ module.exports = function (mongoose, nodemailer, config) {
         shaSum.update(newPassword);
         Account.update({_id: accountId}, {$set: {password: shaSum.digest('hex')}}, {upsert: false}, function changePasswordCallback (err) {
             if (err) {
-                app.logger.log('Change password failed for account ' + accountId + ' with an error: ' + err);
+                logger.log('Change password failed for account ' + accountId + ' with an error: ' + err);
             } else {
-                app.logger.log('Change password done for account ' + accountId);
+                logger.log('Change password done for account ' + accountId);
             }
         });
     };
@@ -65,15 +65,15 @@ module.exports = function (mongoose, nodemailer, config) {
                 email: email
             }, function findAccount(err, doc) {
                 if (err) {
-                    app.logger.log('forgotPassword :: email is not related to any account');
+                    logger.log('forgotPassword :: email is not related to any account');
                 } else {
                     var smtpTransport = nodemailer.createTransport(config.mail);
                     if (!doc) {
-                        app.logger.log('url: ' + resetPasswordUrl);
+                        logger.log('url: ' + resetPasswordUrl);
                         return;
                     }
                     resetPasswordUrl += '?account=' + doc._id;
-                    app.logger.log('url: ' + resetPasswordUrl);
+                    logger.log('url: ' + resetPasswordUrl);
                     smtpTransport.sendMail({
                         from: 'thisapp@example.com',
                         to: doc.email,
@@ -81,9 +81,9 @@ module.exports = function (mongoose, nodemailer, config) {
                         text: 'Click here to reset your password ' + resetPasswordUrl
                     }, function (error, info) {
                         if (error) {
-                            app.logger.log(error);
+                            logger.log(error);
                         } else {
-                            app.logger.log('Message sent: ' + info.response);
+                            logger.log('Message sent: ' + info.response);
                         }
                     });
                 }
@@ -92,7 +92,7 @@ module.exports = function (mongoose, nodemailer, config) {
     };
 
     findById = function (ids, callback) {
-        app.logger.log('Account.findOne ' + ids._id);
+        logger.log('Account.findOne ' + ids._id);
         Account.findOne({_id: ids._id}, function (err, docs) {
             callback(err, docs);
         });

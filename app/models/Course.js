@@ -1,4 +1,4 @@
-module.exports = function (mongoose) {
+module.exports = function (logger, mongoose) {
     var crypto, CourseSchema, Course, findAll, findById, add, edit;
 
     crypto = require('crypto');
@@ -15,21 +15,21 @@ module.exports = function (mongoose) {
     Course = mongoose.model('Course', CourseSchema);
 
     findById = function (ids, callback) {
-        app.logger.log('Course.findById ' + ids.accountId);
+        logger.log('Course.findById ' + ids.accountId);
         Course.findOne({accountId: ids.accountId, _id: ids.courseId}, function (err, docs) {
             callback(docs || false);
         });
     };
 
     findAll = function (accountId, callback) {
-        app.logger.log('Course.findAll ' + accountId);
+        logger.log('Course.findAll ' + accountId);
         Course.find({accountId: accountId}, function (err, docs) {
             callback(docs);
         });
     };
 
     add = function (data, callback) {
-        app.logger.log('Adding course ' + data.name);
+        logger.log('Adding course ' + data.name);
         var course = new Course({
             accountId: data.accountId,
             name: data.name,
@@ -40,7 +40,7 @@ module.exports = function (mongoose) {
         });
 
         course.save(callback);
-        app.logger.log('Save command was sent');
+        logger.log('Save command was sent');
     };
 
     edit = function (data, callback) {
@@ -54,10 +54,10 @@ module.exports = function (mongoose) {
                 time: data.time || ''
             }, function (err, numberAffected) {
                 if (err) {
-                    app.logger.error('Error occurred: ' + err);
+                    logger.error('Error occurred: ' + err);
                     callback(500);
                 } else {
-                    app.logger.log('The number of updated documents was %d', numberAffected);
+                    logger.log('The number of updated documents was %d', numberAffected);
                     callback(200);
                 }
             }

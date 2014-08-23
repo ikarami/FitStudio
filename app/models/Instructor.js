@@ -1,4 +1,4 @@
-module.exports = function (mongoose) {
+module.exports = function (logger, mongoose) {
     var InstructorSchema, Instructor, findAll, findById, add, edit;
 
     InstructorSchema = new mongoose.Schema({
@@ -13,21 +13,21 @@ module.exports = function (mongoose) {
     Instructor = mongoose.model('Instructor', InstructorSchema);
 
     findById = function (ids, callback) {
-        app.logger.log('Instructor.findById ' + ids.accountId);
+        logger.log('Instructor.findById ' + ids.accountId);
         Instructor.findOne({accountId: ids.accountId, _id: ids.instructorId}, function (err, docs) {
             callback(docs || false);
         });
     };
 
     findAll = function (accountId, callback) {
-        app.logger.log('Instructor.findAll ' + accountId);
+        logger.log('Instructor.findAll ' + accountId);
         Instructor.find({accountId: accountId}, function (err, docs) {
             callback(docs);
         });
     };
 
     add = function (data, callback) {
-        app.logger.log('Adding Instructor ' + data.firstName + ' ' + data.lastName);
+        logger.log('Adding Instructor ' + data.firstName + ' ' + data.lastName);
         var course = new Instructor({
             accountId: data.accountId,
             firstName: data.firstName,
@@ -38,7 +38,7 @@ module.exports = function (mongoose) {
         });
 
         course.save(callback);
-        app.logger.log('Save command was sent');
+        logger.log('Save command was sent');
     };
 
     edit = function (data, callback) {
@@ -52,10 +52,10 @@ module.exports = function (mongoose) {
                 classes: data.classes || []
             }, function (err, numberAffected) {
                 if (err) {
-                    app.logger.error('Error occurred: ' + err);
+                    logger.error('Error occurred: ' + err);
                     callback(500);
                 } else {
-                    app.logger.log('The number of updated documents was %d', numberAffected);
+                    logger.log('The number of updated documents was %d', numberAffected);
                     callback(200);
                 }
             }

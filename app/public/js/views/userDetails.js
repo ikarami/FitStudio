@@ -14,12 +14,11 @@ define(['jquery',
             var ViewModel = function () {
                 var self = this, _id, constructUser;
 
-                self.addMode = (args.id === 'new') ? true : false;
                 self.firstName = ko.observable(args.data.firstName);
                 self.lastName = ko.observable(args.data.lastName);
                 self.email = ko.observable(args.data.email);
                 self.phone = ko.observable(args.data.phone);
-                self.classes = ko.observable(args.data.classes ? args.data.classes.join(', ') : '');
+                self.classes = ko.observable(args.data.classes);
                 _id = args.data._id;
 
                 self.goToDashboard = function () {
@@ -43,7 +42,7 @@ define(['jquery',
                             lastName:  self.lastName(),
                             email:  self.email(),
                             phone:  self.phone(),
-                            classes:  self.classes().split(',')
+                            classes:  self.classes()
                         }
                     });
                 };

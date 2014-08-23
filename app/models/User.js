@@ -1,4 +1,4 @@
-module.exports = function (mongoose) {
+module.exports = function (logger, mongoose) {
     var UserSchema, User, findAll, findById, add, edit;
 
     UserSchema = new mongoose.Schema({
@@ -13,21 +13,21 @@ module.exports = function (mongoose) {
     User = mongoose.model('User', UserSchema);
 
     findById = function (ids, callback) {
-        app.logger.log('User.findById ' + ids.accountId);
+        logger.log('User.findById ' + ids.accountId);
         User.findOne({accountIds: ids.accountId, _id: ids.userId}, function (err, docs) {
             callback(docs || false);
         });
     };
 
     findAll = function (accountId, callback) {
-        app.logger.log('User.findAll ' + accountId);
+        logger.log('User.findAll ' + accountId);
         User.find({accountIds: accountId}, function (err, docs) {
             callback(docs);
         });
     };
 
     add = function (data, callback) {
-        app.logger.log('Adding User ' + data.firstName + ' ' + data.lastName);
+        logger.log('Adding User ' + data.firstName + ' ' + data.lastName);
         var course = new User({
             accountIds: [data.accountId],
             firstName: data.firstName,
@@ -38,7 +38,7 @@ module.exports = function (mongoose) {
         });
 
         course.save(callback);
-        app.logger.log('Save command was sent');
+        logger.log('Save command was sent');
     };
 
     edit = function (data, callback) {
@@ -52,10 +52,10 @@ module.exports = function (mongoose) {
                 classes: data.classes || []
             }, function (err, numberAffected) {
                 if (err) {
-                    app.logger.error('Error occurred: ' + err);
+                    logger.error('Error occurred: ' + err);
                     callback(500);
                 } else {
-                    app.logger.log('The number of updated documents was %d', numberAffected);
+                    logger.log('The number of updated documents was %d', numberAffected);
                     callback(200);
                 }
             }

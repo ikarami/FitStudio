@@ -1,4 +1,4 @@
-module.exports = function (mongoose) {
+module.exports = function (logger, mongoose) {
     var PouchSchema, Pouch, findAll, findById, add, edit, addOperation;
 
     PouchSchema = new mongoose.Schema({
@@ -14,21 +14,21 @@ module.exports = function (mongoose) {
     Pouch = mongoose.model('Pouch', PouchSchema);
 
     findById = function (ids, callback) {
-        app.logger.log('Pouch.findById ' + ids.accountId);
+        logger.log('Pouch.findById ' + ids.accountId);
         Pouch.findOne({accountId: ids.accountId, _id: ids.pouchId}, function (err, docs) {
             callback(docs || false);
         });
     };
 
     findAll = function (accountId, callback) {
-        app.logger.log('Pouch.findAll ' + accountId);
+        logger.log('Pouch.findAll ' + accountId);
         Pouch.find({accountId: accountId}, function (err, docs) {
             callback(docs);
         });
     };
 
     add = function (data, callback) {
-        app.logger.log('Adding Pouch');
+        logger.log('Adding Pouch');
         var course = new Pouch({
             accountId: data.accountId,
             name: data.name,
@@ -40,7 +40,7 @@ module.exports = function (mongoose) {
         });
 
         course.save(callback);
-        app.logger.log('Save command was sent');
+        logger.log('Save command was sent');
     };
 
     edit = function (data, callback) {
@@ -54,10 +54,10 @@ module.exports = function (mongoose) {
                 owner: data.owner || ''
             }, function (err, numberAffected) {
                 if (err) {
-                    app.logger.error('Error occurred: ' + err);
+                    logger.error('Error occurred: ' + err);
                     callback(500);
                 } else {
-                    app.logger.log('The number of updated documents was %d', numberAffected);
+                    logger.log('The number of updated documents was %d', numberAffected);
                     callback(200);
                 }
             }
