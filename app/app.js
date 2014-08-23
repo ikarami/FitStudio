@@ -6,7 +6,8 @@ var MemoryStore = require('connect').session.MemoryStore;
 var nodemailer = require('nodemailer');
 var fs = require('fs');
 var morgan = require('morgan');
-
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
@@ -39,6 +40,20 @@ var models = {
     Pouch: require('./models/Pouch')(mongoose, config)
 };
 
+passport.serializeUser(function (user, done) {
+    console.log('serializeUser: ' + user._id);
+    done(null, user._id);
+});
+
+passport.deserializeUser(function (id, done) {
+    done(null, {_id: id});
+    /* there is no need to retrive the whole user object here, an id is sufficient...
+    models.Account.findById({_id: id}, function (err, doc) {
+        console.log('deserializeUser: ' + id + ' found: ' + doc ? doc._id : '-');
+        done(err, doc);
+    });*/
+});
+
 app.engine('html', require('ejs').renderFile);
 console.log('Views folder: ' + path.join(__dirname, 'public'));
 app.set('views', path.join(__dirname, 'public'));
@@ -59,9 +74,24 @@ app.use(session({
         cookie: { maxAge: 900000 }
     })
 );
+app.use(passport.initialize());
+app.use(passport.session());
 
-app.authChecker = function (req, res, next) {
-    if (req.session.loggedIn) {
+passport.use(new LocalStrategy({
+        usernameField: 'email',
+        passwordField: 'password'
+    }, function(email, password, done) {
+        models.Account.login(email, password, function accountCallback(account) {
+            if (!account) {
+                return done(null, false, { message: 'Incorrect credentials.' });
+            }
+            return done(null, account);
+        });
+    }
+));
+
+app.authChecker = function(req, res, next) {
+    if (req.user && req.user._id) {
         next();
     } else {
        res.status(401).end();
@@ -89,7 +119,7 @@ if (process.env.OPENSHIFT_REPO_DIR) {
 fs.readdirSync(dir).forEach(function (file) {
     if (file[0] === '.') return;
     var routeName = file.substr(0, file.indexOf('.'));
-    require('./routes/' + routeName)(app, models);
+    require('./routes/' + routeName)(app, models, passport);
 });
 
 app.get('/', function (req, res) {

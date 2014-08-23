@@ -1,16 +1,12 @@
-module.exports = function (app, models) {
-    app.post('/account/login', function (req, res) {
-        console.log('login request');
-        var email, password;
-        email = req.param('email', null);
-        password = req.param('password', null);
+module.exports = function (app, models, passport) {
 
-        if (email === null || email.length < 1 || password === null || password.lenght < 1 ) {
-            res.status(400).end();
-            return;
-        }
+    app.post('/account/login', passport.authenticate('local'), function (req, res) {
+        console.log('login request successful');
 
-        models.Account.login(email, password, function accountCallback(account) {
+        req.session.accountId = req.user._id;
+        res.status(200).end();
+
+/*        models.Account.login(email, password, function accountCallback(account) {
             if (!account) {
                 res.status(401).end();
                 return;
@@ -19,10 +15,12 @@ module.exports = function (app, models) {
             req.session.loggedIn = true;
             req.session.accountId = account._id;
             res.status(200).end();
-        });
+        });*/
     });
 
     app.get('/account/logout', [app.authChecker], function (req, res) {
+        console.log('Logout request for ' + req.user._id);
+        req.logout();
         req.session.destroy(function(err) {
             if (err) {
                 console.log('logout error: ' + err);
@@ -79,7 +77,7 @@ module.exports = function (app, models) {
     });
 
     app.get('/account/authenticated', function (req, res) {
-        if (req.session.loggedIn) {
+        if (req.user && req.user._id) {
             res.status(200).end();
         } else {
             res.status(401).end();

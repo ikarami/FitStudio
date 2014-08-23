@@ -1,5 +1,5 @@
 module.exports = function (mongoose, nodemailer, config) {
-    var crypto, AccountSchema, Account, registerCallback, changePassword, forgotPassword, login, register;
+    var crypto, AccountSchema, Account, registerCallback, changePassword, forgotPassword, login, register, findById;
 
     crypto = require('crypto');
 
@@ -91,10 +91,18 @@ module.exports = function (mongoose, nodemailer, config) {
         );
     };
 
+    findById = function (ids, callback) {
+        console.log('Account.findOne ' + ids._id);
+        Account.findOne({_id: ids._id}, function (err, docs) {
+            callback(err, docs);
+        });
+    };
+
     return {
         login: login,
         register: register,
         Account: Account,
+        findById: findById,
         forgotPassword: forgotPassword,
         changePassword: changePassword
     };

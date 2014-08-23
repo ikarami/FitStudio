@@ -15,7 +15,7 @@ module.exports = function (mongoose, config) {
     Course = mongoose.model('Course', CourseSchema);
 
     findById = function (ids, callback) {
-        console.log('Course.findAll ' + ids.accountId);
+        console.log('Course.findById ' + ids.accountId);
         Course.findOne({accountId: ids.accountId, _id: ids.courseId}, function (err, docs) {
             callback(docs || false);
         });
