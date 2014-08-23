@@ -1,7 +1,7 @@
 module.exports = function (app, models, passport) {
 
     app.post('/account/login', passport.authenticate('local'), function (req, res) {
-        console.log('login request successful');
+        app.logger.log('login request successful');
 
         req.session.accountId = req.user._id;
         res.status(200).end();
@@ -11,7 +11,7 @@ module.exports = function (app, models, passport) {
                 res.status(401).end();
                 return;
             }
-            console.log('login was successful');
+            app.logger.log('login was successful');
             req.session.loggedIn = true;
             req.session.accountId = account._id;
             res.status(200).end();
@@ -19,11 +19,11 @@ module.exports = function (app, models, passport) {
     });
 
     app.get('/account/logout', [app.authChecker], function (req, res) {
-        console.log('Logout request for ' + req.user._id);
+        app.logger.log('Logout request for ' + req.user._id);
         req.logout();
         req.session.destroy(function(err) {
             if (err) {
-                console.log('logout error: ' + err);
+                app.logger.log('logout error: ' + err);
                 res.status(500).end();
                 return;
             }
@@ -32,7 +32,7 @@ module.exports = function (app, models, passport) {
     });
 
     app.post('/account/register', function (req, res) {
-        console.log('REGISTER');
+        app.logger.log('REGISTER');
         var personData = {
             firstName: req.param('firstName', ''),
             lastName: req.param('lastName', ''),
@@ -44,7 +44,7 @@ module.exports = function (app, models, passport) {
             res.status(400).end();
             return;
         }
-        console.log('will register');
+        app.logger.log('will register');
         models.Account.register(personData);
         res.status(200).end();
     });

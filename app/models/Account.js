@@ -17,9 +17,9 @@ module.exports = function (mongoose, nodemailer, config) {
 
     registerCallback = function (err) {
         if (err) {
-            return console.log(err);
+            return app.logger.error(err);
         }
-        return console.log('Account was created');
+        return app.logger.log('Account was created');
     };
 
     login = function (email, password, callback) {
@@ -35,7 +35,7 @@ module.exports = function (mongoose, nodemailer, config) {
         shaSum = crypto.createHash('sha256');
         shaSum.update(personData.password);
 
-        console.log('Registering ' + personData.email);
+        app.logger.log('Registering ' + personData.email);
         user = new Account({
             email: personData.email,
             name: {
@@ -45,7 +45,7 @@ module.exports = function (mongoose, nodemailer, config) {
             password: shaSum.digest('hex')
         });
         user.save(registerCallback);
-        console.log('Save command was sent');
+        app.logger.log('Save command was sent');
     };
 
     changePassword = function (accountId, newPassword) {
@@ -53,9 +53,9 @@ module.exports = function (mongoose, nodemailer, config) {
         shaSum.update(newPassword);
         Account.update({_id: accountId}, {$set: {password: shaSum.digest('hex')}}, {upsert: false}, function changePasswordCallback (err) {
             if (err) {
-                console.log('Change password failed for account ' + accountId + ' with an error: ' + err);
+                app.logger.log('Change password failed for account ' + accountId + ' with an error: ' + err);
             } else {
-                console.log('Change password done for account ' + accountId);
+                app.logger.log('Change password done for account ' + accountId);
             }
         });
     };
@@ -65,15 +65,15 @@ module.exports = function (mongoose, nodemailer, config) {
                 email: email
             }, function findAccount(err, doc) {
                 if (err) {
-                    console.log('forgotPassword :: email is not related to any account');
+                    app.logger.log('forgotPassword :: email is not related to any account');
                 } else {
                     var smtpTransport = nodemailer.createTransport(config.mail);
                     if (!doc) {
-                        console.log('url: ' + resetPasswordUrl);
+                        app.logger.log('url: ' + resetPasswordUrl);
                         return;
                     }
                     resetPasswordUrl += '?account=' + doc._id;
-                    console.log('url: ' + resetPasswordUrl);
+                    app.logger.log('url: ' + resetPasswordUrl);
                     smtpTransport.sendMail({
                         from: 'thisapp@example.com',
                         to: doc.email,
@@ -81,9 +81,9 @@ module.exports = function (mongoose, nodemailer, config) {
                         text: 'Click here to reset your password ' + resetPasswordUrl
                     }, function (error, info) {
                         if (error) {
-                            console.log(error);
+                            app.logger.log(error);
                         } else {
-                            console.log('Message sent: ' + info.response);
+                            app.logger.log('Message sent: ' + info.response);
                         }
                     });
                 }
@@ -92,7 +92,7 @@ module.exports = function (mongoose, nodemailer, config) {
     };
 
     findById = function (ids, callback) {
-        console.log('Account.findOne ' + ids._id);
+        app.logger.log('Account.findOne ' + ids._id);
         Account.findOne({_id: ids._id}, function (err, docs) {
             callback(err, docs);
         });

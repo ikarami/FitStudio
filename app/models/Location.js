@@ -1,4 +1,4 @@
-module.exports = function (mongoose, config) {
+module.exports = function (mongoose) {
     var LocationSchema, Location, findAll, findById, add, edit;
 
     LocationSchema = new mongoose.Schema({
@@ -15,21 +15,21 @@ module.exports = function (mongoose, config) {
     Location = mongoose.model('Location', LocationSchema);
 
     findById = function (ids, callback) {
-        console.log('Location.findAll ' + ids.accountId);
+        app.logger.log('Location.findAll ' + ids.accountId);
         Location.findOne({accountId: ids.accountId, _id: ids.locationId}, function (err, docs) {
             callback(docs || false);
         });
     };
 
     findAll = function (accountId, callback) {
-        console.log('Location.findAll ' + accountId);
+        app.logger.log('Location.findAll ' + accountId);
         Location.find({accountId: accountId}, function (err, docs) {
             callback(docs);
         });
     };
 
     add = function (data, callback) {
-        console.log('Adding Location ' + data.name + ' ' + data.location);
+        app.logger.log('Adding Location ' + data.name + ' ' + data.location);
         var location = new Location({
             accountId: data.accountId,
             name: data.name,
@@ -42,7 +42,7 @@ module.exports = function (mongoose, config) {
         });
 
         location.save(callback);
-        console.log('Save command was sent');
+        app.logger.log('Save command was sent');
     };
 
     edit = function (data, callback) {
@@ -58,10 +58,10 @@ module.exports = function (mongoose, config) {
                 code: data.code || ''
             }, function (err, numberAffected) {
                 if (err) {
-                    console.log('Error occurred: ' + err);
+                    app.logger.error('Error occurred: ' + err);
                     callback(500);
                 } else {
-                    console.log('The number of updated documents was %d', numberAffected);
+                    app.logger.log('The number of updated documents was %d', numberAffected);
                     callback(200);
                 }
             }

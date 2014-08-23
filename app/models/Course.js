@@ -1,4 +1,4 @@
-module.exports = function (mongoose, config) {
+module.exports = function (mongoose) {
     var crypto, CourseSchema, Course, findAll, findById, add, edit;
 
     crypto = require('crypto');
@@ -15,21 +15,21 @@ module.exports = function (mongoose, config) {
     Course = mongoose.model('Course', CourseSchema);
 
     findById = function (ids, callback) {
-        console.log('Course.findById ' + ids.accountId);
+        app.logger.log('Course.findById ' + ids.accountId);
         Course.findOne({accountId: ids.accountId, _id: ids.courseId}, function (err, docs) {
             callback(docs || false);
         });
     };
 
     findAll = function (accountId, callback) {
-        console.log('Course.findAll ' + accountId);
+        app.logger.log('Course.findAll ' + accountId);
         Course.find({accountId: accountId}, function (err, docs) {
             callback(docs);
         });
     };
 
     add = function (data, callback) {
-        console.log('Adding course ' + data.name);
+        app.logger.log('Adding course ' + data.name);
         var course = new Course({
             accountId: data.accountId,
             name: data.name,
@@ -40,7 +40,7 @@ module.exports = function (mongoose, config) {
         });
 
         course.save(callback);
-        console.log('Save command was sent');
+        app.logger.log('Save command was sent');
     };
 
     edit = function (data, callback) {
@@ -54,10 +54,10 @@ module.exports = function (mongoose, config) {
                 time: data.time || ''
             }, function (err, numberAffected) {
                 if (err) {
-                    console.log('Error occurred: ' + err);
+                    app.logger.error('Error occurred: ' + err);
                     callback(500);
                 } else {
-                    console.log('The number of updated documents was %d', numberAffected);
+                    app.logger.log('The number of updated documents was %d', numberAffected);
                     callback(200);
                 }
             }

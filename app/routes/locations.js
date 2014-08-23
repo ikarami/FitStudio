@@ -7,7 +7,7 @@ module.exports = function (app, models) {
     });
 
     app.get('/locations/:id', [app.authChecker], function (req, res) {
-        console.log('Getting details for location id: ' + req.params.id);
+        app.logger.log('Getting details for location id: ' + req.params.id);
         var accountId = req.session.accountId;
 
         models.Location.findById({accountId: accountId, locationId: req.params.id}, function (location) {
@@ -22,7 +22,7 @@ module.exports = function (app, models) {
     app.post('/locations/:id', [app.authChecker], function (req, res) {
         var data = req.body;
         data.accountId = req.session.accountId;
-        console.log('addLocation ' + JSON.stringify(data));
+        app.logger.log('addLocation ' + JSON.stringify(data));
         models.Location.add(data, function() {
             res.status(200).end();
         });
@@ -33,14 +33,14 @@ module.exports = function (app, models) {
         data.accountId = req.session.accountId;
         data.locationId = req.params.id;
 
-        console.log('editLocation ' + JSON.stringify(data));
+        app.logger.log('editLocation ' + JSON.stringify(data));
         models.Location.edit(data, function(code) {
             res.status(code).end();
         });
     });
 
     app.delete('/locations/:id', [app.authChecker], function (req, res) {
-        console.log('Deleting location id: ' + req.params.id);
+        app.logger.log('Deleting location id: ' + req.params.id);
         var accountId = req.session.accountId;
 
         models.Location.findById({accountId: accountId, locationId: req.params.id}, function (location) {

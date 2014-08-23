@@ -1,8 +1,8 @@
 module.exports = function (mongoose) {
-    var InstructorSchema, Instructor, findAll, findById, add, edit;
+    var UserSchema, User, findAll, findById, add, edit;
 
-    InstructorSchema = new mongoose.Schema({
-        accountId: {type: mongoose.Schema.Types.ObjectId},
+    UserSchema = new mongoose.Schema({
+        accountIds: [mongoose.Schema.Types.ObjectId],
         firstName: {type: String},
         lastName: {type: String},
         email: {type: String},
@@ -10,26 +10,26 @@ module.exports = function (mongoose) {
         classes: {type: Array}
     });
 
-    Instructor = mongoose.model('Instructor', InstructorSchema);
+    User = mongoose.model('User', UserSchema);
 
     findById = function (ids, callback) {
-        app.logger.log('Instructor.findById ' + ids.accountId);
-        Instructor.findOne({accountId: ids.accountId, _id: ids.instructorId}, function (err, docs) {
+        app.logger.log('User.findById ' + ids.accountId);
+        User.findOne({accountIds: ids.accountId, _id: ids.userId}, function (err, docs) {
             callback(docs || false);
         });
     };
 
     findAll = function (accountId, callback) {
-        app.logger.log('Instructor.findAll ' + accountId);
-        Instructor.find({accountId: accountId}, function (err, docs) {
+        app.logger.log('User.findAll ' + accountId);
+        User.find({accountIds: accountId}, function (err, docs) {
             callback(docs);
         });
     };
 
     add = function (data, callback) {
-        app.logger.log('Adding Instructor ' + data.firstName + ' ' + data.lastName);
-        var course = new Instructor({
-            accountId: data.accountId,
+        app.logger.log('Adding User ' + data.firstName + ' ' + data.lastName);
+        var course = new User({
+            accountIds: [data.accountId],
             firstName: data.firstName,
             lastName: data.lastName,
             email: data.email || '',
@@ -42,8 +42,8 @@ module.exports = function (mongoose) {
     };
 
     edit = function (data, callback) {
-        Instructor.update({accountId: data.accountId,
-                _id: data.instructorId
+        User.update({accountIds: data.accountId,
+                _id: data.userId
             }, {
                 firstName: data.firstName,
                 lastName: data.lastName,

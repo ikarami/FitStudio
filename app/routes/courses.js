@@ -7,7 +7,7 @@ module.exports = function (app, models) {
     });
 
     app.get('/courses/:id', [app.authChecker], function (req, res) {
-        console.log('Getting details for course id: ' + req.params.id);
+        app.logger.log('Getting details for course id: ' + req.params.id);
         var accountId = req.session.accountId;
 
         models.Course.findById({accountId: accountId, courseId: req.params.id}, function (course) {
@@ -22,7 +22,7 @@ module.exports = function (app, models) {
     app.post('/courses/:id', [app.authChecker], function (req, res) {
         var data = req.body;
         data.accountId = req.session.accountId;
-        console.log('addCourse ' + JSON.stringify(data));
+        app.logger.log('addCourse ' + JSON.stringify(data));
         models.Course.add(data, function() {
             res.status(200).end();
         });
@@ -32,14 +32,14 @@ module.exports = function (app, models) {
         var data = req.body;
         data.accountId = req.session.accountId;
         data.courseId = req.params.id;
-        console.log('editCourse ' + JSON.stringify(data));
+        app.logger.log('editCourse ' + JSON.stringify(data));
         models.Course.edit(data, function(code) {
             res.status(code).end();
         });
     });
 
     app.delete('/courses/:id', [app.authChecker], function (req, res) {
-        console.log('Deleting course id: ' + req.params.id);
+        app.logger.log('Deleting course id: ' + req.params.id);
         var accountId = req.session.accountId;
 
         models.Course.findById({accountId: accountId, courseId: req.params.id}, function (course) {
