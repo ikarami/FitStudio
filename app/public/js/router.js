@@ -11,7 +11,10 @@ define(['backbone',
     'views/editLocation',
     'views/pouches',
     'views/pouchDetails',
-    'views/editPouch'
+    'views/editPouch',
+    'views/users',
+    'views/userDetails',
+    'views/editUser'
     ], function (Backobne,
     IndexView,
     LoginView,
@@ -25,7 +28,10 @@ define(['backbone',
     EditLocationView,
     PouchesView,
     PouchDetailsView,
-    EditPouchView) {
+    EditPouchView,
+    UsersView,
+    UserDetailsView,
+    EditUserView) {
     var FitStudioRouter = Backbone.Router.extend({
         currentView: null,
 
@@ -42,7 +48,10 @@ define(['backbone',
             'locations/:id': 'editLocations',
             pouches: 'pouches',
             'pouches/:id': 'pouchDetails',
-            'pouches/:id/edit': 'editPouches'
+            'pouches/:id/edit': 'editPouches',
+            users: 'users',
+            'users/:id': 'userDetails',
+            'users/:id/edit': 'editUsers'
         },
 
         changeView: function (view) {
@@ -146,6 +155,28 @@ define(['backbone',
                 this.params = null;
             }
             this.changeView(new EditPouchView({id: id, data: params.model}));
+        },
+
+        users: function () {
+            this.changeView(new UsersView());
+        },
+
+        userDetails: function (id) {
+            var params = {};
+            if (this.params) {
+                params = this.params;
+                this.params = null;
+            }
+            this.changeView(new UserDetailsView({id: id, data: params.model}));
+        },
+
+        editUsers: function (id) {
+            var params = {};
+            if (this.params) {
+                params = this.params;
+                this.params = null;
+            }
+            this.changeView(new EditUserView({id: id, data: params.model}));
         }
     });
 

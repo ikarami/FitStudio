@@ -1,0 +1,20 @@
+<ul class="list-group" data-bind="foreach: users">
+	<li class="list-group-item">
+		<p>
+			<span data-bind="text: firstName + ' ' + lastName"></span>
+		</p>
+		<p>
+			<span data-bind="text: email"></span> - <span data-bind="text: phone"></span>
+		</p>
+		<ul class="list-group" data-bind="foreach: classes">
+			<li class="list-group-item" data-bind="text: $data"></li>
+		</ul>
+		<button class="btn btn-primary" data-bind="click: $parent.edit">Edit</button>
+		<button class="btn btn-danger"data-bind="click: $parent.remove">Remove</button>
+	</li>
+</ul>
+
+<p>
+	<button class="btn btn-primary" data-bind="click: add">Add User</button>
+	<button class="btn btn-default" data-bind="click: goToDashboard">Go to dashboard</button>
+</p>

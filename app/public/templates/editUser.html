@@ -1,7 +1,7 @@
-<h1 data-bind="visible: addMode">Add Instructor</h1>
-<h1 data-bind="visible: !addMode">Edit Instructor</h1>
+<h1 data-bind="visible: addMode">Add User</h1>
+<h1 data-bind="visible: !addMode">Edit User</h1>
 
-<form name="addInstructor">
+<form name="addUser">
     <fieldset>
         <legend>Name</legend>
         <label>
@@ -32,8 +32,8 @@
         </label>
     </fieldset>
     <p>
-        <button class="btn btn-success" data-bind="click: add, visible: addMode">Add Instructor</button>
-        <button class="btn btn-success" data-bind="click: save, visible: !addMode">Save Instructor</button>
-        <button class="btn btn-default" data-bind="click: goToList">Go to list of all instructors</button>
+        <button class="btn btn-success" data-bind="click: add, visible: addMode">Add User</button>
+        <button class="btn btn-success" data-bind="click: save, visible: !addMode">Save User</button>
+        <button class="btn btn-default" data-bind="click: goToList">Go to list of all users</button>
     </p>
 </form>

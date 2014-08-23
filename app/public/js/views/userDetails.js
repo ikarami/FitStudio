@@ -1,16 +1,18 @@
 define(['jquery',
+    'underscore',
     'ko',
-    'text!templates/editInstructor.html'], function ($, ko, editInstructorTemplate) {
-    var EditInstructorView = Backbone.View.extend({
+    'text!templates/userDetails.html'], function ($, _, ko, userDetailsTemplate) {
+    var UserDetailsView = Backbone.View.extend({
         el: $('#content'),
 
         initialize: function (args) {
+            var view = this;
             if (!args.data) {
                 args.data = {};
             }
 
             var ViewModel = function () {
-                var self = this, _id;
+                var self = this, _id, constructUser;
 
                 self.addMode = (args.id === 'new') ? true : false;
                 self.firstName = ko.observable(args.data.firstName);
@@ -20,48 +22,54 @@ define(['jquery',
                 self.classes = ko.observable(args.data.classes ? args.data.classes.join(', ') : '');
                 _id = args.data._id;
 
-                self.goToList = function () {
-                    window.location.hash='#instructors';
-                };
-
-                self.add = function (event) {
-                    $.post('/instructors/me', {
-                        firstName:  self.firstName(),
-                        lastName:  self.lastName(),
-                        email:  self.email(),
-                        phone:  self.phone(),
-                        classes:  self.classes().split(',')
-                    }, function () {
-                        window.location.hash='#instructors';
+                self.goToDashboard = function () {
+                    view.trigger('navigate', {
+                        route: '#index'
                     });
                 };
 
-                self.save = function (event) {
-                    $.ajax('/instructors/' + _id, {
-                        method: 'PUT',
-                        data: {
+                self.goToList = function () {
+                    view.trigger('navigate', {
+                        route: '#users'
+                    });
+                };
+
+                self.edit = function () {
+                    view.trigger('navigate', {
+                        route: '#users/' + _id + '/edit',
+                        model: {
+                            _id: _id,
                             firstName:  self.firstName(),
                             lastName:  self.lastName(),
                             email:  self.email(),
                             phone:  self.phone(),
-                            classes:  self.classes().split(',').map(function (item) {
-                                return item.trim();
-                            })
-                        },
-                        success: function () {
-                            window.location.hash='#instructors';
+                            classes:  self.classes().split(',')
                         }
+                    });
+                };
+
+                self.remove = function () {
+                    $.ajax({
+                        method: 'DELETE',
+                        url: '/users/' + _id,
+                        success: function () {
+                            view.trigger('navigate', {
+                                route: '#users'
+                            });
+                        }.bind(this)
                     });
                 };
             };
             this.viewModel = new ViewModel();
         },
+
         show: function () {
             this.render();
             this.bind();
         },
+
         render: function() {
-            this.$el.html(editInstructorTemplate);
+            this.$el.html(userDetailsTemplate);
         },
 
         bind: function () {
@@ -72,5 +80,5 @@ define(['jquery',
             ko.cleanNode(this.el);
         }
     });
-    return EditInstructorView;
+    return UserDetailsView;
 });

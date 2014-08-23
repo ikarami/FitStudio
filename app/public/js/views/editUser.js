@@ -1,7 +1,7 @@
 define(['jquery',
     'ko',
-    'text!templates/editInstructor.html'], function ($, ko, editInstructorTemplate) {
-    var EditInstructorView = Backbone.View.extend({
+    'text!templates/editUser.html'], function ($, ko, editUserTemplate) {
+    var EditUserView = Backbone.View.extend({
         el: $('#content'),
 
         initialize: function (args) {
@@ -21,23 +21,23 @@ define(['jquery',
                 _id = args.data._id;
 
                 self.goToList = function () {
-                    window.location.hash='#instructors';
+                    window.location.hash='#users';
                 };
 
                 self.add = function (event) {
-                    $.post('/instructors/me', {
+                    $.post('/users/me', {
                         firstName:  self.firstName(),
                         lastName:  self.lastName(),
                         email:  self.email(),
                         phone:  self.phone(),
                         classes:  self.classes().split(',')
                     }, function () {
-                        window.location.hash='#instructors';
+                        window.location.hash='#users';
                     });
                 };
 
                 self.save = function (event) {
-                    $.ajax('/instructors/' + _id, {
+                    $.ajax('/users/' + _id, {
                         method: 'PUT',
                         data: {
                             firstName:  self.firstName(),
@@ -49,7 +49,7 @@ define(['jquery',
                             })
                         },
                         success: function () {
-                            window.location.hash='#instructors';
+                            window.location.hash='#users';
                         }
                     });
                 };
@@ -61,7 +61,7 @@ define(['jquery',
             this.bind();
         },
         render: function() {
-            this.$el.html(editInstructorTemplate);
+            this.$el.html(editUserTemplate);
         },
 
         bind: function () {
@@ -72,5 +72,5 @@ define(['jquery',
             ko.cleanNode(this.el);
         }
     });
-    return EditInstructorView;
+    return EditUserView;
 });
