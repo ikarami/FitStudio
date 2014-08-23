@@ -1,0 +1,26 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h1 class="panel-title">Instructor details</h1>
+    </div>
+    <div class="panel-body">
+
+        <p>
+            <span data-bind="text: firstName() + ' ' + lastName()"></span>
+        </p>
+        <p>
+            <span data-bind="text: email"></span> - <span data-bind="text: phone"></span>
+        </p>
+        <ul class="list-group" data-bind="foreach: classes">
+            <li class="list-group-item" data-bind="text: $data"></li>
+        </ul>
+
+        <br />
+        <p>
+            <button class="btn btn-primary" data-bind="click: edit">Edit</button>
+            <button class="btn btn-danger" data-bind="click: remove">Remove</button>
+            <br />
+            <button class="btn btn-default" data-bind="click: goToList">Go to list</button>
+            <button class="btn btn-default" data-bind="click: goToDashboard">Go to dashboard</button>
+        </p>
+    </div>
+</div>

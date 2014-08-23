@@ -12,7 +12,7 @@ define(['jquery',
             }
 
             var ViewModel = function () {
-                var self = this, _id, constructPouch;
+                var self = this, _id;
 
                 self.name = ko.observable(args.data.name);
                 self.created = new Date(args.data.created);

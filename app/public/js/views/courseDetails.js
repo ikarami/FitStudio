@@ -1,8 +1,8 @@
 define(['jquery',
     'underscore',
     'ko',
-    'text!templates/userDetails.html'], function ($, _, ko, userDetailsTemplate) {
-    var UserDetailsView = Backbone.View.extend({
+    'text!templates/courseDetails.html'], function ($, _, ko, courseDetailsTemplate) {
+    var CourseDetailsView = Backbone.View.extend({
         el: $('#content'),
 
         initialize: function (args) {
@@ -14,11 +14,11 @@ define(['jquery',
             var ViewModel = function () {
                 var self = this, _id;
 
-                self.firstName = ko.observable(args.data.firstName);
-                self.lastName = ko.observable(args.data.lastName);
-                self.email = ko.observable(args.data.email);
-                self.phone = ko.observable(args.data.phone);
-                self.classes = ko.observable(args.data.classes);
+                self.name = ko.observable(args.data.name);
+                self.shortName = ko.observable(args.data.shortName);
+                self.description = ko.observable(args.data.description);
+                self.instructors = ko.observable(args.data.instructors);
+                self.time = ko.observable(args.data.time);
                 _id = args.data._id;
 
                 self.goToDashboard = function () {
@@ -29,20 +29,20 @@ define(['jquery',
 
                 self.goToList = function () {
                     view.trigger('navigate', {
-                        route: '#users'
+                        route: '#courses'
                     });
                 };
 
                 self.edit = function () {
                     view.trigger('navigate', {
-                        route: '#users/' + _id + '/edit',
+                        route: '#courses/' + _id + '/edit',
                         model: {
                             _id: _id,
-                            firstName:  self.firstName(),
-                            lastName:  self.lastName(),
-                            email:  self.email(),
-                            phone:  self.phone(),
-                            classes:  self.classes()
+                            name:  self.name(),
+                            shortName:  self.shortName(),
+                            description:  self.description(),
+                            instructors:  self.instructors(),
+                            time:  self.time()
                         }
                     });
                 };
@@ -50,10 +50,10 @@ define(['jquery',
                 self.remove = function () {
                     $.ajax({
                         method: 'DELETE',
-                        url: '/users/' + _id,
+                        url: '/courses/' + _id,
                         success: function () {
                             view.trigger('navigate', {
-                                route: '#users'
+                                route: '#courses'
                             });
                         }.bind(this)
                     });
@@ -68,7 +68,7 @@ define(['jquery',
         },
 
         render: function() {
-            this.$el.html(userDetailsTemplate);
+            this.$el.html(courseDetailsTemplate);
         },
 
         bind: function () {
@@ -79,5 +79,5 @@ define(['jquery',
             ko.cleanNode(this.el);
         }
     });
-    return UserDetailsView;
+    return CourseDetailsView;
 });

@@ -14,7 +14,14 @@ define(['jquery',
 
                 self.addCourse = function () {
                     view.trigger('navigate', {
-                        route: '#courses/new'
+                        route: '#courses/new/edit'
+                    });
+                };
+
+                self.details = function () {
+                    view.trigger('navigate', {
+                        route: '#courses/' + this._id,
+                        model: this
                     });
                 };
 
@@ -26,7 +33,7 @@ define(['jquery',
 
                 self.edit = function () {
                     view.trigger('navigate', {
-                        route: '#courses/' + this._id,
+                        route: '#courses/' + this._id + '/edit',
                         model: this
                     });
                 };

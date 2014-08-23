@@ -14,7 +14,14 @@ define(['jquery',
 
                 self.add = function () {
                     view.trigger('navigate', {
-                        route: '#instructors/new'
+                        route: '#instructors/new/edit'
+                    });
+                };
+
+                self.details = function () {
+                    view.trigger('navigate', {
+                        route: '#instructors/' + this._id,
+                        model: this
                     });
                 };
 
@@ -27,7 +34,7 @@ define(['jquery',
                 self.remove = function () {
                     $.ajax({
                         method: 'DELETE',
-                        url: '/instructors/'+this._id,
+                        url: '/instructors/' + this._id,
                         success: function () {
                             self.instructors.remove(this);
                         }.bind(this)
@@ -36,7 +43,7 @@ define(['jquery',
 
                 self.edit = function () {
                     view.trigger('navigate', {
-                        route: '#instructors/' + this._id,
+                        route: '#instructors/' + this._id + '/edit',
                         model: this
                     });
                 };
@@ -49,7 +56,7 @@ define(['jquery',
             this.bind();
 
             $.get('/instructors/').success(function (data) {
-                console.log('data arrived');
+                console.log('instructors data arrived');
                 _.forEach(data, function (course) {
                     this.viewModel.instructors.push(course);
                 }, this);

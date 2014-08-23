@@ -34,7 +34,7 @@ define(['jquery',
                 self.remove = function () {
                     $.ajax({
                         method: 'DELETE',
-                        url: '/users/'+this._id,
+                        url: '/users/' + this._id,
                         success: function () {
                             self.users.remove(this);
                         }.bind(this)

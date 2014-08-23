@@ -1,7 +1,7 @@
 define(['jquery',
     'underscore',
     'ko',
-    'text!templates/userDetails.html'], function ($, _, ko, userDetailsTemplate) {
+    'text!templates/instructorDetails.html'], function ($, _, ko, instructorDetailsTemplate) {
     var UserDetailsView = Backbone.View.extend({
         el: $('#content'),
 
@@ -29,13 +29,13 @@ define(['jquery',
 
                 self.goToList = function () {
                     view.trigger('navigate', {
-                        route: '#users'
+                        route: '#instructors'
                     });
                 };
 
                 self.edit = function () {
                     view.trigger('navigate', {
-                        route: '#users/' + _id + '/edit',
+                        route: '#instructors/' + _id + '/edit',
                         model: {
                             _id: _id,
                             firstName:  self.firstName(),
@@ -50,10 +50,10 @@ define(['jquery',
                 self.remove = function () {
                     $.ajax({
                         method: 'DELETE',
-                        url: '/users/' + _id,
+                        url: '/instructors/' + _id,
                         success: function () {
                             view.trigger('navigate', {
-                                route: '#users'
+                                route: '#instructors'
                             });
                         }.bind(this)
                     });
@@ -68,7 +68,7 @@ define(['jquery',
         },
 
         render: function() {
-            this.$el.html(userDetailsTemplate);
+            this.$el.html(instructorDetailsTemplate);
         },
 
         bind: function () {

@@ -1,0 +1,26 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h1 class="panel-title">Course details</h1>
+    </div>
+    <div class="panel-body">
+
+        <p>
+            <span data-bind="text: name"></span> - <span data-bind="text: shortName"></span>
+        </p>
+        <p>
+            Description: <span data-bind="text: description"></span>
+        </p>
+        <p>
+            <span data-bind="text: time"></span> - <span data-bind="text: instructors"></span>
+        </p>
+
+        <br />
+        <p>
+            <button class="btn btn-primary" data-bind="click: edit">Edit</button>
+            <button class="btn btn-danger" data-bind="click: remove">Remove</button>
+            <br />
+            <button class="btn btn-default" data-bind="click: goToList">Go to list</button>
+            <button class="btn btn-default" data-bind="click: goToDashboard">Go to dashboard</button>
+        </p>
+    </div>
+</div>

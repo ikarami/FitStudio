@@ -4,8 +4,10 @@ define(['backbone',
     'views/register',
     'views/forgotPassword',
     'views/courses',
+    'views/courseDetails',
     'views/editCourse',
     'views/instructors',
+    'views/instructorDetails',
     'views/editInstructor',
     'views/locations',
     'views/editLocation',
@@ -21,8 +23,10 @@ define(['backbone',
     RegisterView,
     ForgotPassword,
     CoursesView,
+    CourseDetailsView,
     EditCourseView,
     InstructorsView,
+    InstructorDetailsView,
     EditInstructorView,
     LocationsView,
     EditLocationView,
@@ -41,17 +45,19 @@ define(['backbone',
             register: 'register',
             forgotpassword: 'forgotpassword',
             courses: 'courses',
-            'courses/:id': 'editCourse',
+            'courses/:id': 'courseDetails',
+            'courses/:id/edit': 'editCourse',
             instructors: 'instructors',
-            'instructors/:id': 'editInstructors',
-            locations: 'locations',
-            'locations/:id': 'editLocations',
+            'instructors/:id': 'instructorDetails',
+            'instructors/:id/edit': 'editInstructors',
             pouches: 'pouches',
             'pouches/:id': 'pouchDetails',
             'pouches/:id/edit': 'editPouches',
             users: 'users',
             'users/:id': 'userDetails',
-            'users/:id/edit': 'editUsers'
+            'users/:id/edit': 'editUsers',
+            locations: 'locations',
+            'locations/:id': 'editLocations'
         },
 
         changeView: function (view) {
@@ -100,6 +106,15 @@ define(['backbone',
             this.changeView(new CoursesView());
         },
 
+        courseDetails: function (id) {
+            var params = {};
+            if (this.params) {
+                params = this.params;
+                this.params = null;
+            }
+            this.changeView(new CourseDetailsView({id: id, data: params.model}));
+        },
+
         editCourse: function (id) {
             var params = {};
             if (this.params) {
@@ -111,6 +126,15 @@ define(['backbone',
 
         instructors: function () {
             this.changeView(new InstructorsView());
+        },
+
+        instructorDetails: function (id) {
+            var params = {};
+            if (this.params) {
+                params = this.params;
+                this.params = null;
+            }
+            this.changeView(new InstructorDetailsView({id: id, data: params.model}));
         },
 
         editInstructors: function (id) {
