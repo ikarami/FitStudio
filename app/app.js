@@ -53,7 +53,7 @@ var FitStudio = function () {
             mail: require('./config/mail')()
         };
         self.viewsPath = path.join(__dirname, 'public');
-        self.logsPath = process.env.OPENSHIFT_REPO_DIR ? process.env.OPENSHIFT_REPO_DIR + 'app/logs/' : './logs/';
+        self.logsPath = process.env.OPENSHIFT_DATA_DIR ? process.env.OPENSHIFT_DATA_DIR + 'logs/' : './logs/';
         self.routesPath = process.env.OPENSHIFT_REPO_DIR ? process.env.OPENSHIFT_REPO_DIR + 'app/routes' : 'routes';
     };
 
