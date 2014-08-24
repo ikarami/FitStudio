@@ -1,7 +1,9 @@
 define(['jquery',
     'underscore',
     'knockout',
-    'text!templates/courses.html'], function ($, _, ko, coursesTemplate) {
+    'kb',
+    'collections/courses',
+    'text!templates/courses.html'], function ($, _, ko, kb, coursesCollection, coursesTemplate) {
     var CoursesView = Backbone.View.extend({
         el: $('#content'),
 
@@ -10,7 +12,7 @@ define(['jquery',
 
             ViewModel = function () {
                 var self = this;
-                self.courses = ko.observableArray();
+                self.courses = kb.collectionObservable(coursesCollection, {view_model: kb.ViewModel});
 
                 self.addCourse = function () {
                     view.trigger('navigate', {
@@ -20,7 +22,7 @@ define(['jquery',
 
                 self.details = function () {
                     view.trigger('navigate', {
-                        route: '#courses/' + this._id,
+                        route: '#courses/' + this._id(),
                         model: this
                     });
                 };
@@ -33,19 +35,13 @@ define(['jquery',
 
                 self.edit = function () {
                     view.trigger('navigate', {
-                        route: '#courses/' + this._id + '/edit',
-                        model: this
+                        route: '#courses/' + this._id() + '/edit'
                     });
                 };
 
                 self.remove = function () {
-                    $.ajax({
-                        method: 'DELETE',
-                        url: '/courses/'+this._id,
-                        success: function () {
-                            self.courses.remove(this);
-                        }.bind(this)
-                    });
+                    var model = coursesCollection.findWhere({_id: this._id()});
+                    model.destroy();
                 };
             };
             this.viewModel = new ViewModel();
@@ -54,13 +50,6 @@ define(['jquery',
         show: function () {
             this.render();
             this.bind();
-
-            $.get('/courses/').success(function (data) {
-                console.log('data arrived');
-                _.forEach(data, function (course) {
-                    this.viewModel.courses.push(course);
-                }, this);
-            }.bind(this));
         },
 
         render: function() {

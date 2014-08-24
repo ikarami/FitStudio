@@ -8,9 +8,9 @@ define(['jquery',
         el: $('#content'),
 
         initialize: function (args) {
-            var view = this;
+            var view = this, ViewModel;
 
-            var ViewModel = function () {
+            ViewModel = function () {
                 var self = this, model;
 
                 model = usersCollection.findWhere({_id: args.id});

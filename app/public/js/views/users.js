@@ -32,15 +32,15 @@ define(['jquery',
                     });
                 };
 
-                self.remove = function () {
-                    var model = usersCollection.findWhere({_id: this._id()});
-                    model.destroy();
-                };
-
                 self.edit = function () {
                     view.trigger('navigate', {
                         route: '#users/' + this._id() + '/edit'
                     });
+                };
+
+                self.remove = function () {
+                    var model = usersCollection.findWhere({_id: this._id()});
+                    model.destroy();
                 };
             };
             this.viewModel = new ViewModel();

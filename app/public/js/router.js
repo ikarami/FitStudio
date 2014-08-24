@@ -18,7 +18,8 @@ define(['backbone',
     'views/users',
     'views/userDetails',
     'views/editUser',
-    'collections/users'
+    'collections/users',
+    'collections/courses'
     ], function (Backobne,
     ModalComponentView,
     IndexView,
@@ -39,7 +40,8 @@ define(['backbone',
     UsersView,
     UserDetailsView,
     EditUserView,
-    usersCollection) {
+    usersCollection,
+    coursesCollection) {
     var instance, FitStudioRouter = Backbone.Router.extend({
         currentView: null,
 
@@ -107,6 +109,7 @@ define(['backbone',
 
         fetchData: function () {
             usersCollection.fetch();
+            coursesCollection.fetch();
         },
 
         navigate: function (params) {
@@ -147,21 +150,11 @@ define(['backbone',
         },
 
         courseDetails: function (id) {
-            var params = {};
-            if (this.params) {
-                params = this.params;
-                this.params = null;
-            }
-            this.changeView(new CourseDetailsView({id: id, data: params.model}));
+            this.changeView(new CourseDetailsView({id: id}));
         },
 
         editCourse: function (id) {
-            var params = {};
-            if (this.params) {
-                params = this.params;
-                this.params = null;
-            }
-            this.changeView(new EditCourseView({id: id, data: params.model}));
+            this.changeView(new EditCourseView({id: id}));
         },
 
         instructors: function () {
@@ -226,20 +219,10 @@ define(['backbone',
         },
 
         userDetails: function (id) {
-            var params = {};
-            if (this.params) {
-                params = this.params;
-                this.params = null;
-            }
             this.changeView(new UserDetailsView({id: id}));
         },
 
         editUsers: function (id) {
-            var params = {};
-            if (this.params) {
-                params = this.params;
-                this.params = null;
-            }
             this.changeView(new EditUserView({id: id}));
         }
     });

@@ -23,8 +23,12 @@ module.exports = function (app, models) {
         var data = req.body;
         data.accountId = req.session.accountId;
         app.logger.log('addInstructor ' + JSON.stringify(data));
-        models.Instructor.add(data, function() {
-            res.status(200).end();
+        models.Instructor.add(data, function (err, model) {
+            if (err) {
+                res.status(500).end();
+                return;
+            }
+            res.send(model);
         });
     });
 

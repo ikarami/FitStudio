@@ -1,60 +1,47 @@
 define(['jquery',
     'knockout',
-    'text!templates/editCourse.html'], function ($, ko, editCourseTemplate) {
+    'kb',
+    'collections/courses',
+    'models/course',
+    'text!templates/editCourse.html'], function ($, ko, kb, coursesCollection, CourseModel, editCourseTemplate) {
     var EditCourseView = Backbone.View.extend({
         el: $('#content'),
 
         initialize: function (args) {
-            var view = this;
-            if (!args.data) {
-                args.data = {};
-            }
+            var view = this, ViewModel;
 
-            var ViewModel = function () {
-                var self = this, _id;
+            ViewModel = function () {
+                var self = this;
 
                 self.addMode = (args.id === 'new') ? true : false;
-                self.regularName = ko.observable(args.data.name);
-                self.shortName = ko.observable(args.data.shortName);
-                self.description = ko.observable(args.data.description);
-                self.instructors = ko.observable(args.data.instructors);
-                self.time = ko.observable(args.data.time);
-                _id = args.data._id;
+
+                if (self.addMode) {
+                    model = new CourseModel();
+                } else {
+                    model = coursesCollection.findWhere({_id: args.id});
+                }
+
+                self.regularName = kb.observable(model, 'name');
+                self.shortName = kb.observable(model, 'shortName');
+                self.description = kb.observable(model, 'description');
+                self.instructors = kb.observable(model, 'instructors');
+                self.time = kb.observable(model, 'time');
 
                 self.goToList = function () {
-                    window.location.hash='#courses';
+                    view.trigger('navigate', {
+                        route: '#courses'
+                    });
                 };
 
                 self.add = function (event) {
-                    $.post('/courses/me', {
-                        name:  self.regularName(),
-                        shortName:  self.shortName(),
-                        description:  self.description(),
-                        instructors:  self.instructors(),
-                        time:  self.time()
-                    }, function () {
-                        view.trigger('navigate', {
-                            route: '#courses'
-                        });
-                    });
+                    coursesCollection.add(model);
+                    model.save();
+                    self.goToList();
                 };
 
                 self.save = function (event) {
-                    $.ajax('/courses/' + _id, {
-                        method: 'PUT',
-                        data: {
-                            name:  self.regularName(),
-                            shortName:  self.shortName(),
-                            description:  self.description(),
-                            instructors:  self.instructors(),
-                            time:  self.time()
-                        },
-                        success: function () {
-                            view.trigger('navigate', {
-                                route: '#courses'
-                            });
-                        }
-                    });
+                    model.save();
+                    self.goToList();
                 };
             };
             this.viewModel = new ViewModel();
