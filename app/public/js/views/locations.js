@@ -1,6 +1,6 @@
 define(['jquery',
     'underscore',
-    'ko',
+    'knockout',
     'text!templates/locations.html'], function ($, _, ko, locationsTemplate) {
     var LocationsView = Backbone.View.extend({
         el: $('#content'),

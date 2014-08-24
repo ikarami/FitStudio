@@ -1,5 +1,5 @@
 define(['jquery',
-    'ko',
+    'knockout',
     'text!templates/editInstructor.html'], function ($, ko, editInstructorTemplate) {
     var EditInstructorView = Backbone.View.extend({
         el: $('#content'),

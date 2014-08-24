@@ -1,4 +1,4 @@
-define(['jquery', 'ko', 'text!templates/register.html'], function ($, ko, registerTemplate) {
+define(['jquery', 'knockout', 'text!templates/register.html'], function ($, ko, registerTemplate) {
     var RegisterView = Backbone.View.extend({
         el: $('#content'),
 

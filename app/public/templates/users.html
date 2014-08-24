@@ -1,7 +1,7 @@
 <ul class="list-group" data-bind="foreach: users">
 	<li class="list-group-item">
 		<p>
-			<span data-bind="text: firstName + ' ' + lastName"></span>
+			<span data-bind="text: firstName() + ' ' + lastName()"></span>
 		</p>
 		<p>
 			<span data-bind="text: email"></span> - <span data-bind="text: phone"></span>

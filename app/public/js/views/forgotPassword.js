@@ -1,4 +1,4 @@
-define(['jquery', 'ko', 'text!templates/forgotPassword.html'], function ($, ko, forgotPasswordTemplate) {
+define(['jquery', 'knockout', 'text!templates/forgotPassword.html'], function ($, ko, forgotPasswordTemplate) {
     var ForgotPasswordView = Backbone.View.extend({
         el: $('#content'),
 

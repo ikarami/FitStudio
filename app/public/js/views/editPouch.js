@@ -1,5 +1,5 @@
 define(['jquery',
-    'ko',
+    'knockout',
     'text!templates/editPouches.html'], function ($, ko, editPouchesTemplate) {
     var EditPouchesView = Backbone.View.extend({
         el: $('#content'),

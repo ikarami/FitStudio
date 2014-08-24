@@ -1,6 +1,6 @@
 define(['jquery',
     'underscore',
-    'ko',
+    'knockout',
     'text!templates/instructors.html'], function ($, _, ko, instructorsTemplate) {
     var InstructorsView = Backbone.View.extend({
         el: $('#content'),

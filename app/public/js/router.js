@@ -231,7 +231,7 @@ define(['backbone',
                 params = this.params;
                 this.params = null;
             }
-            this.changeView(new UserDetailsView({id: id, data: params.model}));
+            this.changeView(new UserDetailsView({id: id}));
         },
 
         editUsers: function (id) {
@@ -240,7 +240,7 @@ define(['backbone',
                 params = this.params;
                 this.params = null;
             }
-            this.changeView(new EditUserView({id: id, data: params.model}));
+            this.changeView(new EditUserView({id: id}));
         }
     });
 

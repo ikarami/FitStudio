@@ -1,57 +1,58 @@
 define(['jquery',
-    'ko',
-    'text!templates/editUser.html'], function ($, ko, editUserTemplate) {
+    'knockout',
+    'kb',
+    'collections/users',
+    'models/user',
+    'text!templates/editUser.html'], function ($, ko, kb, usersCollection, UserModel, editUserTemplate) {
     var EditUserView = Backbone.View.extend({
         el: $('#content'),
 
         initialize: function (args) {
-            if (!args.data) {
-                args.data = {};
-            }
+            var view = this;
 
             var ViewModel = function () {
-                var self = this, _id;
+                var self = this, model;
 
                 self.addMode = (args.id === 'new') ? true : false;
-                self.firstName = ko.observable(args.data.firstName);
-                self.lastName = ko.observable(args.data.lastName);
-                self.email = ko.observable(args.data.email);
-                self.phone = ko.observable(args.data.phone);
-                self.classes = ko.observable(args.data.classes ? args.data.classes.join(', ') : '');
-                _id = args.data._id;
+
+                if (self.addMode) {
+                    model = new UserModel();
+                } else {
+                    model = usersCollection.findWhere({_id: args.id});
+                }
+
+                self.firstName = kb.observable(model, 'firstName');
+                self.lastName = kb.observable(model, 'lastName');
+                self.email = kb.observable(model, 'email');
+                self.phone = kb.observable(model, 'phone');
+
+                self.classesList = kb.observable(model, {
+                    key: 'classes',
+                    read: function () {
+                        return model.get('classes') ? model.get('classes').join(', ') : '';
+                    },
+                    write: function (value) {
+                        model.set('classes', value.split(',').map(function (item) {
+                                return item.trim();
+                            }));
+                    }
+                }, this);
 
                 self.goToList = function () {
-                    window.location.hash='#users';
+                    view.trigger('navigate', {
+                        route: '#users'
+                    });
                 };
 
                 self.add = function (event) {
-                    $.post('/users/me', {
-                        firstName:  self.firstName(),
-                        lastName:  self.lastName(),
-                        email:  self.email(),
-                        phone:  self.phone(),
-                        classes:  self.classes().split(',')
-                    }, function () {
-                        window.location.hash='#users';
-                    });
+                    usersCollection.add(model);
+                    model.save();
+                    self.goToList();
                 };
 
                 self.save = function (event) {
-                    $.ajax('/users/' + _id, {
-                        method: 'PUT',
-                        data: {
-                            firstName:  self.firstName(),
-                            lastName:  self.lastName(),
-                            email:  self.email(),
-                            phone:  self.phone(),
-                            classes:  self.classes().split(',').map(function (item) {
-                                return item.trim();
-                            })
-                        },
-                        success: function () {
-                            window.location.hash='#users';
-                        }
-                    });
+                    model.save();
+                    self.goToList();
                 };
             };
             this.viewModel = new ViewModel();

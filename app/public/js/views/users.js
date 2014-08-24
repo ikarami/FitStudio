@@ -1,8 +1,9 @@
 define(['jquery',
     'underscore',
-    'ko',
+    'knockout',
+    'kb',
     'collections/users',
-    'text!templates/users.html'], function ($, _, ko, usersCollection, usersTemplate) {
+    'text!templates/users.html'], function ($, _, ko, kb, usersCollection, usersTemplate) {
     var UsersView = Backbone.View.extend({
         el: $('#content'),
 
@@ -11,7 +12,7 @@ define(['jquery',
 
             ViewModel = function () {
                 var self = this;
-                self.users = ko.observableArray();
+                self.users = kb.collectionObservable(usersCollection, {view_model: kb.ViewModel});
 
                 self.add = function () {
                     view.trigger('navigate', {
@@ -21,8 +22,7 @@ define(['jquery',
 
                 self.details = function () {
                     view.trigger('navigate', {
-                        route: '#users/' + this._id,
-                        model: this
+                        route: '#users/' + this._id()
                     });
                 };
 
@@ -33,19 +33,13 @@ define(['jquery',
                 };
 
                 self.remove = function () {
-                    $.ajax({
-                        method: 'DELETE',
-                        url: '/users/' + this._id,
-                        success: function () {
-                            self.users.remove(this);
-                        }.bind(this)
-                    });
+                    var model = usersCollection.findWhere({_id: this._id()});
+                    model.destroy();
                 };
 
                 self.edit = function () {
                     view.trigger('navigate', {
-                        route: '#users/' + this._id + '/edit',
-                        model: this
+                        route: '#users/' + this._id() + '/edit'
                     });
                 };
             };
@@ -55,10 +49,6 @@ define(['jquery',
         show: function () {
             this.render();
             this.bind();
-
-            usersCollection.toArray().forEach(function (user) {
-                this.viewModel.users.push(user.toJSON());
-            }, this);
         },
 
         render: function() {

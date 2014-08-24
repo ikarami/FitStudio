@@ -1,4 +1,4 @@
-define(['ko', 'locale'], function (ko, locale) {
+define(['knockout', 'locale'], function (ko, locale) {
     ko.bindingHandlers.href = {
         update: function (element, valueAccessor) {
             ko.bindingHandlers.attr.update(element, function () {

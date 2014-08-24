@@ -148,9 +148,9 @@ var FitStudio = function () {
             stream: fs.createWriteStream(self.logsPath + 'access-combined.log' , {flags: 'a'})
         }));
         app.use(express.static(path.join(__dirname, 'public')));
-        //app.use(bodyParser.json());
         app.use(cookieParser());
         app.use(bodyParser.urlencoded({extended: true}));
+        app.use(bodyParser.json());
         app.use(session({
                 secret: 'FitStudio app secret',
                 store: new MemoryStore(),

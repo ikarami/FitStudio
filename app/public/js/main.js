@@ -1,8 +1,9 @@
 require.config({
     paths: {
         jquery: 'libs/jquery-2.1.1',
-        ko: 'libs/knockout-3.1.0',
+        knockout: 'libs/knockout-3.1.0',
         'ko.customBindings': 'libs/knockout.customBindings',
+        'kb': 'libs/knockback',
         underscore: 'libs/underscore',
         backbone: 'libs/backbone',
         text: 'libs/text',
@@ -13,7 +14,8 @@ require.config({
     },
 
     shim: {
-        'ko.customBindings': ['ko'],
+        'kb': ['knockout'],
+        'ko.customBindings': ['knockout'],
         backbone: ['underscore', 'jquery'],
         FitStudio: ['backbone'],
         bootstrap: ['jquery']

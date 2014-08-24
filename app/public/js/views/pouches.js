@@ -1,6 +1,6 @@
 define(['jquery',
     'underscore',
-    'ko',
+    'knockout',
     'text!templates/pouches.html'], function ($, _, ko, pouchesTemplate) {
     var PouchesView = Backbone.View.extend({
         el: $('#content'),

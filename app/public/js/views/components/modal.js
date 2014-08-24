@@ -1,6 +1,6 @@
 define(['jquery',
     'underscore',
-    'ko',
+    'knockout',
     'locale',
     'text!templates/components/modal.html'], function ($, _, ko, locale, modalTemplate) {
     var ModalComponentView = Backbone.View.extend({

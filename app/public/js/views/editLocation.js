@@ -1,5 +1,5 @@
 define(['jquery',
-    'ko',
+    'knockout',
     'text!templates/editLocation.html'], function ($, ko, editLocationTemplate) {
     var EditLocationView = Backbone.View.extend({
         el: $('#content'),

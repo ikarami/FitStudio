@@ -1,4 +1,4 @@
-define(['jquery', 'ko', 'text!templates/login.html'], function ($, ko, loginTemplate) {
+define(['jquery', 'knockout', 'text!templates/login.html'], function ($, ko, loginTemplate) {
     var LoginView = Backbone.View.extend({
         el: $('#content'),
 

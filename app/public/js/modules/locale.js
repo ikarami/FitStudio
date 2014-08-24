@@ -1,8 +1,7 @@
-define(['jquery',
-    'underscore',
+define(['underscore',
     'backbone',
     'text!i18n/en.json',
-    'text!i18n/pl.json'], function ($, _, Backbone, en, pl) {
+    'text!i18n/pl.json'], function (_, Backbone, en, pl) {
     var locale, Locale;
 
     Locale = function () {
