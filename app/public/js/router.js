@@ -17,7 +17,8 @@ define(['backbone',
     'views/editPouch',
     'views/users',
     'views/userDetails',
-    'views/editUser'
+    'views/editUser',
+    'collections/users'
     ], function (Backobne,
     ModalComponentView,
     IndexView,
@@ -37,8 +38,9 @@ define(['backbone',
     EditPouchView,
     UsersView,
     UserDetailsView,
-    EditUserView) {
-    var FitStudioRouter = Backbone.Router.extend({
+    EditUserView,
+    usersCollection) {
+    var instance, FitStudioRouter = Backbone.Router.extend({
         currentView: null,
 
         components: {},
@@ -67,15 +69,13 @@ define(['backbone',
         changeView: function (view) {
             if (this.currentView !== null) {
                 this.currentView.undelegateEvents();
-                this.currentView.off('navigate');
-                this.currentView.off('modal');
+                this.currentView.off('all');
                 if (this.currentView.onHide) {
                     this.currentView.onHide();
                 }
             }
             this.currentView = view;
-            this.currentView.on('navigate', this.navigate, this);
-            this.currentView.on('modal', this.modal, this);
+            this.currentView.on('all', this.viewEventsDispatcher, this);
 
             if (this.currentView.show) {
                 // with ko and the stuff, it's show
@@ -84,6 +84,29 @@ define(['backbone',
                 // for older views which are not updated
                 this.currentView.render();
             }
+        },
+
+        viewEventsDispatcher: function (eventName, args) {
+            switch (eventName) {
+                case 'navigate':
+                    this.navigate(args);
+                break;
+                case 'modal':
+                    this.modal(args);
+                break;
+                case 'loggedIn':
+                    this.fetchData();
+                    this.navigate({
+                        route: '#index'
+                    });
+                break;
+                default:
+                    console.warn('Router :: viewEventsDispatcher :: unknown event ' + eventName);
+            }
+        },
+
+        fetchData: function () {
+            usersCollection.fetch();
         },
 
         navigate: function (params) {
@@ -221,5 +244,9 @@ define(['backbone',
         }
     });
 
-    return new FitStudioRouter();
+    instance = new FitStudioRouter();
+    // JUST FOR DEBUGGING
+    window.router = instance;
+
+    return instance;
 });

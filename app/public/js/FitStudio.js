@@ -18,9 +18,10 @@ define(['router'], function (router) {
 
     runApplication = function (authenticated) {
         if (authenticated) {
-            window.location.hash = 'index';
+            router.navigate({route: '#index'});
+            router.fetchData();
         } else {
-            window.location.hash = 'login';
+            router.navigate({route: '#login'});
         }
         Backbone.history.start();
     };

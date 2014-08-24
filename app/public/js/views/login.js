@@ -17,9 +17,7 @@ define(['jquery', 'ko', 'text!templates/login.html'], function ($, ko, loginTemp
                         email: self.email(),
                         password: self.password()
                     }, function () {
-                        view.trigger('navigate', {
-                            route: '#index'
-                        });
+                        view.trigger('loggedIn');
                         self.validationFailed(false);
                     }).error(function () {
                         self.validationFailed(true);

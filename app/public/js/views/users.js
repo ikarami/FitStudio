@@ -1,7 +1,8 @@
 define(['jquery',
     'underscore',
     'ko',
-    'text!templates/users.html'], function ($, _, ko, usersTemplate) {
+    'collections/users',
+    'text!templates/users.html'], function ($, _, ko, usersCollection, usersTemplate) {
     var UsersView = Backbone.View.extend({
         el: $('#content'),
 
@@ -55,12 +56,9 @@ define(['jquery',
             this.render();
             this.bind();
 
-            $.get('/users/').success(function (data) {
-                console.log('Users data arrived');
-                _.forEach(data, function (course) {
-                    this.viewModel.users.push(course);
-                }, this);
-            }.bind(this));
+            usersCollection.toArray().forEach(function (user) {
+                this.viewModel.users.push(user.toJSON());
+            }, this);
         },
 
         render: function() {
