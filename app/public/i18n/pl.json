@@ -1,0 +1,12 @@
+{
+    "login": "Logowanie",
+    "login.unable": "<strong>Nie można się zalogować!</strong> Sprawdź podane dane i spróbuj jeszcze raz.",
+    "login.credentials": "Dane logowania",
+    "login.loginButton": "Zaloguj",
+    "login.signUp": "Stwórz konto",
+    "login.forgotPassword": "Reset hasła",
+    "login.email": "Email",
+    "login.password": "Hasło",
+    "login.placeholder.email": "Podaj email",
+    "login.placeholder.password": "Podaj hasło"
+}

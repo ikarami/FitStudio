@@ -1,5 +1,12 @@
 {
-    "test": "testLabel",
-    "test2": "test2",
-    "test.test": "test3"
+    "login": "Login",
+    "login.unable": "<strong>Unable to login!</strong> Check your credentials and try again.",
+    "login.credentials": "Credentials",
+    "login.loginButton": "Login",
+    "login.signUp": "Sign Up",
+    "login.forgotPassword": "Forgot Password?",
+    "login.email": "Email",
+    "login.password": "Password",
+    "login.placeholder.email": "Please enter email",
+    "login.placeholder.password": "Please enter password"
 }

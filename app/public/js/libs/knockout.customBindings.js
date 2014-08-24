@@ -17,17 +17,25 @@ define(['ko', 'json!i18n/en.json'], function (ko, en) {
 
     ko.bindingHandlers.translate = {
         update: function (element, valueAccessor) {
-            var result, value = valueAccessor();
+            var result, value, html, lang;
 
-            var language = ko.observable('en');
+            lang = 'en';
+
+            value = valueAccessor();
+            if (typeof value === 'object') {
+                html = value.html;
+                value = value.key;
+            }
+
+            var language = ko.observable(lang);
 
             result = ko.computed(function () {
                 var translation = '';
-                if (language() === 'en') {
+                if (language() === lang) {
                     if (en[value]) {
                         translation = en[value];
                     } else {
-                        console.warn('Missing label');
+                        console.warn('Missing label ' + value + ' for language + ' + language());
                         translation = value;
                     }
                 } else {
@@ -35,7 +43,39 @@ define(['ko', 'json!i18n/en.json'], function (ko, en) {
                 }
                 return translation;
             });
-            ko.bindingHandlers.text.update(element, result);
+            if (html){
+                ko.bindingHandlers.html.update(element, result);
+            } else {
+                ko.bindingHandlers.text.update(element, result);
+            }
         }
     };
+
+    ko.bindingHandlers.placeholder = {
+        update: function (element, valueAccessor) {
+            var result, value, html, lang;
+            value = valueAccessor();
+            lang = 'en';
+
+            var language = ko.observable(lang);
+
+            result = ko.computed(function () {
+                var translation = '';
+                if (language() === lang) {
+                    if (en[value]) {
+                        translation = en[value];
+                    } else {
+                        console.warn('Missing label ' + value + ' for language + ' + language());
+                        translation = value;
+                    }
+                } else {
+                    console.error('Multi not supported yet');
+                }
+                return {placeholder: translation};
+            });
+            ko.bindingHandlers.attr.update(element, result);
+        }
+    };
+
+    ko.virtualElements.allowedBindings.translate = true;
 });
