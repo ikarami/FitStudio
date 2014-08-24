@@ -6,7 +6,7 @@ require.config({
         underscore: 'libs/underscore',
         backbone: 'libs/backbone',
         text: 'libs/text',
-        json: 'libs/json',
+        locale: 'modules/locale',
         templates: '../templates',
         i18n: '../i18n',
         bootstrap: 'http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min'

@@ -8,5 +8,7 @@
     "login.email": "Email",
     "login.password": "Hasło",
     "login.placeholder.email": "Podaj email",
-    "login.placeholder.password": "Podaj hasło"
+    "login.placeholder.password": "Podaj hasło",
+
+    "test.modalTitle": "pierwszy tytul modala"
 }

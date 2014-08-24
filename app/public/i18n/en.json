@@ -8,5 +8,7 @@
     "login.email": "Email",
     "login.password": "Password",
     "login.placeholder.email": "Please enter email",
-    "login.placeholder.password": "Please enter password"
+    "login.placeholder.password": "Please enter password",
+
+    "test.modalTitle": "First Modal View Title"
 }

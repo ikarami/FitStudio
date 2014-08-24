@@ -5,11 +5,20 @@ define(['jquery',
         el: $('#content'),
 
         initialize: function () {
+            var view = this;
             var ViewModel = function () {
                 var self = this;
                 self.logout = function () {
                     $.get('/account/logout').always(function () {
                         window.location.hash = '#login';
+                    });
+                };
+                self.modal = function () {
+                    view.trigger('modal', {
+                        limit: 1,
+                        content: [1,3,5],
+                        type: 'list',
+                        title: 'test.modalTitle'
                     });
                 };
             };

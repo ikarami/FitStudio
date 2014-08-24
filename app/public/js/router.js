@@ -1,4 +1,5 @@
 define(['backbone',
+    'views/components/modal',
     'views/index',
     'views/login',
     'views/register',
@@ -18,6 +19,7 @@ define(['backbone',
     'views/userDetails',
     'views/editUser'
     ], function (Backobne,
+    ModalComponentView,
     IndexView,
     LoginView,
     RegisterView,
@@ -38,6 +40,8 @@ define(['backbone',
     EditUserView) {
     var FitStudioRouter = Backbone.Router.extend({
         currentView: null,
+
+        components: {},
 
         routes: {
             index: 'index',
@@ -64,12 +68,15 @@ define(['backbone',
             if (this.currentView !== null) {
                 this.currentView.undelegateEvents();
                 this.currentView.off('navigate');
+                this.currentView.off('modal');
                 if (this.currentView.onHide) {
                     this.currentView.onHide();
                 }
             }
             this.currentView = view;
             this.currentView.on('navigate', this.navigate, this);
+            this.currentView.on('modal', this.modal, this);
+
             if (this.currentView.show) {
                 // with ko and the stuff, it's show
                 this.currentView.show();
@@ -84,6 +91,16 @@ define(['backbone',
             delete params.route;
             this.params = params;
             window.location.hash = route;
+        },
+
+        modal: function (params) {
+            if (!this.components.modal) {
+                this.components.modal = new ModalComponentView();
+                this.components.modal.on('all', function (eventName, args) {
+                    this.currentView.trigger('eventName', args);
+                }, this);
+            }
+            this.components.modal.show(params);
         },
 
         index: function () {
