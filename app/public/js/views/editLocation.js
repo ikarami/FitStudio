@@ -1,27 +1,33 @@
 define(['jquery',
     'knockout',
-    'text!templates/editLocation.html'], function ($, ko, editLocationTemplate) {
+    'kb',
+    'collections/locations',
+    'models/location',
+    'text!templates/editLocation.html'], function ($, ko, kb, locationsCollection, LocationModel, editLocationTemplate) {
     var EditLocationView = Backbone.View.extend({
         el: $('#content'),
 
         initialize: function (args) {
             var view = this;
-            if (!args.data) {
-                args.data = {};
-            }
 
             var ViewModel = function () {
-                var self = this, _id;
+                var self = this, model;
 
                 self.addMode = (args.id === 'new') ? true : false;
-                self.name = ko.observable(args.data.name);
-                self.description = ko.observable(args.data.description);
-                self.location = ko.observable(args.data.location);
-                self.address = ko.observable(args.data.address);
-                self.street = ko.observable(args.data.street);
-                self.city = ko.observable(args.data.city);
-                self.code = ko.observable(args.data.code);
-                _id = args.data._id;
+
+                if (self.addMode) {
+                    model = new LocationModel();
+                } else {
+                    model = locationsCollection.findWhere({_id: args.id});
+                }
+
+                self.name = kb.observable(model, 'name');
+                self.description = kb.observable(model, 'description');
+                self.location = kb.observable(model, 'location');
+                self.address = kb.observable(model, 'address');
+                self.street = kb.observable(model, 'street');
+                self.city = kb.observable(model, 'city');
+                self.code = kb.observable(model, 'code');
 
                 self.goToList = function () {
                     view.trigger('navigate', {
@@ -30,39 +36,14 @@ define(['jquery',
                 };
 
                 self.add = function (event) {
-                    $.post('/locations/me', {
-                        name: self.name(),
-                        description: self.description(),
-                        location: self.location(),
-                        address: self.address(),
-                        street: self.street(),
-                        city: self.city(),
-                        code: self.code()
-                    }, function () {
-                        view.trigger('navigate', {
-                            route: '#locations'
-                        });
-                    });
+                    locationsCollection.add(model);
+                    model.save();
+                    self.goToList();
                 };
 
                 self.save = function (event) {
-                    $.ajax('/locations/' + _id, {
-                        method: 'PUT',
-                        data: {
-                            name: self.name(),
-                            description: self.description(),
-                            location: self.location(),
-                            address: self.address(),
-                            street: self.street(),
-                            city: self.city(),
-                            code: self.code()
-                        },
-                        success: function () {
-                            view.trigger('navigate', {
-                                route: '#locations'
-                            });
-                        }
-                    });
+                    model.save();
+                    self.goToList();
                 };
             };
             this.viewModel = new ViewModel();

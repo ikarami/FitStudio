@@ -1,7 +1,9 @@
 define(['jquery',
     'underscore',
     'knockout',
-    'text!templates/locations.html'], function ($, _, ko, locationsTemplate) {
+    'kb',
+    'collections/locations',
+    'text!templates/locations.html'], function ($, _, ko, kb, locationsCollection, locationsTemplate) {
     var LocationsView = Backbone.View.extend({
         el: $('#content'),
 
@@ -10,7 +12,7 @@ define(['jquery',
 
             ViewModel = function () {
                 var self = this;
-                self.locations = ko.observableArray();
+                self.locations = kb.collectionObservable(locationsCollection, {view_model: kb.ViewModel});
 
                 self.addLocation = function () {
                     view.trigger('navigate', {
@@ -26,19 +28,13 @@ define(['jquery',
 
                 self.edit = function () {
                     view.trigger('navigate', {
-                        route: '#locations/' + this._id,
-                        model: this
+                        route: '#locations/' + this._id()
                     });
                 };
 
                 self.remove = function () {
-                    $.ajax({
-                        method: 'DELETE',
-                        url: '/locations/'+this._id,
-                        success: function () {
-                            self.locations.remove(this);
-                        }.bind(this)
-                    });
+                    var model = locationsCollection.findWhere({_id: this._id()});
+                    model.destroy();
                 };
             };
             this.viewModel = new ViewModel();
@@ -47,13 +43,6 @@ define(['jquery',
         show: function () {
             this.render();
             this.bind();
-
-            $.get('/locations/').success(function (data) {
-                console.log('data arrived');
-                _.forEach(data, function (location) {
-                    this.viewModel.locations.push(location);
-                }, this);
-            }.bind(this));
         },
 
         render: function() {
