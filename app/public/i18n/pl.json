@@ -1,4 +1,7 @@
 {
+    "common.close": "Zamknij",
+    "common.saveChanges": "Zapisz zmiany",
+
     "login": "Logowanie",
     "login.unable": "<strong>Nie można się zalogować!</strong> Sprawdź podane dane i spróbuj jeszcze raz.",
     "login.credentials": "Dane logowania",
