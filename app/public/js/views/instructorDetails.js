@@ -1,25 +1,26 @@
 define(['jquery',
     'underscore',
     'knockout',
-    'text!templates/instructorDetails.html'], function ($, _, ko, instructorDetailsTemplate) {
+    'kb',
+    'collections/instructors',
+    'text!templates/instructorDetails.html'], function ($, _, ko, kb, instructorsCollection, instructorDetailsTemplate) {
     var UserDetailsView = Backbone.View.extend({
         el: $('#content'),
 
         initialize: function (args) {
-            var view = this;
-            if (!args.data) {
-                args.data = {};
-            }
+            var view = this, ViewModel;
 
-            var ViewModel = function () {
-                var self = this, _id;
+            ViewModel = function () {
+                var self = this, model;
 
-                self.firstName = ko.observable(args.data.firstName);
-                self.lastName = ko.observable(args.data.lastName);
-                self.email = ko.observable(args.data.email);
-                self.phone = ko.observable(args.data.phone);
-                self.classes = ko.observable(args.data.classes);
-                _id = args.data._id;
+                model = instructorsCollection.findWhere({_id: args.id});
+
+                self.firstName = kb.observable(model, 'firstName');
+                self.lastName = kb.observable(model, 'lastName');
+                self.email = kb.observable(model, 'email');
+                self.phone = kb.observable(model, 'phone');
+                self.classes = kb.observable(model, 'classes');
+
 
                 self.goToDashboard = function () {
                     view.trigger('navigate', {
@@ -35,28 +36,25 @@ define(['jquery',
 
                 self.edit = function () {
                     view.trigger('navigate', {
-                        route: '#instructors/' + _id + '/edit',
-                        model: {
-                            _id: _id,
-                            firstName:  self.firstName(),
-                            lastName:  self.lastName(),
-                            email:  self.email(),
-                            phone:  self.phone(),
-                            classes:  self.classes()
-                        }
+                        route: '#instructors/' + model.get('_id') + '/edit'
                     });
                 };
 
                 self.remove = function () {
-                    $.ajax({
-                        method: 'DELETE',
-                        url: '/instructors/' + _id,
-                        success: function () {
-                            view.trigger('navigate', {
-                                route: '#instructors'
-                            });
-                        }.bind(this)
-                    });
+                    var result, callback;
+                    callback = function () {
+                        view.trigger('navigate', {
+                            route: '#users'
+                        });
+                    };
+
+                    result = model.destroy();
+
+                    if (result) {
+                        result.always(callback);
+                    } else {
+                        callback();
+                    }
                 };
             };
             this.viewModel = new ViewModel();

@@ -1,7 +1,9 @@
 define(['jquery',
     'underscore',
     'knockout',
-    'text!templates/instructors.html'], function ($, _, ko, instructorsTemplate) {
+    'kb',
+    'collections/instructors',
+    'text!templates/instructors.html'], function ($, _, ko, kb, instructorsCollection, instructorsTemplate) {
     var InstructorsView = Backbone.View.extend({
         el: $('#content'),
 
@@ -10,7 +12,7 @@ define(['jquery',
 
             ViewModel = function () {
                 var self = this;
-                self.instructors = ko.observableArray();
+                self.instructors = kb.collectionObservable(instructorsCollection, {view_model: kb.ViewModel});
 
                 self.add = function () {
                     view.trigger('navigate', {
@@ -20,8 +22,7 @@ define(['jquery',
 
                 self.details = function () {
                     view.trigger('navigate', {
-                        route: '#instructors/' + this._id,
-                        model: this
+                        route: '#instructors/' + this._id()
                     });
                 };
 
@@ -31,21 +32,15 @@ define(['jquery',
                     });
                 };
 
-                self.remove = function () {
-                    $.ajax({
-                        method: 'DELETE',
-                        url: '/instructors/' + this._id,
-                        success: function () {
-                            self.instructors.remove(this);
-                        }.bind(this)
+                self.edit = function () {
+                    view.trigger('navigate', {
+                        route: '#instructors/' + this._id() + '/edit'
                     });
                 };
 
-                self.edit = function () {
-                    view.trigger('navigate', {
-                        route: '#instructors/' + this._id + '/edit',
-                        model: this
-                    });
+                self.remove = function () {
+                    var model = instructorsCollection.findWhere({_id: this._id()});
+                    model.destroy();
                 };
             };
             this.viewModel = new ViewModel();
@@ -54,13 +49,6 @@ define(['jquery',
         show: function () {
             this.render();
             this.bind();
-
-            $.get('/instructors/').success(function (data) {
-                console.log('instructors data arrived');
-                _.forEach(data, function (course) {
-                    this.viewModel.instructors.push(course);
-                }, this);
-            }.bind(this));
         },
 
         render: function() {

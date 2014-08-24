@@ -1,57 +1,58 @@
 define(['jquery',
     'knockout',
-    'text!templates/editInstructor.html'], function ($, ko, editInstructorTemplate) {
+    'kb',
+    'collections/instructors',
+    'models/instructor',
+    'text!templates/editInstructor.html'], function ($, ko, kb, instructorsCollection, InstructorModel, editInstructorTemplate) {
     var EditInstructorView = Backbone.View.extend({
         el: $('#content'),
 
         initialize: function (args) {
-            if (!args.data) {
-                args.data = {};
-            }
+            var view = this, ViewModel;
 
-            var ViewModel = function () {
-                var self = this, _id;
+            ViewModel = function () {
+                var self = this, model;
 
                 self.addMode = (args.id === 'new') ? true : false;
-                self.firstName = ko.observable(args.data.firstName);
-                self.lastName = ko.observable(args.data.lastName);
-                self.email = ko.observable(args.data.email);
-                self.phone = ko.observable(args.data.phone);
-                self.classes = ko.observable(args.data.classes ? args.data.classes.join(', ') : '');
-                _id = args.data._id;
+
+                if (self.addMode) {
+                    model = new InstructorModel();
+                } else {
+                    model = instructorsCollection.findWhere({_id: args.id});
+                }
+
+                self.firstName = kb.observable(model, 'firstName');
+                self.lastName = kb.observable(model, 'lastName');
+                self.email = kb.observable(model, 'email');
+                self.phone = kb.observable(model, 'phone');
+
+                self.classesList = kb.observable(model, {
+                    key: 'classes',
+                    read: function () {
+                        return model.get('classes') ? model.get('classes').join(', ') : '';
+                    },
+                    write: function (value) {
+                        model.set('classes', value.split(',').map(function (item) {
+                                return item.trim();
+                            }));
+                    }
+                }, this);
 
                 self.goToList = function () {
-                    window.location.hash='#instructors';
+                    view.trigger('navigate', {
+                        route: '#instructors'
+                    });
                 };
 
                 self.add = function (event) {
-                    $.post('/instructors/me', {
-                        firstName:  self.firstName(),
-                        lastName:  self.lastName(),
-                        email:  self.email(),
-                        phone:  self.phone(),
-                        classes:  self.classes().split(',')
-                    }, function () {
-                        window.location.hash='#instructors';
-                    });
+                    instructorsCollection.add(model);
+                    model.save();
+                    self.goToList();
                 };
 
                 self.save = function (event) {
-                    $.ajax('/instructors/' + _id, {
-                        method: 'PUT',
-                        data: {
-                            firstName:  self.firstName(),
-                            lastName:  self.lastName(),
-                            email:  self.email(),
-                            phone:  self.phone(),
-                            classes:  self.classes().split(',').map(function (item) {
-                                return item.trim();
-                            })
-                        },
-                        success: function () {
-                            window.location.hash='#instructors';
-                        }
-                    });
+                    model.save();
+                    self.goToList();
                 };
             };
             this.viewModel = new ViewModel();
