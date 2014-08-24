@@ -6,16 +6,17 @@
                 <h4 class="modal-title" data-bind="text: title" id="modalLabel"></h4>
             </div>
             <div class="modal-body">
-                <div data-bind="visible: controlType() === 'options', foreach: content">
+                <div class="alert alert-danger" role="alert" data-bind="visible: !withinLimit(), translate: 'modal.exceedsLimit'"></div>
+                <div data-bind="visible: controlType() === 'checkboxes', foreach: content">
                     <div class="checkbox"><label><input type="checkbox" data-bind="checked: $parent.selected, attr: {value: value}" /><!-- ko text: label --><!-- /ko --></label></div>
                 </div>
-                <div data-bind="visible: controlType() === 'checkboxes'">
-                    This will be a checkboxes list. Currently not supported
+                <div data-bind="visible: controlType() === 'options', foreach: content">
+                    <div class="radio"><label><input type="radio" name="modalRadio" data-bind="checked: $parent.selected, attr: {value: value}" /><!-- ko text: label --><!-- /ko --></label></div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal" data-bind="translate: 'common.close'"></button>
-                <button type="button" class="btn btn-primary" data-bind="translate: 'common.saveChanges', click: saveChanges"></button>
+                <button type="button" class="btn btn-primary" data-bind="translate: 'common.saveChanges', click: saveChanges, enable: withinLimit"></button>
             </div>
         </div>
     </div>

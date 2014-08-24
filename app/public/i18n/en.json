@@ -2,6 +2,8 @@
     "common.close": "Close",
     "common.saveChanges": "Save changes",
 
+    "modal.exceedsLimit": "You have selected too many options. Please deselect some to proceed.",
+
     "login": "Login",
     "login.unable": "<strong>Unable to login!</strong> Check your credentials and try again.",
     "login.credentials": "Credentials",

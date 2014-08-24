@@ -17,11 +17,19 @@ define(['jquery',
                 self.type = ko.observable('');
                 self.limit = ko.observable(0);
 
+                self.withinLimit = ko.computed(function () {
+                    var limit = self.limit();
+                    if (limit > 0 && self.selected().length > limit) {
+                        return false;
+                    }
+                    return true;
+                });
+
                 self.controlType = ko.computed(function () {
                     if (self.type() === 'list' && (self.limit() > 1 || self.limit() === 0)) {
-                        return 'options';
-                    } else if (self.type() === 'list' && self.limit() === 1) {
                         return 'checkboxes';
+                    } else if (self.type() === 'list' && self.limit() === 1) {
+                        return 'options';
                     }
                 });
 

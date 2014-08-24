@@ -16,6 +16,7 @@ define(['jquery',
                 self.modal = function () {
                     view.trigger('modal', {
                         limit: 2,
+                        selected: ['1', '3'],
                         content: [{value: 1, label: '1'},{value: 3, label: '3'},{value: 5, label: '5'}],
                         type: 'list',
                         title: 'test.modalTitle'
