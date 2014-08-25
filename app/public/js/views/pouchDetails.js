@@ -1,26 +1,27 @@
 define(['jquery',
     'underscore',
     'knockout',
-    'text!templates/pouchDetails.html'], function ($, _, ko, pouchDetailsTemplate) {
+    'kb',
+    'collections/pouches',
+    'text!templates/pouchDetails.html'], function ($, _, ko, kb, pouchesCollection, pouchDetailsTemplate) {
     var PouchDetailsView = Backbone.View.extend({
         el: $('#content'),
 
         initialize: function (args) {
             var view = this;
-            if (!args.data) {
-                args.data = {};
-            }
 
             var ViewModel = function () {
-                var self = this, _id;
+                var self = this, model;
 
-                self.name = ko.observable(args.data.name);
-                self.created = new Date(args.data.created);
-                self.lastUpdated = new Date(args.data.lastUpdated);
-                self.balance = ko.observable(args.data.balance);
-                self.owner = ko.observable(args.data.owner);
-                self.operations = ko.observableArray(args.data.operations);
-                _id = args.data._id;
+                model = pouchesCollection.findWhere({_id: args.id});
+
+                self.name = kb.observable(model, 'name');
+                self.created = new Date(model.get('created'));
+                self.lastUpdated = new Date(model.get('lastUpdated'));
+                self.balance = kb.observable(model, 'balance');
+                self.owner = kb.observable(model, 'owner');
+                self.operations = ko.observableArray(model.get('operations'));
+
 
                 self.who = ko.observable('Me');
                 self.comment = ko.observable('');
@@ -39,8 +40,8 @@ define(['jquery',
                 };
 
                 self.addOperation = function () {
-                    $.post('/pouches/' + _id + '/operations/', {
-                        operation: {who: self.who(), amount: self.amount()}
+                    $.post('/pouches/' + args.id + '/operations/', {
+                        operation: {who: self.who(), amount: self.amount(), comment: self.comment()}
                     });
                     self.operations.push({
                         who: self.who(),
@@ -56,29 +57,19 @@ define(['jquery',
 
                 self.edit = function () {
                     view.trigger('navigate', {
-                        route: '#pouches/' + _id + '/edit',
-                        model: {
-                            _id: _id,
-                            name: self.name(),
-                            created: self.created.getTime(),
-                            lastUpdated: self.lastUpdated.getTime(),
-                            balance: self.balance(),
-                            owner: self.owner(),
-                            operations: self.operations()
-                        }
+                        route: '#pouches/' + model.get('_id') + '/edit'
                     });
                 };
 
                 self.remove = function () {
-                    $.ajax({
-                        method: 'DELETE',
-                        url: '/pouches/' + _id,
-                        success: function () {
-                            view.trigger('navigate', {
-                                route: '#pouches'
-                            });
-                        }.bind(this)
-                    });
+                    var result, callback;
+                    result = model.destroy();
+
+                    if (result) {
+                        result.always(self.goToList);
+                    } else {
+                        self.goToList();
+                    }
                 };
             };
             this.viewModel = new ViewModel();

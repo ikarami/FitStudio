@@ -1,26 +1,32 @@
 define(['jquery',
     'knockout',
-    'text!templates/editPouches.html'], function ($, ko, editPouchesTemplate) {
+    'kb',
+    'collections/pouches',
+    'models/pouch',
+    'text!templates/editPouches.html'], function ($, ko, kb, pouchesCollection, PouchModel, editPouchesTemplate) {
     var EditPouchesView = Backbone.View.extend({
         el: $('#content'),
 
         initialize: function (args) {
-            var view = this;
-            if (!args.data) {
-                args.data = {};
-            }
+            var view = this, ViewModel;
 
-            var ViewModel = function () {
-                var self = this, _id;
+            ViewModel = function () {
+                var self = this, model;
 
                 self.addMode = (args.id === 'new') ? true : false;
-                self.name = ko.observable(args.data.name);
-                self.created = new Date(args.data.created);
-                self.lastUpdated = new Date(args.data.lastUpdated);
-                self.balance = ko.observable(args.data.balance);
-                self.owner = ko.observable(args.data.owner);
-                self.operations = ko.observableArray(args.data.operations);
-                _id = args.data._id;
+
+                if (self.addMode) {
+                    model = new PouchModel();
+                } else {
+                    model = pouchesCollection.findWhere({_id: args.id});
+                }
+
+                self.name = kb.observable(model, 'name');
+                self.created = new Date(model.get('created'));
+                self.lastUpdated = new Date(model.get('lastUpdated'));
+                self.balance = kb.observable(model, 'balance');
+                self.owner = kb.observable(model, 'owner');
+                self.operations = kb.observable(model, 'operations');
 
                 self.goToList = function () {
                     view.trigger('navigate', {
@@ -29,33 +35,14 @@ define(['jquery',
                 };
 
                 self.add = function (event) {
-                    $.post('/pouches/me', {
-                        name: self.name(),
-                        owner: self.owner(),
-                        balance: self.balance(),
-                        operations: self.operations()
-                    }, function () {
-                        view.trigger('navigate', {
-                            route: '#pouches'
-                        });
-                    });
+                    pouchesCollection.add(model);
+                    model.save();
+                    self.goToList();
                 };
 
                 self.save = function (event) {
-                    $.ajax('/pouches/' + _id, {
-                        method: 'PUT',
-                        data: {
-                            name: self.name(),
-                            owner: self.owner(),
-                            balance: self.balance(),
-                            operations: self.operations()
-                        },
-                        success: function () {
-                            view.trigger('navigate', {
-                                route: '#pouches'
-                            });
-                        }
-                    });
+                    model.save();
+                    self.goToList();
                 };
             };
             this.viewModel = new ViewModel();

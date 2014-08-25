@@ -21,7 +21,8 @@ define(['backbone',
     'collections/users',
     'collections/courses',
     'collections/instructors',
-    'collections/locations'
+    'collections/locations',
+    'collections/pouches'
     ], function (Backobne,
     ModalComponentView,
     IndexView,
@@ -45,7 +46,8 @@ define(['backbone',
     usersCollection,
     coursesCollection,
     instructorsCollection,
-    locationsCollection) {
+    locationsCollection,
+    pouchesCollection) {
     var instance, FitStudioRouter = Backbone.Router.extend({
         currentView: null,
 
@@ -116,6 +118,7 @@ define(['backbone',
             coursesCollection.fetch();
             instructorsCollection.fetch();
             locationsCollection.fetch();
+            pouchesCollection.fetch();
         },
 
         navigate: function (params) {
@@ -188,21 +191,11 @@ define(['backbone',
         },
 
         pouchDetails: function (id) {
-            var params = {};
-            if (this.params) {
-                params = this.params;
-                this.params = null;
-            }
-            this.changeView(new PouchDetailsView({id: id, data: params.model}));
+            this.changeView(new PouchDetailsView({id: id}));
         },
 
         editPouches: function (id) {
-            var params = {};
-            if (this.params) {
-                params = this.params;
-                this.params = null;
-            }
-            this.changeView(new EditPouchView({id: id, data: params.model}));
+            this.changeView(new EditPouchView({id: id}));
         },
 
         users: function () {

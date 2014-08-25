@@ -1,7 +1,9 @@
 define(['jquery',
     'underscore',
     'knockout',
-    'text!templates/pouches.html'], function ($, _, ko, pouchesTemplate) {
+    'kb',
+    'collections/pouches',
+    'text!templates/pouches.html'], function ($, _, ko, kb, pouchesCollection, pouchesTemplate) {
     var PouchesView = Backbone.View.extend({
         el: $('#content'),
 
@@ -23,9 +25,7 @@ define(['jquery',
 
             ViewModel = function () {
                 var self = this;
-                self.pouches = ko.observableArray();
-
-//$.post('/pouches/53f1313c4e4866b0186ca943/operations/', {operation: {who: 'ME', amount: 20.2}, amount: 20.2})
+                self.pouches = kb.collectionObservable(pouchesCollection, {view_model: kb.ViewModel});
 
                 self.addPouch = function () {
                     view.trigger('navigate', {
@@ -41,26 +41,19 @@ define(['jquery',
 
                 self.details = function () {
                     view.trigger('navigate', {
-                        route: '#pouches/' + this._id,
-                        model: this
+                        route: '#pouches/' + this._id()
                     });
                 };
 
                 self.edit = function () {
                     view.trigger('navigate', {
-                        route: '#pouches/' + this._id + '/edit',
-                        model: this
+                        route: '#pouches/' + this._id() + '/edit'
                     });
                 };
 
                 self.remove = function () {
-                    $.ajax({
-                        method: 'DELETE',
-                        url: '/pouches/'+this._id,
-                        success: function () {
-                            self.pouches.remove(this);
-                        }.bind(this)
-                    });
+                    var model = pouchesCollection.findWhere({_id: this._id()});
+                    model.destroy();
                 };
             };
             this.viewModel = new ViewModel();
@@ -69,15 +62,6 @@ define(['jquery',
         show: function () {
             this.render();
             this.bind();
-
-            $.get('/pouches/').success(function (data) {
-                console.log('data arrived');
-                _.forEach(data, function (pouch) {
-                    pouch.created = new Date(pouch.created).toString();
-                    pouch.lastUpdated = new Date(pouch.lastUpdated).toString();
-                    this.viewModel.pouches.push(pouch);
-                }, this);
-            }.bind(this));
         },
 
         render: function() {

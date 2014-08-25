@@ -4,11 +4,11 @@
             <strong data-bind="text: name"></strong> - <span data-bind="text: owner"></span>
         </p>
         <p>
-            <strong data-bind="text: balance"></strong> (based on <span data-bind="text: operations ? operations.length : 0"></span> operations)
+            <strong data-bind="text: balance"></strong> (based on <span data-bind="text: operations ? operations().length : 0"></span> operations)
         </p>
         <p>
-            Created: <span data-bind="text: created"></span><br />
-            Last updated: <span data-bind="text: lastUpdated"></span><br />
+            Created: <span data-bind="text: new Date(created())"></span><br />
+            Last updated: <span data-bind="text: new Date(lastUpdated())"></span><br />
         </p>
         <button class="btn btn-primary" data-bind="click: $parent.details">Show details</button>
         <button class="btn btn-primary" data-bind="click: $parent.edit">Edit</button>
