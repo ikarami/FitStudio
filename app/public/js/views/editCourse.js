@@ -2,13 +2,24 @@ define(['jquery',
     'knockout',
     'kb',
     'collections/courses',
+    'collections/instructors',
     'models/course',
-    'text!templates/editCourse.html'], function ($, ko, kb, coursesCollection, CourseModel, editCourseTemplate) {
+    'text!templates/editCourse.html'], function ($, ko, kb, coursesCollection, instructorsCollection, CourseModel, editCourseTemplate) {
     var EditCourseView = Backbone.View.extend({
         el: $('#content'),
 
         initialize: function (args) {
             var view = this, ViewModel;
+
+            view.on('save', function (args) {
+                console.log(args.selected);
+                this.viewModel.instructors(_.compact(args.selected.map(function (id) {
+                    var model = instructorsCollection.findWhere({_id: id});
+                    if (model) {
+                        return model.get('firstName') + ' ' + model.get('lastName');
+                    }
+                })));
+            });
 
             ViewModel = function () {
                 var self = this;
@@ -43,6 +54,16 @@ define(['jquery',
                     model.save();
                     self.goToList();
                 };
+
+                self.editInstructors = function () {
+                    view.trigger('modal', {
+                        limit: 2,
+                        selected: self.instructors(),
+                        content: instructorsCollection.map(function (item) {return {value: item.get('_id'), label: item.get('firstName') + ' ' + item.get('lastName')}; }),
+                        type: 'list',
+                        title: 'modal.selectInstructors'
+                    });
+                };
             };
             this.viewModel = new ViewModel();
         },
@@ -62,6 +83,7 @@ define(['jquery',
 
         onHide: function () {
             ko.cleanNode(this.el);
+            view.off('save');
         }
     });
     return EditCourseView;

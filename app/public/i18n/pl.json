@@ -3,6 +3,7 @@
     "common.saveChanges": "Zapisz zmiany",
 
     "modal.exceedsLimit": "Zaznaczono zbyt wiele opcji. Odznacz je, aby kontynuować.",
+    "modal.selectInstructors": "Wybierz instruktorów",
 
     "login": "Logowanie",
     "login.unable": "<strong>Nie można się zalogować!</strong> Sprawdź podane dane i spróbuj jeszcze raz.",

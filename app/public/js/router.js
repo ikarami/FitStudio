@@ -132,7 +132,7 @@ define(['backbone',
             if (!this.components.modal) {
                 this.components.modal = new ModalComponentView();
                 this.components.modal.on('all', function (eventName, args) {
-                    this.currentView.trigger('eventName', args);
+                    this.currentView.trigger(eventName, args);
                 }, this);
             }
             this.components.modal.show(params);

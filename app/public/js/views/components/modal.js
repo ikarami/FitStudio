@@ -38,6 +38,7 @@ define(['jquery',
                     view.trigger('save', {
                         selected: self.selected()
                     });
+                    view.$el.children().first().modal('hide');
                 };
                 self.title = ko.observable();
             };
