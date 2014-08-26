@@ -4,7 +4,10 @@
             <span data-bind="text: name"></span> - <span data-bind="text: shortName"></span>
         </p>
         <p>
-            <span data-bind="text: time"></span> - <span data-bind="text: instructors"></span>
+            <span data-bind="text: time"></span>
+            <ul data-bind="foreach: instructors">
+                <li data-bind="text: firstName + ' ' + lastName"></li>
+            </ul>
         </p>
         <button class="btn btn-primary" data-bind="click: $parent.details">Details</button>
         <button class="btn btn-primary" data-bind="click: $parent.edit">Edit</button>

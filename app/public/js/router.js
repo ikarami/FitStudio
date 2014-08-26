@@ -109,7 +109,7 @@ define(['backbone',
                     });
                 break;
                 default:
-                    console.warn('Router :: viewEventsDispatcher :: unknown event ' + eventName);
+                    console.log('Router :: viewEventsDispatcher :: event skipped ' + eventName);
             }
         },
 

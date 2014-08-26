@@ -13,11 +13,8 @@ define(['jquery',
 
             view.on('save', function (args) {
                 console.log(args.selected);
-                this.viewModel.instructors(_.compact(args.selected.map(function (id) {
-                    var model = instructorsCollection.findWhere({_id: id});
-                    if (model) {
-                        return model.get('firstName') + ' ' + model.get('lastName');
-                    }
+                model.set('instructors', _.compact(args.selected.map(function (id) {
+                    return instructorsCollection.findWhere({_id: id}).toJSON();
                 })));
             });
 
@@ -35,7 +32,14 @@ define(['jquery',
                 self.regularName = kb.observable(model, 'name');
                 self.shortName = kb.observable(model, 'shortName');
                 self.description = kb.observable(model, 'description');
-                self.instructors = kb.observable(model, 'instructors');
+
+                self.instructorsList = kb.observable(model, 'instructors');
+
+                /*self.instructors = ko.computed(function () {
+                    return self.instructorsList().map(function (instructor) {
+                        return instructor.firstName + ' ' + instructor.lastName;
+                    });
+                });*/
                 self.time = kb.observable(model, 'time');
 
                 self.goToList = function () {
@@ -58,7 +62,7 @@ define(['jquery',
                 self.editInstructors = function () {
                     view.trigger('modal', {
                         limit: 2,
-                        selected: self.instructors(),
+                        selected: _.compact(self.instructorsList().map(function (item) {return item && item._id; })),
                         content: instructorsCollection.map(function (item) {return {value: item.get('_id'), label: item.get('firstName') + ' ' + item.get('lastName')}; }),
                         type: 'list',
                         title: 'modal.selectInstructors'
@@ -83,7 +87,7 @@ define(['jquery',
 
         onHide: function () {
             ko.cleanNode(this.el);
-            view.off('save');
+            this.off('save');
         }
     });
     return EditCourseView;
