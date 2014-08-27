@@ -19,9 +19,9 @@
             Description:
             <input type="text" data-bind="value: description">
         </label>
-        <label>
+        <label data-bind="click: editInstructors">
             Instructors (click to edit):
-            <ul data-bind="foreach: instructorsList, click: editInstructors">
+            <ul data-bind="foreach: instructorsList, visible: instructorsList().length">
                 <li data-bind="text: firstName + ' ' + lastName"></li>
             </ul>
         </label>

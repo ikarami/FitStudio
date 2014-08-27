@@ -14,7 +14,8 @@ define(['jquery',
             view.on('save', function (args) {
                 console.log(args.selected);
                 model.set('instructors', _.compact(args.selected.map(function (id) {
-                    return instructorsCollection.findWhere({_id: id}).toJSON();
+                    var model = instructorsCollection.findWhere({_id: id});
+                    return model.toJSON();
                 })));
             });
 

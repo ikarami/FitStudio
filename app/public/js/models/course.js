@@ -6,8 +6,12 @@ define(['backbone'], function (Backbone) {
             name: '',
             shortName: '',
             description: '',
-            instructors: [],
-            time: ''
+            time: '',
+            startDate: -1,
+            endData: -1,
+            occurences: [],
+            users: [],
+            instructors: []
         },
         url: function () {
             // PUT for /courses/:id POST for /courses/me

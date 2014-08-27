@@ -8,8 +8,13 @@ module.exports = function (logger, mongoose) {
         name: {type: String},
         shortName: {type: String},
         description: {type: String},
+        time: {type: String},
+
+        startDate: {type: Number},
+        endDate: {type: Number},
+        occurences: {type: Array},
         instructors: {type: Array},
-        time: {type: String}
+        users: {type: Array}
     });
 
     Course = mongoose.model('Course', CourseSchema);
@@ -32,11 +37,15 @@ module.exports = function (logger, mongoose) {
         logger.log('Adding course ' + data.name);
         var course = new Course({
             accountId: data.accountId,
-            name: data.name,
-            shortName: data.shortName,
-            description: data.description,
-            instructors: data.instructors,
-            time: data.time
+            name: data.name || '',
+            shortName: data.shortName || '',
+            description: data.description || '',
+            time: data.time || '',
+            startDate: date.startDate || -1,
+            endData: date.endData || -1,
+            instructors: data.instructors || [],
+            users: data.users || [],
+            occurences: data.occurences || []
         });
 
         course.save(callback);
@@ -50,8 +59,12 @@ module.exports = function (logger, mongoose) {
                 name: data.name || '',
                 shortName: data.shortName || '',
                 description: data.description || '',
-                instructors: data.instructors || '',
-                time: data.time || ''
+                time: data.time || '',
+                startDate: date.startDate || -1,
+                endData: date.endData || -1,
+                instructors: data.instructors || [],
+                users: data.users || [],
+                occurences: data.occurences || []
             }, function (err, numberAffected) {
                 if (err) {
                     logger.error('Error occurred: ' + err);
