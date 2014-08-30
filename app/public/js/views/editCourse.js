@@ -28,6 +28,7 @@ define(['jquery',
                     model = new CourseModel();
                 } else {
                     model = coursesCollection.findWhere({_id: args.id});
+                    model.commit();
                 }
 
                 self.regularName = kb.observable(model, 'name');
@@ -43,7 +44,16 @@ define(['jquery',
                 });*/
                 self.time = kb.observable(model, 'time');
 
+                self.cleanModel = function () {
+                    if (model.isNew()) {
+                        model.destroy();
+                    } else {
+                        model.revert();
+                    }
+                };
+
                 self.goToList = function () {
+                    self.cleanModel();
                     view.trigger('navigate', {
                         route: '#courses'
                     });
@@ -51,11 +61,13 @@ define(['jquery',
 
                 self.add = function (event) {
                     coursesCollection.add(model);
+                    model.commit();
                     model.save();
                     self.goToList();
                 };
 
                 self.save = function (event) {
+                    model.commit();
                     model.save();
                     self.goToList();
                 };
