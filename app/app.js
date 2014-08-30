@@ -112,6 +112,7 @@ var FitStudio = function () {
 
         // Connect to the Database
         mongoose.connect('mongodb://fit4studio_test1:SecretPassword1@kahana.mongohq.com:10003/fit4studio_test1');
+        //mongoose.connect('mongodb://localhost/test');
 
         self.db = mongoose.connection;
         self.db.on('error', console.error.bind(console, 'DB connection error: '));

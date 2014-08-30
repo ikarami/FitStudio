@@ -41,8 +41,8 @@ module.exports = function (logger, mongoose) {
             shortName: data.shortName || '',
             description: data.description || '',
             time: data.time || '',
-            startDate: date.startDate || -1,
-            endData: date.endData || -1,
+            startDate: data.startDate || -1,
+            endData: data.endData || -1,
             instructors: data.instructors || [],
             users: data.users || [],
             occurences: data.occurences || []
@@ -60,8 +60,8 @@ module.exports = function (logger, mongoose) {
                 shortName: data.shortName || '',
                 description: data.description || '',
                 time: data.time || '',
-                startDate: date.startDate || -1,
-                endData: date.endData || -1,
+                startDate: data.startDate || -1,
+                endData: data.endData || -1,
                 instructors: data.instructors || [],
                 users: data.users || [],
                 occurences: data.occurences || []
