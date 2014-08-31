@@ -1,4 +1,6 @@
-define(['backbone'], function (Backbone) {
+define(['backbone', 'underscore'], function (Backbone, _) {
+    'use strict';
+
     var Model = Backbone.Model.extend({
         initialize: function () {
             this.set('previousState', {}, {silent: true});
@@ -14,7 +16,7 @@ define(['backbone'], function (Backbone) {
         },
 
         commit: function () {
-            fields = _.omit(this.toJSON(), ['previousState', 'dirty']);
+            var fields = _.omit(this.toJSON(), ['previousState', 'dirty']);
 
             this.set('previousState', fields, {silent: true});
             this.set('dirty', false, {silent: true});
@@ -36,7 +38,6 @@ define(['backbone'], function (Backbone) {
         isDirty: function () {
             return this.get('dirty') ? true : false;
         }
-
     });
 
     return Model;

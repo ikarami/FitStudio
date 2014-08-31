@@ -1,4 +1,6 @@
 module.exports = function (app, models) {
+    'use strict';
+
     app.get('/courses/', [app.authChecker], function (req, res) {
         var accountId = req.session.accountId;
         models.Course.findAll(accountId, function (courses) {

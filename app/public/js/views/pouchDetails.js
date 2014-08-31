@@ -1,9 +1,12 @@
 define(['jquery',
     'underscore',
+    'backbone',
     'knockout',
     'kb',
     'collections/pouches',
-    'text!templates/pouchDetails.html'], function ($, _, ko, kb, pouchesCollection, pouchDetailsTemplate) {
+    'text!templates/pouchDetails.html'], function ($, _, Backbone, ko, kb, pouchesCollection, pouchDetailsTemplate) {
+    'use strict';
+
     var PouchDetailsView = Backbone.View.extend({
         el: $('#content'),
 

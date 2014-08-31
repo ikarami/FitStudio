@@ -1,4 +1,6 @@
 module.exports = function (logger, mongoose) {
+    'use strict';
+
     var UserSchema, User, findAll, findById, add, edit;
 
     UserSchema = new mongoose.Schema({

@@ -1,4 +1,6 @@
 module.exports = function (logger, mongoose) {
+    'use strict';
+
     var crypto, CourseSchema, Course, findAll, findById, add, edit;
 
     crypto = require('crypto');

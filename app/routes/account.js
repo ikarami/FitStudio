@@ -1,4 +1,5 @@
 module.exports = function (app, models, passport) {
+    'use strict';
 
     app.post('/account/login', passport.authenticate('local'), function (req, res) {
         app.logger.log('login request successful');

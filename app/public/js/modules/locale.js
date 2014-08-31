@@ -2,6 +2,7 @@ define(['underscore',
     'backbone',
     'text!i18n/en.json',
     'text!i18n/pl.json'], function (_, Backbone, en, pl) {
+    'use strict';
     var locale, Locale;
 
     Locale = function () {

@@ -1,4 +1,6 @@
 module.exports = function (app, models) {
+    'use strict';
+
     app.get('/locations/', [app.authChecker], function (req, res) {
         var accountId = req.session.accountId;
         models.Location.findAll(accountId, function (locations) {

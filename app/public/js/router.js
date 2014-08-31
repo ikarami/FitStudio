@@ -23,7 +23,7 @@ define(['backbone',
     'collections/instructors',
     'collections/locations',
     'collections/pouches'
-    ], function (Backobne,
+    ], function (Backbone,
     ModalComponentView,
     IndexView,
     LoginView,
@@ -48,6 +48,7 @@ define(['backbone',
     instructorsCollection,
     locationsCollection,
     pouchesCollection) {
+    'use strict';
     var instance, FitStudioRouter = Backbone.Router.extend({
         currentView: null,
 

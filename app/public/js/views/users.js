@@ -1,9 +1,12 @@
 define(['jquery',
     'underscore',
+    'backbone',
     'knockout',
     'kb',
     'collections/users',
-    'text!templates/users.html'], function ($, _, ko, kb, usersCollection, usersTemplate) {
+    'text!templates/users.html'], function ($, _, Backbone, ko, kb, usersCollection, usersTemplate) {
+    'use strict';
+
     var UsersView = Backbone.View.extend({
         el: $('#content'),
 

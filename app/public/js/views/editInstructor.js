@@ -1,9 +1,12 @@
 define(['jquery',
+    'backbone',
     'knockout',
     'kb',
     'collections/instructors',
     'models/instructor',
-    'text!templates/editInstructor.html'], function ($, ko, kb, instructorsCollection, InstructorModel, editInstructorTemplate) {
+    'text!templates/editInstructor.html'], function ($, Backbone, ko, kb, instructorsCollection, InstructorModel, editInstructorTemplate) {
+    'use strict';
+
     var EditInstructorView = Backbone.View.extend({
         el: $('#content'),
 

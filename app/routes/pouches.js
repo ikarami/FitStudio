@@ -1,4 +1,6 @@
 module.exports = function (app, models) {
+    'use strict';
+
     app.get('/pouches/', [app.authChecker], function (req, res) {
         var accountId = req.session.accountId;
         models.Pouch.findAll(accountId, function (pouch) {

@@ -1,10 +1,14 @@
 define(['jquery',
+    'underscore',
+    'Backbone',
     'knockout',
     'kb',
     'collections/courses',
     'collections/instructors',
     'models/course',
-    'text!templates/editCourse.html'], function ($, ko, kb, coursesCollection, instructorsCollection, CourseModel, editCourseTemplate) {
+    'text!templates/editCourse.html'], function ($, _, Backbone, ko, kb, coursesCollection, instructorsCollection, CourseModel, editCourseTemplate) {
+    'use strict';
+
     var EditCourseView = Backbone.View.extend({
         el: $('#content'),
 
@@ -13,14 +17,14 @@ define(['jquery',
 
             view.on('save', function (args) {
                 console.log(args.selected);
-                model.set('instructors', _.compact(args.selected.map(function (id) {
+                view.viewModel.model.set('instructors', _.compact(args.selected.map(function (id) {
                     var model = instructorsCollection.findWhere({_id: id});
                     return _.pick(model.toJSON(), ['_id', 'firstName', 'lastName']);
                 })));
             });
 
             ViewModel = function () {
-                var self = this;
+                var self = this, model;
 
                 self.addMode = (args.id === 'new') ? true : false;
 
@@ -30,6 +34,7 @@ define(['jquery',
                     model = coursesCollection.findWhere({_id: args.id});
                     model.commit();
                 }
+                self.model = model;
 
                 self.regularName = kb.observable(model, 'name');
                 self.shortName = kb.observable(model, 'shortName');

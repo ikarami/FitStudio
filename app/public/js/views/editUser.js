@@ -1,9 +1,12 @@
 define(['jquery',
+    'backbone',
     'knockout',
     'kb',
     'collections/users',
     'models/user',
-    'text!templates/editUser.html'], function ($, ko, kb, usersCollection, UserModel, editUserTemplate) {
+    'text!templates/editUser.html'], function ($, Backbone, ko, kb, usersCollection, UserModel, editUserTemplate) {
+    'use strict';
+
     var EditUserView = Backbone.View.extend({
         el: $('#content'),
 

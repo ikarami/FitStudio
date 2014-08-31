@@ -1,6 +1,9 @@
 define(['jquery',
+    'backbone',
     'knockout',
-    'text!templates/index.html'], function ($, ko, indexTemplate) {
+    'text!templates/index.html'], function ($, Backbone, ko, indexTemplate) {
+    'use strict';
+
     var IndexView = Backbone.View.extend({
         el: $('#content'),
 

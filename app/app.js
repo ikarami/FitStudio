@@ -27,6 +27,7 @@ var mongoose = require('mongoose');
  *
  */
 var FitStudio = function () {
+    'use strict';
     // Scope
     var self = this;
 
@@ -210,7 +211,9 @@ var FitStudio = function () {
         // Import the routes
 
         fs.readdirSync(self.routesPath).forEach(function (file) {
-            if (file[0] === '.') return;
+            if (file[0] === '.') {
+                return;
+            }
             var routeName = file.substr(0, file.indexOf('.'));
             require('./routes/' + routeName)(app, self.models, passport);
         });

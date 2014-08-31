@@ -1,4 +1,6 @@
-define(['router'], function (router) {
+define(['router', 'jquery', 'backbone'], function (router, $, Backbone) {
+    'use strict';
+
     var initialize, checkLogin, runApplication;
     initialize = function () {
         checkLogin(runApplication);

@@ -1,4 +1,6 @@
 module.exports = function (logger, mongoose, nodemailer, config) {
+    'use strict';
+
     var crypto, AccountSchema, Account, registerCallback, changePassword, forgotPassword, login, register, findById;
 
     crypto = require('crypto');

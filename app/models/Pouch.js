@@ -1,4 +1,6 @@
 module.exports = function (logger, mongoose) {
+    'use strict';
+
     var PouchSchema, Pouch, findAll, findById, add, edit, addOperation;
 
     PouchSchema = new mongoose.Schema({

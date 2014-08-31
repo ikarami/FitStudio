@@ -1,14 +1,17 @@
 define(['jquery',
     'underscore',
+    'backbone',
     'knockout',
     'kb',
     'collections/locations',
-    'text!templates/locations.html'], function ($, _, ko, kb, locationsCollection, locationsTemplate) {
+    'text!templates/locations.html'], function ($, _, Backbone, ko, kb, locationsCollection, locationsTemplate) {
+    'use strict';
+
     var LocationsView = Backbone.View.extend({
         el: $('#content'),
 
         initialize: function () {
-            var viewModel, view = this;
+            var ViewModel, view = this;
 
             ViewModel = function () {
                 var self = this;

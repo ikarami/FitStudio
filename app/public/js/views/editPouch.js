@@ -3,7 +3,9 @@ define(['jquery',
     'kb',
     'collections/pouches',
     'models/pouch',
-    'text!templates/editPouches.html'], function ($, ko, kb, pouchesCollection, PouchModel, editPouchesTemplate) {
+    'text!templates/editPouches.html'], function ($, Backbone, ko, kb, pouchesCollection, PouchModel, editPouchesTemplate) {
+    'use strict';
+
     var EditPouchesView = Backbone.View.extend({
         el: $('#content'),
 

@@ -1,14 +1,17 @@
 define(['jquery',
     'underscore',
+    'backbone',
     'knockout',
     'kb',
     'collections/courses',
-    'text!templates/courses.html'], function ($, _, ko, kb, coursesCollection, coursesTemplate) {
+    'text!templates/courses.html'], function ($, _, Backbone, ko, kb, coursesCollection, coursesTemplate) {
+    'use strict';
+
     var CoursesView = Backbone.View.extend({
         el: $('#content'),
 
         initialize: function () {
-            var viewModel, view = this;
+            var ViewModel, view = this;
 
             ViewModel = function () {
                 var self = this;

@@ -1,9 +1,12 @@
 define(['jquery',
+    'backbone',
     'knockout',
     'kb',
     'collections/locations',
     'models/location',
-    'text!templates/editLocation.html'], function ($, ko, kb, locationsCollection, LocationModel, editLocationTemplate) {
+    'text!templates/editLocation.html'], function ($, Backbone, ko, kb, locationsCollection, LocationModel, editLocationTemplate) {
+    'use strict';
+
     var EditLocationView = Backbone.View.extend({
         el: $('#content'),
 

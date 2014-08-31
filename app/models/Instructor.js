@@ -1,4 +1,6 @@
 module.exports = function (logger, mongoose) {
+    'use strict';
+
     var InstructorSchema, Instructor, findAll, findById, add, edit;
 
     InstructorSchema = new mongoose.Schema({

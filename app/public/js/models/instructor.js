@@ -1,4 +1,5 @@
 define(['models/baseModel'], function (BaseModel) {
+    'use strict';
 
     var InstructorsModel = BaseModel.extend({
         idAttribute: '_id',

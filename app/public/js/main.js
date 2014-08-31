@@ -23,5 +23,7 @@ require.config({
 });
 
 require(['FitStudio', 'ko.customBindings', 'bootstrap'], function (FitStudio) {
+    'use strict';
+
     FitStudio.initialize();
 });

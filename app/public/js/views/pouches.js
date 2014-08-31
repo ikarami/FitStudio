@@ -1,9 +1,12 @@
 define(['jquery',
     'underscore',
+    'backbone',
     'knockout',
     'kb',
     'collections/pouches',
-    'text!templates/pouches.html'], function ($, _, ko, kb, pouchesCollection, pouchesTemplate) {
+    'text!templates/pouches.html'], function ($, _, Backbone, ko, kb, pouchesCollection, pouchesTemplate) {
+    'use strict';
+
     var PouchesView = Backbone.View.extend({
         el: $('#content'),
 
@@ -21,7 +24,7 @@ define(['jquery',
 // AN IDEA: simple uptime monitoring tools!!!
 
         initialize: function () {
-            var viewModel, view = this;
+            var ViewModel, view = this;
 
             ViewModel = function () {
                 var self = this;
