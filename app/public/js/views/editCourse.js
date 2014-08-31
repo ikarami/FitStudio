@@ -17,9 +17,11 @@ define(['jquery',
 
             view.on('save', function (args) {
                 console.log(args.selected);
-                view.viewModel.model.set('instructors', _.compact(args.selected.map(function (id) {
+                view.viewModel.instructorsList(_.compact(args.selected.map(function (id) {
                     var model = instructorsCollection.findWhere({_id: id});
-                    return _.pick(model.toJSON(), ['_id', 'firstName', 'lastName']);
+                    if (model) {
+                        return _.pick(model.toJSON(), ['_id', 'firstName', 'lastName']);
+                    }
                 })));
             });
 
@@ -42,11 +44,6 @@ define(['jquery',
 
                 self.instructorsList = kb.observable(model, 'instructors');
 
-                /*self.instructors = ko.computed(function () {
-                    return self.instructorsList().map(function (instructor) {
-                        return instructor.firstName + ' ' + instructor.lastName;
-                    });
-                });*/
                 self.time = kb.observable(model, 'time');
 
                 self.cleanModel = function () {
@@ -57,8 +54,10 @@ define(['jquery',
                     }
                 };
 
-                self.goToList = function () {
-                    self.cleanModel();
+                self.goToList = function (args) {
+                    if (!args || (args && args.clean !== false)) {
+                        self.cleanModel();
+                    }
                     view.trigger('navigate', {
                         route: '#courses'
                     });
@@ -68,13 +67,13 @@ define(['jquery',
                     coursesCollection.add(model);
                     model.commit();
                     model.save();
-                    self.goToList();
+                    self.goToList({clean: false});
                 };
 
                 self.save = function (event) {
                     model.commit();
                     model.save();
-                    self.goToList();
+                    self.goToList({clean: false});
                 };
 
                 self.editInstructors = function () {

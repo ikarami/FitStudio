@@ -6,8 +6,8 @@
 		<p>
 			<span data-bind="text: email"></span> - <span data-bind="text: phone"></span>
 		</p>
-		<ul class="list-group" data-bind="foreach: classes">
-			<li class="list-group-item" data-bind="text: $data"></li>
+		<ul class="list-group" data-bind="foreach: classes()">
+			<li class="list-group-item" data-bind="text: shortName"></li>
 		</ul>
 		<button class="btn btn-primary" data-bind="click: $parent.details">Details</button>
 		<button class="btn btn-primary" data-bind="click: $parent.edit">Edit</button>

@@ -9,6 +9,11 @@ define(['backbone', 'underscore'], function (Backbone, _) {
             this.on('change', this.changeHandler);
         },
 
+        save: function () {
+            this.trigger('save', this);
+            Backbone.Model.prototype.save.call(this);
+        },
+
         changeHandler: function (model) {
             if (_.without(_.keys(model.changedAttributes()), 'dirty', 'previousState').length > 0) {
                 this.set('dirty', true, {silent: true});

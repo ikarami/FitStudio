@@ -1,10 +1,20 @@
 define(['jquery',
+    'underscore',
     'backbone',
     'knockout',
     'kb',
+    'collections/courses',
     'collections/instructors',
     'models/instructor',
-    'text!templates/editInstructor.html'], function ($, Backbone, ko, kb, instructorsCollection, InstructorModel, editInstructorTemplate) {
+    'text!templates/editInstructor.html'], function ($,
+        _,
+        Backbone,
+        ko,
+        kb,
+        coursesCollection,
+        instructorsCollection,
+        InstructorModel,
+        editInstructorTemplate) {
     'use strict';
 
     var EditInstructorView = Backbone.View.extend({
@@ -12,6 +22,16 @@ define(['jquery',
 
         initialize: function (args) {
             var view = this, ViewModel;
+
+            view.on('save', function (args) {
+                console.log(args.selected);
+                view.viewModel.classesList(_.compact(args.selected.map(function (id) {
+                    var model = coursesCollection.findWhere({_id: id});
+                    if (model) {
+                        return _.pick(model.toJSON(), ['_id', 'name', 'shortName']);
+                    }
+                })));
+            });
 
             ViewModel = function () {
                 var self = this, model;
@@ -30,17 +50,7 @@ define(['jquery',
                 self.email = kb.observable(model, 'email');
                 self.phone = kb.observable(model, 'phone');
 
-                self.classesList = kb.observable(model, {
-                    key: 'classes',
-                    read: function () {
-                        return model.get('classes') ? model.get('classes').join(', ') : '';
-                    },
-                    write: function (value) {
-                        model.set('classes', value.split(',').map(function (item) {
-                                return item.trim();
-                            }));
-                    }
-                }, this);
+                self.classesList = kb.observable(model, 'classes');
 
                 self.cleanModel = function () {
                     if (model.isNew()) {
@@ -50,8 +60,10 @@ define(['jquery',
                     }
                 };
 
-                self.goToList = function () {
-                    self.cleanModel();
+                self.goToList = function (args) {
+                    if (!args || (args && args.clean !== false)) {
+                        self.cleanModel();
+                    }
                     view.trigger('navigate', {
                         route: '#instructors'
                     });
@@ -61,13 +73,22 @@ define(['jquery',
                     instructorsCollection.add(model);
                     model.commit();
                     model.save();
-                    self.goToList();
+                    self.goToList({clean: false});
                 };
 
                 self.save = function (event) {
                     model.commit();
                     model.save();
-                    self.goToList();
+                    self.goToList({clean: false});
+                };
+
+                self.editCourses = function () {
+                    view.trigger('modal', {
+                        selected: _.compact(self.classesList().map(function (item) {return item && item._id; })),
+                        content: coursesCollection.map(function (item) {return {value: item.get('_id'), label: item.get('name') + ' (' + item.get('shortName') + ')'}; }),
+                        type: 'list',
+                        title: 'modal.selectCourses'
+                    });
                 };
             };
             this.viewModel = new ViewModel();

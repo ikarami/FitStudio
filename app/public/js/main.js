@@ -8,7 +8,8 @@ require.config({
         underscore: 'libs/underscore',
         backbone: 'libs/backbone',
         text: 'libs/text',
-        locale: 'modules/locale',
+        locale: 'controllers/locale',
+        collectionsController: 'controllers/collections',
         templates: '../templates',
         i18n: '../i18n'
     },

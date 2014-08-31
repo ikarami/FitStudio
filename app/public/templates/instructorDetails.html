@@ -11,7 +11,7 @@
             <span data-bind="text: email"></span> - <span data-bind="text: phone"></span>
         </p>
         <ul class="list-group" data-bind="foreach: classes">
-            <li class="list-group-item" data-bind="text: $data"></li>
+            <li class="list-group-item" data-bind="text: shortName() + ' (' + name() + ')'"></li>
         </ul>
 
         <br />

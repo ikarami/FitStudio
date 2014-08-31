@@ -4,6 +4,7 @@
 
     "modal.exceedsLimit": "You have selected too many options. Please deselect some to proceed.",
     "modal.selectInstructors": "Please select instructors",
+    "modal.selectCourses": "Please select courses",
 
 
     "login": "Login",

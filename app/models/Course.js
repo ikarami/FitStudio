@@ -16,7 +16,9 @@ module.exports = function (logger, mongoose) {
         endDate: {type: Number},
         occurences: {type: Array},
         instructors: {type: Array},
-        users: {type: Array}
+        users: {type: Array},
+
+        private: {type: Boolean}
     });
 
     Course = mongoose.model('Course', CourseSchema);
@@ -47,7 +49,8 @@ module.exports = function (logger, mongoose) {
             endData: data.endData || -1,
             instructors: data.instructors || [],
             users: data.users || [],
-            occurences: data.occurences || []
+            occurences: data.occurences || [],
+            private: data.private || false
         });
 
         course.save(callback);
@@ -66,7 +69,8 @@ module.exports = function (logger, mongoose) {
                 endData: data.endData || -1,
                 instructors: data.instructors || [],
                 users: data.users || [],
-                occurences: data.occurences || []
+                occurences: data.occurences || [],
+                private: data.private || false
             }, function (err, numberAffected) {
                 if (err) {
                     logger.error('Error occurred: ' + err);
