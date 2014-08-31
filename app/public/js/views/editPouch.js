@@ -19,6 +19,7 @@ define(['jquery',
                     model = new PouchModel();
                 } else {
                     model = pouchesCollection.findWhere({_id: args.id});
+                    model.commit();
                 }
 
                 self.name = kb.observable(model, 'name');
@@ -28,7 +29,16 @@ define(['jquery',
                 self.owner = kb.observable(model, 'owner');
                 self.operations = kb.observable(model, 'operations');
 
+                self.cleanModel = function () {
+                    if (model.isNew()) {
+                        model.destroy();
+                    } else {
+                        model.revert();
+                    }
+                };
+
                 self.goToList = function () {
+                    self.cleanModel();
                     view.trigger('navigate', {
                         route: '#pouches'
                     });
@@ -36,11 +46,13 @@ define(['jquery',
 
                 self.add = function (event) {
                     pouchesCollection.add(model);
+                    model.commit();
                     model.save();
                     self.goToList();
                 };
 
                 self.save = function (event) {
+                    model.commit();
                     model.save();
                     self.goToList();
                 };

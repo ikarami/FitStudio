@@ -1,6 +1,6 @@
-define(['backbone'], function (Backbone) {
+define(['models/baseModel'], function (BaseModel) {
 
-    var InstructorsModel = Backbone.Model.extend({
+    var InstructorsModel = BaseModel.extend({
         idAttribute: '_id',
         defaults: {
             firstName: '',

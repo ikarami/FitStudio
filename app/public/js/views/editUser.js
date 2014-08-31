@@ -19,6 +19,7 @@ define(['jquery',
                     model = new UserModel();
                 } else {
                     model = usersCollection.findWhere({_id: args.id});
+                    model.commit();
                 }
 
                 self.firstName = kb.observable(model, 'firstName');
@@ -38,7 +39,16 @@ define(['jquery',
                     }
                 }, this);
 
+                self.cleanModel = function () {
+                    if (model.isNew()) {
+                        model.destroy();
+                    } else {
+                        model.revert();
+                    }
+                };
+
                 self.goToList = function () {
+                    self.cleanModel();
                     view.trigger('navigate', {
                         route: '#users'
                     });
@@ -46,11 +56,13 @@ define(['jquery',
 
                 self.add = function (event) {
                     usersCollection.add(model);
+                    model.commit();
                     model.save();
                     self.goToList();
                 };
 
                 self.save = function (event) {
+                    model.commit();
                     model.save();
                     self.goToList();
                 };

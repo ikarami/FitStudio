@@ -19,6 +19,7 @@ define(['jquery',
                     model = new LocationModel();
                 } else {
                     model = locationsCollection.findWhere({_id: args.id});
+                    model.commit();
                 }
 
                 self.name = kb.observable(model, 'name');
@@ -29,7 +30,16 @@ define(['jquery',
                 self.city = kb.observable(model, 'city');
                 self.code = kb.observable(model, 'code');
 
+                self.cleanModel = function () {
+                    if (model.isNew()) {
+                        model.destroy();
+                    } else {
+                        model.revert();
+                    }
+                };
+
                 self.goToList = function () {
+                    self.cleanModel();
                     view.trigger('navigate', {
                         route: '#locations'
                     });
@@ -37,11 +47,13 @@ define(['jquery',
 
                 self.add = function (event) {
                     locationsCollection.add(model);
+                    model.commit();
                     model.save();
                     self.goToList();
                 };
 
                 self.save = function (event) {
+                    model.commit();
                     model.save();
                     self.goToList();
                 };

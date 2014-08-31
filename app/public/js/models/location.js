@@ -1,6 +1,6 @@
-define(['backbone'], function (Backbone) {
+define(['models/baseModel'], function (BaseModel) {
 
-    var LocationModel = Backbone.Model.extend({
+    var LocationModel = BaseModel.extend({
         idAttribute: '_id',
         defaults: {
             name: '',

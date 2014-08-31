@@ -1,6 +1,6 @@
-define(['backbone'], function (Backbone) {
+define(['models/baseModel'], function (BaseModel) {
 
-    var PouchModel = Backbone.Model.extend({
+    var PouchModel = BaseModel.extend({
         idAttribute: '_id',
         defaults: {
             name: '',
