@@ -1,4 +1,5 @@
 define(['jquery',
+    'backbone',
     'knockout',
     'kb',
     'collections/pouches',

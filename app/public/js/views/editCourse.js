@@ -1,6 +1,6 @@
 define(['jquery',
     'underscore',
-    'Backbone',
+    'backbone',
     'knockout',
     'kb',
     'collections/courses',
