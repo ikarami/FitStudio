@@ -1,8 +1,8 @@
 require.config({
     paths: {
-        jquery: 'libs/jquery-2.1.1',
+        jquery: 'libs/jquery-2.1.4',
         bootstrap: 'libs/bootstrap.min',
-        knockout: 'libs/knockout-3.1.0',
+        knockout: 'libs/knockout-3.3.0',
         'ko.customBindings': 'libs/knockout.customBindings',
         kb: 'libs/knockback',
         underscore: 'libs/underscore',
