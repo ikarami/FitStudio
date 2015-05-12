@@ -14,10 +14,10 @@ var LocalStrategy = require('passport-local').Strategy;
 
 // express middlewere
 //var getRawBody = require('raw-body');
-var MemoryStore = require('connect').session.MemoryStore;
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
+var favicon = require('serve-favicon');
 
 // Data management
 var mongoose = require('mongoose');
@@ -98,7 +98,7 @@ var FitStudio = function () {
         // Removed 'SIGPIPE' from the list - bugz 852598.
         ['SIGHUP', 'SIGINT', 'SIGQUIT', 'SIGILL', 'SIGTRAP', 'SIGABRT',
          'SIGBUS', 'SIGFPE', 'SIGUSR1', 'SIGSEGV', 'SIGUSR2', 'SIGTERM'
-        ].forEach(function(element, index, array) {
+        ].forEach(function(element) {
             process.on(element, function() { self.terminator(element); });
         });
     };
@@ -145,6 +145,8 @@ var FitStudio = function () {
         app.logger.log('Views folder: ' + self.viewsPath);
         app.set('views', self.viewsPath);
         app.set('view options', {layout: false});
+        app.use(favicon(__dirname + '/public/favicon.ico'));
+
         // logging every request:
         app.use(morgan('combined', {
             stream: fs.createWriteStream(self.logsPath + 'access-combined.log' , {flags: 'a'})
@@ -155,10 +157,13 @@ var FitStudio = function () {
         app.use(bodyParser.json());
         app.use(session({
                 secret: 'FitStudio app secret',
-                store: new MemoryStore(),
-                saveUninitialized: true,
+                //store: new MemoryStore(),
+                saveUninitialized: true, // check if we need this when using passport -> docs says that it might not be here
                 resave: true,
-                cookie: { maxAge: 900000 }
+                cookie: {
+                    maxAge: 900000,
+                    secure: false // WARNING: SET IT TO TRUE ONCE MOVING TO PRODUCTION
+                }
             })
         );
         app.use(passport.initialize());
