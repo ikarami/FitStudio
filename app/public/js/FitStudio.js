@@ -1,4 +1,4 @@
-define(['router', 'jquery', 'backbone'], function (router, $, Backbone) {
+define(['router', 'jquery', 'backbone', 'controllers/session'], function (router, $, Backbone, sessionController) {
     'use strict';
 
     var initialize, checkLogin, runApplication;
@@ -7,15 +7,7 @@ define(['router', 'jquery', 'backbone'], function (router, $, Backbone) {
     };
 
     checkLogin = function (callback) {
-        $.ajax('/account/authenticated', {
-            method: 'get',
-            success: function () {
-                return callback (true);
-            },
-            error: function () {
-                return callback(false);
-            }
-        });
+        sessionController.checkLogin(callback);
     };
 
     runApplication = function (authenticated) {

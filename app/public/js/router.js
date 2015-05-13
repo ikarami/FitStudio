@@ -19,6 +19,7 @@ define(['backbone',
     'views/userDetails',
     'views/editUser',
     'collectionsController',
+    'controllers/session',
     'collections/users',
     'collections/courses',
     'collections/instructors',
@@ -45,6 +46,7 @@ define(['backbone',
     UserDetailsView,
     EditUserView,
     collectionsController,
+    sessionController,
     usersCollection,
     coursesCollection,
     instructorsCollection,
@@ -110,9 +112,10 @@ define(['backbone',
                     this.navigate({
                         route: '#index'
                     });
+                    sessionController.start();
                 break;
                 default:
-                    console.log('Router :: viewEventsDispatcher :: event skipped ' + eventName);
+                    console.log('Router :: viewEventsDispatcher :: event skipped "' + eventName + '"');
             }
         },
 

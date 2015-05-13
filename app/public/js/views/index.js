@@ -1,7 +1,8 @@
 define(['jquery',
     'backbone',
     'knockout',
-    'text!templates/index.html'], function ($, Backbone, ko, indexTemplate) {
+    'text!templates/index.html',
+    'controllers/session'], function ($, Backbone, ko, indexTemplate, sessionController) {
     'use strict';
 
     var IndexView = Backbone.View.extend({
@@ -12,9 +13,7 @@ define(['jquery',
             var ViewModel = function () {
                 var self = this;
                 self.logout = function () {
-                    $.get('/account/logout').always(function () {
-                        window.location.hash = '#login';
-                    });
+                    sessionController.logout();
                 };
                 self.modal = function () {
                     view.trigger('modal', {
