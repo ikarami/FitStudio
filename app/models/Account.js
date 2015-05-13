@@ -37,7 +37,7 @@ module.exports = function (logger, mongoose, nodemailer, config) {
         shaSum = crypto.createHash('sha256');
         shaSum.update(personData.password);
 
-        logger.log('Registering ' + personData.email);
+        logger.log('Account :: register :: registering ' + personData.email);
         user = new Account({
             email: personData.email,
             name: {
@@ -47,7 +47,7 @@ module.exports = function (logger, mongoose, nodemailer, config) {
             password: shaSum.digest('hex')
         });
         user.save(registerCallback);
-        logger.log('Save command was sent');
+        logger.log('Account :: register :: save command was sent');
     };
 
     changePassword = function (accountId, newPassword) {
@@ -67,7 +67,7 @@ module.exports = function (logger, mongoose, nodemailer, config) {
                 email: email
             }, function findAccount(err, doc) {
                 if (err) {
-                    logger.log('forgotPassword :: email is not related to any account');
+                    logger.log('Account :: forgotPassword :: email is not related to any account');
                 } else {
                     var smtpTransport = nodemailer.createTransport(config.mail);
                     if (!doc) {
@@ -94,7 +94,7 @@ module.exports = function (logger, mongoose, nodemailer, config) {
     };
 
     findById = function (ids, callback) {
-        logger.log('Account.findOne ' + ids._id);
+        logger.log('Account :: findOne :: ' + ids._id);
         Account.findOne({_id: ids._id}, function (err, docs) {
             callback(err, docs);
         });

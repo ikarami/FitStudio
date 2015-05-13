@@ -24,14 +24,14 @@ module.exports = function (logger, mongoose) {
     };
 
     findAll = function (accountId, callback) {
-        logger.log('Location.findAll ' + accountId);
+        logger.log('Location :: findAll ' + accountId);
         Location.find({accountId: accountId}, function (err, docs) {
             callback(docs);
         });
     };
 
     add = function (data, callback) {
-        logger.log('Adding Location ' + data.name + ' ' + data.location);
+        logger.log('Location :: add :: adding ' + data.name + ' ' + data.location);
         var location = new Location({
             accountId: data.accountId,
             name: data.name,
@@ -44,7 +44,7 @@ module.exports = function (logger, mongoose) {
         });
 
         location.save(callback);
-        logger.log('Save command was sent');
+        logger.log('Location :: add :: save command was sent');
     };
 
     edit = function (data, callback) {
@@ -58,12 +58,12 @@ module.exports = function (logger, mongoose) {
                 street: data.street || '',
                 city: data.city || '',
                 code: data.code || ''
-            }, function (err, numberAffected) {
+            }, function (err) {
                 if (err) {
-                    logger.error('Error occurred: ' + err);
+                    logger.error('Location :: edit :: error occurred: ' + err);
                     callback(500);
                 } else {
-                    logger.log('The number of updated documents was %d', numberAffected);
+                    logger.log('Location :: edit :: success');
                     callback(200);
                 }
             }
