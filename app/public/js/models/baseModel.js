@@ -9,9 +9,14 @@ define(['backbone', 'underscore'], function (Backbone, _) {
             this.on('change', this.changeHandler);
         },
 
-        save: function () {
-            this.trigger('save', this);
-            Backbone.Model.prototype.save.call(this);
+        save: function (previousState, options) {
+            console.log('save previousState ', previousState);
+            if (previousState) {
+                this.once('sync', function () {
+                    this.trigger('save', this, previousState);
+                }, this);
+            }
+            Backbone.Model.prototype.save.call(this, options);
         },
 
         changeHandler: function (model) {
@@ -21,10 +26,13 @@ define(['backbone', 'underscore'], function (Backbone, _) {
         },
 
         commit: function () {
-            var fields = _.omit(this.toJSON(), ['previousState', 'dirty']);
+            var fields, previousState;
+            previousState = this.get('previousState');
+            fields = _.omit(this.toJSON(), ['previousState', 'dirty']);
 
             this.set('previousState', fields, {silent: true});
             this.set('dirty', false, {silent: true});
+            return previousState;
         },
 
         revert: function () {
