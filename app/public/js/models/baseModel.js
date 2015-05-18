@@ -12,9 +12,13 @@ define(['backbone', 'underscore'], function (Backbone, _) {
         save: function (previousState, options) {
             console.log('save previousState ', previousState);
             if (previousState) {
-                this.once('sync', function () {
+                if (this.isNew()) {
+                    this.once('sync', function () {
+                        this.trigger('save', this, previousState);
+                    }, this);
+                } else {
                     this.trigger('save', this, previousState);
-                }, this);
+                }
             }
             Backbone.Model.prototype.save.call(this, options);
         },
