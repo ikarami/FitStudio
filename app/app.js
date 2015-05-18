@@ -161,7 +161,8 @@ var FitStudio = function () {
                 saveUninitialized: true, // check if we need this when using passport -> docs says that it might not be here
                 resave: true,
                 cookie: {
-                    maxAge: 900000,
+                    //maxAge: 900000, // WARNING: THIS WILL EXPIRE SESSION EVERY 15 MINS, THUS IT WILL BE CHANGE TO:
+                    maxAge: null, // browser session cookie
                     secure: false // WARNING: SET IT TO TRUE ONCE MOVING TO PRODUCTION
                 }
             })
