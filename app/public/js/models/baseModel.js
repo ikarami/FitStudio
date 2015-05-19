@@ -9,6 +9,12 @@ define(['backbone', 'underscore'], function (Backbone, _) {
             this.on('change', this.changeHandler);
         },
 
+        blacklist: ['previousState', 'dirty'],
+
+        toJSON: function() {
+            return _.omit(this.attributes, this.blacklist);
+        },
+
         save: function (previousState, options) {
             console.log('save previousState ', previousState);
             if (previousState) {
