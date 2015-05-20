@@ -1,6 +1,6 @@
 <div class="panel panel-primary">
     <div class="panel-heading">
-        <h1 class="panel-title">User details</h1>
+        <h1 class="panel-title" data-bind="translate: 'users.userDetails'"></h1>
     </div>
     <div class="panel-body">
 
@@ -16,11 +16,11 @@
 
         <br />
         <p>
-            <button class="btn btn-primary" data-bind="click: edit">Edit</button>
-            <button class="btn btn-danger" data-bind="click: remove">Remove</button>
+            <button class="btn btn-primary" data-bind="click: edit, translate: 'common.edit'"></button>
+            <button class="btn btn-danger" data-bind="click: remove, translate: 'common.remove'"></button>
             <br />
-            <button class="btn btn-default" data-bind="click: goToList">Go to list</button>
-            <button class="btn btn-default" data-bind="click: goToDashboard">Go to dashboard</button>
+            <button class="btn btn-default" data-bind="click: goToList, translate: 'common.goToList'"></button>
+            <button class="btn btn-default" data-bind="click: goToDashboard, translate: 'common.goToDashboard'"></button>
         </p>
     </div>
 </div>

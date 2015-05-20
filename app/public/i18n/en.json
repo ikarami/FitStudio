@@ -12,11 +12,41 @@
     "common.short": "Short",
     "common.regular": "Regular",
     "common.time": "Time",
+    "common.firstName": "First",
+    "common.lastName": "Last",
+    "common.personalDetails": "Personal details",
+    "common.email": "E-mail",
+    "common.phone": "Phone",
 
+    "common.owner": "Owner",
+    "common.balance": "Balance",
+    "common.created": "Created",
+    "common.lastUpdated": "Last updated",
+    "common.address": "Address",
+    "common.location": "Location",
+    "common.street": "Street",
+    "common.city": "City",
+    "common.code": "Code",
+
+    "common.basedOn": "based on",
+    "common.operations": "operations",
+
+    "common.classes": "Classes",
     "common.instructors": "Instructors",
     "common.locations": "Locations",
     "common.instructorsEditable": "Instructors (click to edit)",
     "common.locationsEditable": "Locations (click to edit)",
+    "common.classesEditable": "Classes (click to edit)",
+
+    "common.who": "Who",
+    "common.amount": "Amount",
+    "common.displayLogin": "Display login form",
+    "common.registerNow": "Register now",
+    "common.register": "Register",
+    "common.yourName": "Your Name",
+    "common.confirmEmail": "Confirm e-mail",
+    "common.password": "Password",
+    "common.confirmPassword": "Confirm password",
 
     "modal.exceedsLimit": "You have selected too many options. Please deselect some to proceed.",
     "modal.selectInstructors": "Please select instructors",
@@ -46,6 +76,38 @@
     "courses.saveCourse": "Save Course",
     "courses.details": "Course details",
     "courses.listOfAll": "Go to list of all courses",
+
+    "instructors.addInstructor": "Add Instructor",
+    "instructors.editInstructor": "Edit Instructor",
+    "instructors.saveInstructor": "Save Instructor",
+    "instructors.details": "Instructor details",
+    "instructors.listOfAll": "Go to list of all instructor",
+
+    "locations.addLocation": "Add location",
+    "locations.editLocation": "Edit location",
+    "locations.saveLocation": "Save location",
+    "locations.details": "Location details",
+    "locations.listOfAll": "Go to list of all locations",
+
+    "pouches.addPouch": "Add pouch",
+    "pouches.editPouch": "Edit pouch",
+    "pouches.savePouch": "Save pouch",
+    "pouches.details": "Pouch details",
+    "pouches.listOfAll": "Go to list of all pouches",
+
+    "resetPassword.title": "Forgotten password reset",
+    "resetPassword.successMessage1": "Link to a password reset form has been sent!",
+    "resetPassword.successMessage2": "Please check your email.",
+    "resetPassword.resetPassword": "Reset my password",
+
+    "users.classesList": "Classes (comma delimited)",
+    "users.addUser": "Add user",
+    "users.editUser": "Edit user",
+    "users.saveUser": "Save user",
+    "users.details": "User details",
+    "users.listOfAll": "Go to list of all users",
+
+    "operations.addOperation": "Add operation",
 
     "test.modalTitle": "First Modal View Title"
 }

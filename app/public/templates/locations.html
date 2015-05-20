@@ -6,12 +6,12 @@
         <p>
             <span data-bind="text: location"></span> (<span data-bind="text: address"></span>, <span data-bind="text: street"></span>, <span data-bind="text: city"></span><span data-bind="text: code"></span>)
         </p>
-        <button class="btn btn-primary" data-bind="click: $parent.edit">Edit</button>
-        <button class="btn btn-danger" data-bind="click: $parent.remove">Remove</button>
+        <button class="btn btn-primary" data-bind="click: $parent.edit, translate: 'common.edit'"></button>
+        <button class="btn btn-danger" data-bind="click: $parent.remove, translate: 'common.remove'"></button>
     </li>
 </ul>
 
 <p>
-    <button class="btn btn-primary" data-bind="click: addLocation">Add Location</button>
-    <button class="btn btn-default" data-bind="click: goToDashboard">Go to dashboard</button>
+    <button class="btn btn-primary" data-bind="click: addLocation, translate: 'locations.addLocation'"></button>
+    <button class="btn btn-default" data-bind="click: goToDashboard, translate: 'common.goToDashboard'"></button>
 </p>

@@ -1,6 +1,6 @@
 <div class="panel panel-primary">
     <div class="panel-heading">
-        <h1 class="panel-title">Pouch details</h1>
+        <h1 class="panel-title" data-bind="translate: 'pouches.details'"></h1>
     </div>
     <div class="panel-body">
 
@@ -8,51 +8,51 @@
             <strong data-bind="text: name"></strong> - <span data-bind="text: owner"></span>
         </p>
         <p>
-            <strong data-bind="text: balance"></strong> (based on <span data-bind="text: operations ? operations().length : 0"></span> operations)
+            <strong data-bind="text: balance"></strong> (<span data-bind="translate: 'common.basedOn'"></span> <span data-bind="text: operations ? operations().length : 0"></span> <span data-bind="translate: 'common.operations'"></span>)
         </p>
         <p>
-            Created: <span data-bind="text: created"></span><br />
-            Last updated: <span data-bind="text: lastUpdated"></span><br />
+            <span data-bind="translate: 'common.created'"></span>: <span data-bind="text: created"></span><br />
+            <span data-bind="translate: 'common.lastUpdated'"></span>: <span data-bind="text: lastUpdated"></span><br />
         </p>
 
         <ul class="list-group" data-bind="foreach: operations">
             <li class="list-group-item" data-bind="text: amount + ' (' + who + ') ' + ($data.comment || '')"></li>
         </ul>
 
-        <div> Add operation
+        <div><span data-bind="translate: 'operations.addOperation'"></span>
 
             <form role="form" class="form-horizontal">
                 <fieldset>
                     <label>
-                        Who:
+                        <span data-bind="translate: 'common.who'"></span>
                         <input type="text" class="form-control input-lg" placeholder="Who should be listed as author" name="who" data-bind="value: who">
                     </label>
 
                     <br />
 
                     <label>
-                        Description:
+                        <span data-bind="translate: 'common.description'"></span>
                         <input type="text" class="form-control input-lg" placeholder="Please enter description" name="comment" data-bind="value: comment">
                     </label>
                     <label>
-                        Amount:
+                        <span data-bind="translate: 'common.amount'"></span>
                         <input type="number" class="form-control input-lg" placeholder="Please enter amount" name="amount" data-bind="value: amount">
                     </label>
                 </fieldset>
                 <br />
                 <p>
-                    <button class="btn btn-primary btn-block" data-bind="click: addOperation">Add Operation</button>
+                    <button class="btn btn-primary btn-block" data-bind="click: addOperation, translate: 'operations.addOperation'"></button>
                 </p>
             </form>
         </div>
 
         <br />
         <p>
-            <button class="btn btn-primary" data-bind="click: edit">Edit</button>
-            <button class="btn btn-danger" data-bind="click: remove">Remove</button>
+            <button class="btn btn-primary" data-bind="click: edit, translate: 'common.edit'"></button>
+            <button class="btn btn-danger" data-bind="click: remove, translate: 'common.remove'"></button>
             <br />
-            <button class="btn btn-default" data-bind="click: goToList">Go to list</button>
-            <button class="btn btn-default" data-bind="click: goToDashboard">Go to dashboard</button>
+            <button class="btn btn-default" data-bind="click: goToList, translate: 'common.goToList'"></button>
+            <button class="btn btn-default" data-bind="click: goToDashboard, translate: 'common.goToDashboard'"></button>
         </p>
     </div>
 </div>

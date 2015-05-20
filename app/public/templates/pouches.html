@@ -4,19 +4,19 @@
             <strong data-bind="text: name"></strong> - <span data-bind="text: owner"></span>
         </p>
         <p>
-            <strong data-bind="text: balance"></strong> (based on <span data-bind="text: operations ? operations().length : 0"></span> operations)
+            <strong data-bind="text: balance"></strong> (<span data-bind="translate: 'common.basedOn'"></span> <span data-bind="text: operations ? operations().length : 0"></span> <span data-bind="translate: 'common.operations'"></span>)
         </p>
         <p>
-            Created: <span data-bind="text: new Date(created())"></span><br />
-            Last updated: <span data-bind="text: new Date(lastUpdated())"></span><br />
+            <span data-bind="translate: 'common.created'"></span>: <span data-bind="text: new Date(created())"></span><br />
+            <span data-bind="translate: 'common.lastUpdated'"></span>: <span data-bind="text: new Date(lastUpdated())"></span><br />
         </p>
-        <button class="btn btn-primary" data-bind="click: $parent.details">Show details</button>
-        <button class="btn btn-primary" data-bind="click: $parent.edit">Edit</button>
-        <button class="btn btn-danger" data-bind="click: $parent.remove">Remove</button>
+        <button class="btn btn-primary" data-bind="click: $parent.details, translate: 'common.details'"></button>
+        <button class="btn btn-primary" data-bind="click: $parent.edit, translate: 'common.edit'"></button>
+        <button class="btn btn-danger" data-bind="click: $parent.remove, translate: 'common.remove'"></button>
     </li>
 </ul>
 
 <p>
-    <button class="btn btn-primary" data-bind="click: addPouch">Add Pouch</button>
-    <button class="btn btn-default" data-bind="click: goToDashboard">Go to dashboard</button>
+    <button class="btn btn-primary" data-bind="click: addPouch, translate: 'pouches.addPouch'"></button>
+    <button class="btn btn-default" data-bind="click: goToDashboard, translate: 'common.goToDashboard'"></button>
 </p>

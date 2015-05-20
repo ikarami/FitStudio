@@ -1,40 +1,40 @@
-<h1 data-bind="visible: addMode">Add Instructor</h1>
-<h1 data-bind="visible: !addMode">Edit Instructor</h1>
+<h1 data-bind="visible: addMode, translate: 'instructors.addInstructor'"></h1>
+<h1 data-bind="visible: !addMode, translate: 'instructors.editInstructor'"></h1>
 
 <form name="addInstructor">
     <fieldset>
-        <legend>Name</legend>
+        <legend data-bind="translate: 'common.name'"></legend>
         <label>
-            First:
+            <span data-bind="translate: 'common.firstName'"></span>
             <input type="text" data-bind="value: firstName">
         </label>
         <label>
-            Last:
+            <span data-bind="translate: 'common.lastName'"></span>
             <input type="text" data-bind="value: lastName">
         </label>
     </fieldset>
     <fieldset>
-        <legend>Personal details</legend>
+        <legend data-bind="translate: 'common.personalDetails'"></legend>
         <label>
-            Email:
+            <span data-bind="translate: 'common.email'"></span>
             <input type="email" data-bind="value: email">
         </label>
         <label>
-            phone:
+            <span data-bind="translate: 'common.phone'"></span>
             <input type="number" data-bind="value: phone">
         </label>
     </fieldset>
     <fieldset>
         <label data-bind="click: editCourses">
-            Classes (click to edit):
+            <span data-bind="translate: 'common.classesEditable'"></span>
             <ul data-bind="foreach: classesList, visible: classesList().length">
                 <li data-bind="text: shortName + ' (' + name + ')'"></li>
             </ul>
         </label>
     </fieldset>
     <p>
-        <button class="btn btn-success" data-bind="click: add, visible: addMode">Add Instructor</button>
-        <button class="btn btn-success" data-bind="click: save, visible: !addMode">Save Instructor</button>
-        <button class="btn btn-default" data-bind="click: goToList">Go to list of all instructors</button>
+        <button class="btn btn-success" data-bind="click: add, visible: addMode, translate: 'instructors.addInstructor'"></button>
+        <button class="btn btn-success" data-bind="click: save, visible: !addMode, translate: 'instructors.saveInstructor'"></button>
+        <button class="btn btn-default" data-bind="click: goToList, translate: 'instructors.listOfAll'"></button>
     </p>
 </form>

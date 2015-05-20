@@ -9,13 +9,13 @@
 		<ul class="list-group" data-bind="foreach: classes()">
 			<li class="list-group-item" data-bind="text: shortName"></li>
 		</ul>
-		<button class="btn btn-primary" data-bind="click: $parent.details">Details</button>
-		<button class="btn btn-primary" data-bind="click: $parent.edit">Edit</button>
-		<button class="btn btn-danger"data-bind="click: $parent.remove">Remove</button>
+		<button class="btn btn-primary" data-bind="click: $parent.details, translate: 'common.details'"></button>
+		<button class="btn btn-primary" data-bind="click: $parent.edit, translate: 'common.edit'"></button>
+		<button class="btn btn-danger"data-bind="click: $parent.remove, translate: 'common.remove'"></button>
 	</li>
 </ul>
 
 <p>
-	<button class="btn btn-primary" data-bind="click: add">Add Instructor</button>
-	<button class="btn btn-default" data-bind="click: goToDashboard">Go to dashboard</button>
+	<button class="btn btn-primary" data-bind="click: add, translate: 'instructors.addInstructor'"></button>
+	<button class="btn btn-default" data-bind="click: goToDashboard, translate: 'common.goToDashboard'"></button>
 </p>

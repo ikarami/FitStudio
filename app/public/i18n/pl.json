@@ -12,11 +12,41 @@
     "common.short": "Skrócona",
     "common.regular": "Pełna",
     "common.time": "Czas",
+    "common.firstName": "Imię",
+    "common.lastName": "Nazwisko",
+    "common.personalDetails": "Dane osobowe",
+    "common.email": "E-mail",
+    "common.phone": "Telefon",
 
+    "common.owner": "Właściciel",
+    "common.balance": "Bilans",
+    "common.created": "Utworzono",
+    "common.lastUpdated": "Ostatnio aktualizowano",
+    "common.address": "Adres",
+    "common.location": "Lokalizacja",
+    "common.street": "Ulica",
+    "common.city": "Miasto",
+    "common.code": "Kod pocztowy",
+
+    "common.basedOn": "bazując na",
+    "common.operations": "operacjach",
+
+    "common.classes": "Zajęcia",
     "common.instructors": "Instruktorzy",
     "common.locations": "Lokalizacje",
     "common.instructorsEditable": "Instruktorzy (kliknij by edytować)",
     "common.locationsEditable": "Lokalizacje (kliknij by edytować)",
+    "common.classesEditable": "Zajęcia (kliknij by edytować)",
+
+    "common.who": "Kto",
+    "common.amount": "Kwota",
+    "common.displayLogin": "Wyświetl formularz logowania",
+    "common.registerNow": "Zarejestuj się już teraz",
+    "common.register": "Zarejestuj się",
+    "common.yourName": "Twoje dane",
+    "common.confirmEmail": "Potwierdź e-mail",
+    "common.password": "Hasło",
+    "common.confirmPassword": "Potwierdź hasło",
 
     "modal.exceedsLimit": "Zaznaczono zbyt wiele opcji. Odznacz je, aby kontynuować.",
     "modal.selectInstructors": "Wybierz instruktorów",
@@ -41,11 +71,43 @@
     "index.pouches": "Lista sakiewek",
     "index.users": "Lista użytkowników",
 
-    "courses.addCourse": "Utwórz nowy kurs",
+    "courses.addCourse": "Dodaj nowy kurs",
     "courses.editCourse": "Edycja kursu",
     "courses.saveCourse": "Zapisz zmiany",
     "courses.details": "Detale kursu",
     "courses.listOfAll": "Idź do listy kursów",
+
+    "instructors.addInstructor": "Dodaj nowego instruktora",
+    "instructors.editInstructor": "Edycja instruktora",
+    "instructors.saveInstructor": "Zapisz zmiany",
+    "instructors.details": "Detale kursu",
+    "instructors.listOfAll": "Idź do listy instruktorów",
+
+    "locations.addLocation": "Dodaj nową lokalizację",
+    "locations.editLocation": "Edycja lokalizacji",
+    "locations.saveLocation": "Zapisz zmiany",
+    "locations.details": "Detale lokalizacji",
+    "locations.listOfAll": "Idź do listy lokalizacji",
+
+    "pouches.addPouch": "Dodaj sakiewkę",
+    "pouches.editPouch": "Edytuj sakiewkę",
+    "pouches.savePouch": "Zapisz zmiany",
+    "pouches.details": "Detale sakiewki",
+    "pouches.listOfAll": "Idź do listy sakiewek",
+
+    "resetPassword.title": "Reset zapomnianego hasła",
+    "resetPassword.successMessage1": "Wiadomość zawierająca link do formularza resetującego hasło została wysłana!",
+    "resetPassword.successMessage2": "Prosimy o sprawdzenie Państwa skrzynki emailowej.",
+    "resetPassword.resetPassword": "Zresetuj moje hasło",
+
+    "users.classesList": "Zajęcia (oddzielone przecinkiem)",
+    "users.addUser": "Dodaj użytkownika",
+    "users.editUser": "Edytuj użytkownika",
+    "users.saveUser": "Zapisz zmiany",
+    "users.details": "Detale użytkownika",
+    "users.listOfAll": "Idź do listy użytkowników",
+
+    "operations.addOperation": "Dodaj operację",
 
     "test.modalTitle": "pierwszy tytul modala"
 }

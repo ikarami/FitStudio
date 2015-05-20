@@ -1,6 +1,6 @@
 <div class="panel panel-primary">
     <div class="panel-heading">
-        <h1 class="panel-title">Register</h1>
+        <h1 class="panel-title" data-bind="translate: 'common.register'"></h1>
     </div>
 
     <div class="panel-body">
@@ -9,46 +9,46 @@
         </div>
         <form>
             <fieldset>
-                <legend>Your Name</legend>
+                <legend data-bind="translate: 'common.yourName'"></legend>
                 <label>
-                    First:
+                    <span data-bind="translate: 'common.firstName'"></span>
                     <input type="text" class="form-control input-lg" data-bind="value: firstName">
                 </label>
                 <label>
-                    Last:
+                    <span data-bind="translate: 'common.lastName'"></span>
                     <input type="text" class="form-control input-lg" data-bind="value: lastName">
                 </label>
             </fieldset>
             <fieldset>
-                <legend>E-mail</legend>
+                <legend data-bind="translate: 'common.email'"></legend>
                 <label>
-                    E-mail:
+                    <span data-bind="translate: 'common.email'"></span>
                     <input type="email" name="email" class="form-control input-lg" data-bind="value: email">
                 </label>
                 <label>
-                    Confirm e-mail:
+                    <span data-bind="translate: 'common.confirmEmail'"></span>
                     <input type="email" name="cemail" class="form-control input-lg" data-bind="value: cemail">
                 </label>
             </fieldset>
             <fieldset>
-                <legend>Password</legend>
+                <legend data-bind="translate: 'common.password'"></legend>
                 <label>
-                    Password:
+                    <span data-bind="translate: 'common.password'"></span>
                     <input type="password" name="password" class="form-control input-lg" data-bind="value: password">
                 </label>
                 <label>
-                    Confirm Password:
+                    <span data-bind="translate: 'common.confirmPassword'"></span>
                     <input type="password" name="cpassword" class="form-control input-lg" data-bind="value: cpassword">
                 </label>
             </fieldset>
             <br />
             <p>
-                <button class="btn btn-primary btn-block" data-bind="click: register">Register now</button>
+                <button class="btn btn-primary btn-block" data-bind="click: register, translate: 'common.registerNow'"></button>
             </p>
         </form>
         <br />
         <div class="list-group">
-            <a class="list-group-item" href="#login">Display login form</a>
+            <a class="list-group-item" href="#login" data-bind="translate: 'common.displayLogin'"></a>
         </div>
     </div>
 </div>

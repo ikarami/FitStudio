@@ -1,44 +1,44 @@
-<h1 data-bind="visible: addMode">Add location</h1>
-<h1 data-bind="visible: !addMode">Edit location</h1>
+<h1 data-bind="visible: addMode, translate: 'locations.addLocation'"></h1>
+<h1 data-bind="visible: !addMode, translate: 'locations.editLocation'"></h1>
 
 <form name="addLocation">
     <fieldset>
-        <legend>Location details</legend>
+        <legend data-bind="translate: 'locations.details'"></legend>
         <label>
-            Name:
+            <span data-bind="translate: 'common.name'"></span>
             <input type="text" data-bind="value: name">
         </label>
         <label>
-            Description:
+            <span data-bind="translate: 'common.description'"></span>
             <input type="text" data-bind="value: description">
         </label>
     </fieldset>
     <fieldset>
-        <legend>Address</legend>
+        <legend data-bind="translate: 'common.address'"></legend>
         <label>
-            Location:
+            <span data-bind="translate: 'common.location'"></span>
             <input type="text" data-bind="value: location">
         </label>
         <label>
-            Address:
+            <span data-bind="translate: 'common.address'"></span>
             <input type="text" data-bind="value: address">
         </label>
         <label>
-            Street:
+            <span data-bind="translate: 'common.street'"></span>
             <input type="text" data-bind="value: street">
         </label>
         <label>
-            City:
+            <span data-bind="translate: 'common.city'"></span>
             <input type="text" data-bind="value: city">
         </label>
         <label>
-            Code:
+            <span data-bind="translate: 'common.code'"></span>
             <input type="text" data-bind="value: code">
         </label>
     </fieldset>
     <p>
-        <button class="btn btn-success" data-bind="click: add, visible: addMode">Add location</button>
-        <button class="btn btn-success" data-bind="click: save, visible: !addMode">Save location</button>
-        <button class="btn btn-default" data-bind="click: goToList">Go to list of all locations</button>
+        <button class="btn btn-success" data-bind="click: add, visible: addMode, translate: 'locations.addLocation'"></button>
+        <button class="btn btn-success" data-bind="click: save, visible: !addMode, translate: 'locations.saveLocation'"></button>
+        <button class="btn btn-default" data-bind="click: goToList, translate: 'locations.listOfAll'"></button>
     </p>
 </form>

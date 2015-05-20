@@ -1,6 +1,6 @@
 <div class="panel panel-primary">
     <div class="panel-heading">
-        <h1 class="panel-title">Instructor details</h1>
+        <h1 class="panel-title" data-bind="translate: 'instructors.details'"></h1>
     </div>
     <div class="panel-body">
 
@@ -11,16 +11,16 @@
             <span data-bind="text: email"></span> - <span data-bind="text: phone"></span>
         </p>
         <ul class="list-group" data-bind="foreach: classes">
-            <li class="list-group-item" data-bind="text: shortName() + ' (' + name() + ')'"></li>
+            <li class="list-group-item" data-bind="text: shortName + ' (' + name + ')'"></li>
         </ul>
 
         <br />
         <p>
-            <button class="btn btn-primary" data-bind="click: edit">Edit</button>
-            <button class="btn btn-danger" data-bind="click: remove">Remove</button>
+            <button class="btn btn-primary" data-bind="click: edit, translate: 'common.edit'"></button>
+            <button class="btn btn-danger" data-bind="click: remove, translate: 'common.remove'"></button>
             <br />
-            <button class="btn btn-default" data-bind="click: goToList">Go to list</button>
-            <button class="btn btn-default" data-bind="click: goToDashboard">Go to dashboard</button>
+            <button class="btn btn-default" data-bind="click: goToList, translate: 'common.goToList'"></button>
+            <button class="btn btn-default" data-bind="click: goToDashboard, translate: 'common.goToDashboard'"></button>
         </p>
     </div>
 </div>
