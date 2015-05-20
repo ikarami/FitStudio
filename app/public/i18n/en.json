@@ -8,9 +8,15 @@
     "common.goToList": "Go to list",
     "common.goToDashboard": "Go to dashboard",
     "common.description": "Description",
+    "common.name": "Name",
+    "common.short": "Short",
+    "common.regular": "Regular",
+    "common.time": "Time",
 
     "common.instructors": "Instructors",
     "common.locations": "Locations",
+    "common.instructorsEditable": "Instructors (click to edit)",
+    "common.locationsEditable": "Locations (click to edit)",
 
     "modal.exceedsLimit": "You have selected too many options. Please deselect some to proceed.",
     "modal.selectInstructors": "Please select instructors",
@@ -36,7 +42,10 @@
     "index.users": "List of all your users",
 
     "courses.addCourse": "Add Course",
+    "courses.editCourse": "Edit Course",
+    "courses.saveCourse": "Save Course",
     "courses.details": "Course details",
+    "courses.listOfAll": "Go to list of all courses",
 
     "test.modalTitle": "First Modal View Title"
 }

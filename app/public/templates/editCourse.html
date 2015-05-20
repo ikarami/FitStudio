@@ -1,47 +1,48 @@
-<h1 data-bind="visible: addMode">Add course</h1>
-<h1 data-bind="visible: !addMode">Edit course</h1>
+<h1 data-bind="visible: addMode, translate: 'courses.addCourse'"></h1>
+<h1 data-bind="visible: !addMode, translate: 'courses.editCourse'"></h1>
 
 <form name="addCourse">
     <fieldset>
-        <legend>Name</legend>
+        <legend data-bind="translate: 'common.name'"></legend>
         <label>
-            Short:
+            <span data-bind="translate: 'common.short'"></span>
             <input type="text" data-bind="value: shortName">
         </label>
         <label>
-            Regular:
+            <span data-bind="translate: 'common.regular'"></span>
             <input type="text" data-bind="value: regularName">
         </label>
     </fieldset>
     <fieldset>
-        <legend>Description</legend>
+        <legend data-bind="translate: 'common.description'"></legend>
         <label>
-            Description:
+            <span data-bind="translate: 'common.description'"></span>
             <input type="text" data-bind="value: description">
         </label><br/>
         <label data-bind="click: editInstructors">
-            Instructors (click to edit):
+            <span data-bind="translate: 'common.instructorsEditable'"></span>
             <ul data-bind="foreach: instructorsList, visible: instructorsList().length">
                 <li data-bind="text: firstName + ' ' + lastName"></li>
             </ul>
         </label><br/>
         <label data-bind="click: editLocations">
-            Locations (click to edit):
+            <span data-bind="translate: 'common.description'"></span>
+            <span data-bind="translate: 'common.instructorsEditable'"></span>
             <ul data-bind="foreach: locationsList, visible: locationsList().length">
                 <li data-bind="text: name + ' (' + location + ')'"></li>
             </ul>
         </label>
     </fieldset>
     <fieldset>
-        <legend>time</legend>
+        <legend data-bind="translate: 'coommon.time'"></legend>
         <label>
-            time:
+            <span data-bind="translate: 'coommon.time'"></span>
             <input type="string" data-bind="value: time">
         </label>
     </fieldset>
     <p>
-        <button class="btn btn-success" data-bind="click: add, visible: addMode">Add course</button>
-        <button class="btn btn-success" data-bind="click: save, visible: !addMode">Save course</button>
-        <button class="btn btn-default" data-bind="click: goToList">Go to list of all courses</button>
+        <button class="btn btn-success" data-bind="click: add, visible: addMode, translate: 'courses.addCourse'"></button>
+        <button class="btn btn-success" data-bind="click: save, visible: !addMode, translate: 'courses.saveCourse'"></button>
+        <button class="btn btn-default" data-bind="click: goToList, translate: 'courses.listOfAll'"></button>
     </p>
 </form>

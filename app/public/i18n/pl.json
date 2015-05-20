@@ -8,9 +8,15 @@
     "common.goToList": "Wróć do listy",
     "common.goToDashboard": "Idź do panelu startowego",
     "common.description": "Opis",
+    "common.name": "Nazwa",
+    "common.short": "Skrócona",
+    "common.regular": "Pełna",
+    "common.time": "Czas",
 
     "common.instructors": "Instruktorzy",
     "common.locations": "Lokalizacje",
+    "common.instructorsEditable": "Instruktorzy (kliknij by edytować)",
+    "common.locationsEditable": "Lokalizacje (kliknij by edytować)",
 
     "modal.exceedsLimit": "Zaznaczono zbyt wiele opcji. Odznacz je, aby kontynuować.",
     "modal.selectInstructors": "Wybierz instruktorów",
@@ -36,7 +42,10 @@
     "index.users": "Lista użytkowników",
 
     "courses.addCourse": "Utwórz nowy kurs",
+    "courses.editCourse": "Edycja kursu",
+    "courses.saveCourse": "Zapisz zmiany",
     "courses.details": "Detale kursu",
+    "courses.listOfAll": "Idź do listy kursów",
 
     "test.modalTitle": "pierwszy tytul modala"
 }
