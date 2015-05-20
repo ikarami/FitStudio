@@ -48,16 +48,15 @@ define(['jquery',
                     });
                 };
 
-                self.add = function (event) {
+                self.add = function () {
                     locationsCollection.add(model);
                     model.commit();
-                    model.save();
+                    model.save({}, {wait: true});
                     self.goToList();
                 };
 
-                self.save = function (event) {
-                    model.commit();
-                    model.save();
+                self.save = function () {
+                    model.save(model.commit());
                     self.goToList();
                 };
             };

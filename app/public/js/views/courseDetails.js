@@ -22,6 +22,7 @@ define(['jquery',
                 self.shortName = kb.observable(model, 'shortName');
                 self.description = kb.observable(model, 'description');
                 self.instructors = kb.observable(model, 'instructors');
+                self.locations = kb.observable(model, 'locations');
                 self.time = kb.observable(model, 'time');
 
                 self.goToDashboard = function () {

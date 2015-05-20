@@ -39,7 +39,8 @@ define(['jquery',
                 self.saveChanges = function () {
                     console.log('Modal :: saveChanges ' + JSON.stringify(self.selected()));
                     view.trigger('save', {
-                        selected: self.selected()
+                        selected: self.selected(),
+                        field: view.currentField
                     });
                     view.$el.children().first().modal('hide');
                 };
@@ -64,6 +65,12 @@ define(['jquery',
 
             if (args.title) {
                 this.viewModel.title(locale.get(args.title));
+            }
+
+            if (args.field) {
+                this.currentField = args.field;
+            } else {
+                this.currentField = null;
             }
 
             this.$el.children().first().modal('show');

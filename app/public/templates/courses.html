@@ -5,9 +5,22 @@
         </p>
         <p>
             <span data-bind="text: time"></span>
-            <ul data-bind="foreach: instructors">
-                <li data-bind="text: firstName + ' ' + lastName"></li>
-            </ul>
+
+            <br>
+            <dl class="dl-horizontal">
+                <dt>Instructors</dt>
+                <dd>
+                    <ul data-bind="foreach: instructors" class="list-unstyled">
+                        <li data-bind="text: firstName + ' ' + lastName"></li>
+                    </ul>
+                </dd>
+                <dt>Locations</dt>
+                <dd>
+                    <ul data-bind="foreach: locations" class="list-unstyled">
+                        <li data-bind="text: name + ' (' + location + ')'"></li>
+                    </ul>
+                </dd>
+            </dl>
         </p>
         <button class="btn btn-primary" data-bind="click: $parent.details">Details</button>
         <button class="btn btn-primary" data-bind="click: $parent.edit">Edit</button>

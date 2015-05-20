@@ -5,8 +5,9 @@ define(['jquery',
     'kb',
     'collections/courses',
     'collections/instructors',
+    'collections/locations',
     'models/course',
-    'text!templates/editCourse.html'], function ($, _, Backbone, ko, kb, coursesCollection, instructorsCollection, CourseModel, editCourseTemplate) {
+    'text!templates/editCourse.html'], function ($, _, Backbone, ko, kb, coursesCollection, instructorsCollection, locationsCollection, CourseModel, editCourseTemplate) {
     'use strict';
 
     var EditCourseView = Backbone.View.extend({
@@ -17,12 +18,21 @@ define(['jquery',
 
             view.on('save', function (args) {
                 console.log(args.selected);
-                view.viewModel.instructorsList(_.compact(args.selected.map(function (id) {
-                    var model = instructorsCollection.findWhere({_id: id});
-                    if (model) {
-                        return _.pick(model.toJSON(), ['_id', 'firstName', 'lastName']);
-                    }
-                })));
+                if (args.field === 'instructors') {
+                    view.viewModel.instructorsList(_.compact(args.selected.map(function (id) {
+                        var model = instructorsCollection.findWhere({_id: id});
+                        if (model) {
+                            return _.pick(model.toJSON(), ['_id', 'firstName', 'lastName']);
+                        }
+                    })));
+                } else {
+                    view.viewModel.locationsList(_.compact(args.selected.map(function (id) {
+                        var model = locationsCollection.findWhere({_id: id});
+                        if (model) {
+                            return model.getShortInfo();
+                        }
+                    })));
+                }
             });
 
             ViewModel = function () {
@@ -43,6 +53,7 @@ define(['jquery',
                 self.description = kb.observable(model, 'description');
 
                 self.instructorsList = kb.observable(model, 'instructors');
+                self.locationsList = kb.observable(model, 'locations');
 
                 self.time = kb.observable(model, 'time');
 
@@ -81,7 +92,18 @@ define(['jquery',
                         selected: _.compact(self.instructorsList().map(function (item) {return item && item._id; })),
                         content: instructorsCollection.map(function (item) {return {value: item.get('_id'), label: item.get('firstName') + ' ' + item.get('lastName')}; }),
                         type: 'list',
-                        title: 'modal.selectInstructors'
+                        title: 'modal.selectInstructors',
+                        field: 'instructors'
+                    });
+                };
+
+                self.editLocations = function () {
+                    view.trigger('modal', {
+                        selected: _.compact(self.locationsList().map(function (item) {return item && item._id; })),
+                        content: locationsCollection.map(function (item) {return {value: item.get('_id'), label: item.get('name') + ' (' + item.get('location') + ')'}; }),
+                        type: 'list',
+                        title: 'modal.selectLocations',
+                        field: 'locations'
                     });
                 };
             };

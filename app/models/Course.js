@@ -16,6 +16,7 @@ module.exports = function (logger, mongoose) {
         endDate: {type: Number},
         occurences: {type: Array},
         instructors: {type: Array},
+        locations: {type: Array},
         users: {type: Array},
 
         private: {type: Boolean}
@@ -49,6 +50,7 @@ module.exports = function (logger, mongoose) {
             endData: data.endData || -1,
             instructors: data.instructors || [],
             users: data.users || [],
+            locations: data.locations || [],
             occurences: data.occurences || [],
             private: data.private || false
         });
@@ -69,6 +71,7 @@ module.exports = function (logger, mongoose) {
                 endData: data.endData || -1,
                 instructors: data.instructors || [],
                 users: data.users || [],
+                locations: data.locations || [],
                 occurences: data.occurences || [],
                 private: data.private || false
             }, function (err) {

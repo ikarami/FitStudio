@@ -17,7 +17,8 @@ require(['underscore',
         };
 
         this.dependencies = {
-            courses: [{
+            courses: [
+                {
                     on: 'save',
                     dependency: 'instructors',
                     triggerOnAll: 'courseRemoved',
@@ -29,7 +30,8 @@ require(['underscore',
                     triggerOnAll: 'courseRemoved'
                 }
             ],
-            instructors: [{
+            instructors: [
+                {
                     on: 'save',
                     dependency: 'courses',
                     triggerOnAll: 'instructorRemoved',
@@ -39,6 +41,17 @@ require(['underscore',
                     on: 'remove',
                     dependency: 'courses',
                     triggerOnAll: 'instructorRemoved'
+                }
+            ],
+            locations: [
+                {
+                    on: 'save',
+                    dependency: 'courses',
+                    triggerOnAll: 'locationSaved'
+                }, {
+                    on: 'remove',
+                    dependency: 'courses',
+                    triggerOnAll: 'locationRemoved'
                 }
             ]
         };
