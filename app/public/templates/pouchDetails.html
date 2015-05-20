@@ -16,7 +16,7 @@
         </p>
 
         <ul class="list-group" data-bind="foreach: operations">
-            <li class="list-group-item" data-bind="text: amount + ' (' + who + ')' + ($data.comment || '')"></li>
+            <li class="list-group-item" data-bind="text: amount + ' (' + who + ') ' + ($data.comment || '')"></li>
         </ul>
 
         <div> Add operation
@@ -35,7 +35,7 @@
                         <input type="text" class="form-control input-lg" placeholder="Please enter description" name="comment" data-bind="value: comment">
                     </label>
                     <label>
-                        Description:
+                        Amount:
                         <input type="number" class="form-control input-lg" placeholder="Please enter amount" name="amount" data-bind="value: amount">
                     </label>
                 </fieldset>

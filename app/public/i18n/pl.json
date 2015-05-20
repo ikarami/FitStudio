@@ -1,6 +1,16 @@
 {
     "common.close": "Zamknij",
     "common.saveChanges": "Zapisz zmiany",
+    "common.logout": "Wyloguj",
+    "common.details": "Detale",
+    "common.edit": "Edytuj",
+    "common.remove": "Usuń",
+    "common.goToList": "Wróć do listy",
+    "common.goToDashboard": "Idź do panelu startowego",
+    "common.description": "Opis",
+
+    "common.instructors": "Instruktorzy",
+    "common.locations": "Lokalizacje",
 
     "modal.exceedsLimit": "Zaznaczono zbyt wiele opcji. Odznacz je, aby kontynuować.",
     "modal.selectInstructors": "Wybierz instruktorów",
@@ -17,6 +27,16 @@
     "login.password": "Hasło",
     "login.placeholder.email": "Podaj email",
     "login.placeholder.password": "Podaj hasło",
+
+    "index.tagLine": "Witaj w Fit Studio Preview Release. Przybyłeś, by rządzić!",
+    "index.courses": "Lista kursów",
+    "index.instructors": "Lista instruktorów",
+    "index.locations": "Lista lokalizacji",
+    "index.pouches": "Lista sakiewek",
+    "index.users": "Lista użytkowników",
+
+    "courses.addCourse": "Utwórz nowy kurs",
+    "courses.details": "Detale kursu",
 
     "test.modalTitle": "pierwszy tytul modala"
 }

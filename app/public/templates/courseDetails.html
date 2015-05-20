@@ -1,6 +1,6 @@
 <div class="panel panel-primary">
     <div class="panel-heading">
-        <h1 class="panel-title">Course details</h1>
+        <h1 class="panel-title" data-bind="translate: 'courses.details'"></h1>
     </div>
     <div class="panel-body">
 
@@ -8,19 +8,19 @@
             <span data-bind="text: name"></span> - <span data-bind="text: shortName"></span>
         </p>
         <p>
-            Description: <span data-bind="text: description"></span>
+            <span data-bind="translate: 'common.description'"></span>:&nbsp;<span data-bind="text: description"></span>
         </p>
         <p>
             <span data-bind="text: time"></span>
             <br>
             <dl class="dl-horizontal">
-                <dt>Instructors</dt>
+                <dt data-bind="translate: 'common.instructors'"></dt>
                 <dd>
                     <ul data-bind="foreach: instructors" class="list-unstyled">
                         <li data-bind="text: firstName + ' ' + lastName"></li>
                     </ul>
                 </dd>
-                <dt>Locations</dt>
+                <dt data-bind="translate: 'common.locations'"></dt>
                 <dd>
                     <ul data-bind="foreach: locations" class="list-unstyled">
                         <li data-bind="text: name + ' (' + location + ')'"></li>
@@ -31,11 +31,11 @@
 
         <br />
         <p>
-            <button class="btn btn-primary" data-bind="click: edit">Edit</button>
-            <button class="btn btn-danger" data-bind="click: remove">Remove</button>
+            <button class="btn btn-primary" data-bind="click: edit, translate: 'common.edit'"></button>
+            <button class="btn btn-danger" data-bind="click: remove, translate: 'common.remove'"></button>
             <br />
-            <button class="btn btn-default" data-bind="click: goToList">Go to list</button>
-            <button class="btn btn-default" data-bind="click: goToDashboard">Go to dashboard</button>
+            <button class="btn btn-default" data-bind="click: goToList, translate: 'common.goToList'"></button>
+            <button class="btn btn-default" data-bind="click: goToDashboard, translate: 'common.goToDashboard'"></button>
         </p>
     </div>
 </div>

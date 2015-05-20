@@ -1,6 +1,16 @@
 {
     "common.close": "Close",
     "common.saveChanges": "Save changes",
+    "common.logout": "Logout",
+    "common.details": "Details",
+    "common.edit": "Edit",
+    "common.remove": "Remove",
+    "common.goToList": "Go to list",
+    "common.goToDashboard": "Go to dashboard",
+    "common.description": "Description",
+
+    "common.instructors": "Instructors",
+    "common.locations": "Locations",
 
     "modal.exceedsLimit": "You have selected too many options. Please deselect some to proceed.",
     "modal.selectInstructors": "Please select instructors",
@@ -17,6 +27,16 @@
     "login.password": "Password",
     "login.placeholder.email": "Please enter email",
     "login.placeholder.password": "Please enter password",
+
+    "index.tagLine": "Welcome to Fit Studio Preview Release. You are here to rule them all!",
+    "index.courses": "List of all your courses",
+    "index.instructors": "List of all your instructors",
+    "index.locations": "List of all your locations",
+    "index.pouches": "List of all your pouches",
+    "index.users": "List of all your users",
+
+    "courses.addCourse": "Add Course",
+    "courses.details": "Course details",
 
     "test.modalTitle": "First Modal View Title"
 }
