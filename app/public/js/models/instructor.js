@@ -1,4 +1,4 @@
-define(['models/baseModel', 'underscore'], function (BaseModel, _) {
+define(['models/baseModel'], function (BaseModel) {
     'use strict';
 
     var InstructorsModel = BaseModel.extend({
@@ -12,40 +12,8 @@ define(['models/baseModel', 'underscore'], function (BaseModel, _) {
         },
 
         initialize: function () {
-            this.on('courseSaved', this.saveCourseHandler);
-            this.on('courseRemoved', this.removeCourseHandler);
-        },
-
-        saveCourseHandler: function (model) {
-            var classes = this.get('classes'),
-                position = _.pluck(classes, ['_id']).indexOf(model.get('_id'));
-
-            if (position === -1) {
-                classes.push(model.getShortInfo());
-                console.log('adding class to instructor', model.getShortInfo());
-            } else {
-                classes.splice(position, 1, model.getShortInfo());
-            }
-            this.set('classes', classes);
-            this.save();
-        },
-
-        removeCourseHandler: function (model) {
-            var i, shortInfo, position, classes = this.get('classes');
-            shortInfo = model.getShortInfo();
-
-            for (i = 0; i < classes.length; ++i) {
-                if (_.isEqual(classes[i], shortInfo)) {
-                    position = i;
-                    break;
-                }
-            }
-            if (position !== undefined) {
-                console.log('removing class from instructor', model.getShortInfo());
-                classes.splice(position, 1);
-                this.set('classes', classes);
-                this.save();
-            }
+            this.on('courseSaved', this.saveToArray.bind(this, 'classes'));
+            this.on('courseRemoved', this.removeFromArray.bind(this, 'classes'));
         },
 
         url: function () {
