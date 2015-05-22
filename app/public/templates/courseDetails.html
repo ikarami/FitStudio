@@ -26,6 +26,13 @@
                         <li data-bind="text: name + ' (' + location + ')'"></li>
                     </ul>
                 </dd>
+                <dt data-bind="translate: 'common.users'"></dt>
+                <dd data-bind="click: function() {usersExpanded(!usersExpanded()); }">
+                    <p data-bind="visible: !usersExpanded(), text: users().length"></p>
+                    <ul data-bind="visible: usersExpanded() && users().length, foreach: users" class="list-unstyled">
+                        <li data-bind="text: firstName + ' ' + lastName"></li>
+                    </ul>
+                </dd>
             </dl>
         </p>
 

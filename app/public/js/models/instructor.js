@@ -17,13 +17,17 @@ define(['models/baseModel', 'underscore'], function (BaseModel, _) {
         },
 
         saveCourseHandler: function (model) {
-            if (_.pluck(this.get('classes'), ['_id']).indexOf(model.get('_id')) === -1) {
-                var classes = this.get('classes');
+            var classes = this.get('classes'),
+                position = _.pluck(classes, ['_id']).indexOf(model.get('_id'));
+
+            if (position === -1) {
                 classes.push(model.getShortInfo());
                 console.log('adding class to instructor', model.getShortInfo());
-                this.set('classes', classes);
-                this.save();
+            } else {
+                classes.splice(position, 1, model.getShortInfo());
             }
+            this.set('classes', classes);
+            this.save();
         },
 
         removeCourseHandler: function (model) {

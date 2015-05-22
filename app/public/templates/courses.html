@@ -20,6 +20,10 @@
                         <li data-bind="text: name + ' (' + location + ')'"></li>
                     </ul>
                 </dd>
+                <dt data-bind="translate: 'common.users'"></dt>
+                <dd>
+                    <span data-bind="text: users().length"></span>
+                </dd>
             </dl>
         </p>
         <button class="btn btn-primary" data-bind="click: $parent.details, translate: 'common.details'"></button>

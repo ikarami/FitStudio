@@ -53,6 +53,19 @@ require(['underscore',
                     dependency: 'courses',
                     triggerOnAll: 'locationRemoved'
                 }
+            ],
+            users: [
+                {
+                    on: 'save',
+                    dependency: 'courses',
+                    triggerOnAll: 'userRemoved',
+                    checkModelField: 'classes',
+                    triggerOnDependent: 'userSaved'
+                }, {
+                    on: 'remove',
+                    dependency: 'courses',
+                    triggerOnAll: 'userRemoved'
+                }
             ]
         };
 

@@ -23,6 +23,10 @@ define(['jquery',
                 self.description = kb.observable(model, 'description');
                 self.instructors = kb.observable(model, 'instructors');
                 self.locations = kb.observable(model, 'locations');
+                self.users = kb.observable(model, 'users');
+
+                self.usersExpanded = ko.observable(false);
+
                 self.time = kb.observable(model, 'time');
 
                 self.goToDashboard = function () {

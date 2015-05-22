@@ -7,7 +7,7 @@
 			<span data-bind="text: email"></span> - <span data-bind="text: phone"></span>
 		</p>
 		<ul class="list-group" data-bind="foreach: classes()">
-			<li class="list-group-item" data-bind="text: shortName"></li>
+			<li class="list-group-item" data-bind="text: shortName + ' - ' + name"></li>
 		</ul>
 		<button class="btn btn-primary" data-bind="click: $parent.details, translate: 'common.details'"></button>
 		<button class="btn btn-primary" data-bind="click: $parent.edit, translate: 'common.edit'"></button>

@@ -60,6 +60,30 @@ define(['backbone', 'underscore'], function (Backbone, _) {
 
         isDirty: function () {
             return this.get('dirty') ? true : false;
+        },
+
+        saveToArray: function (arrayName, model) {
+            var data = this.get(arrayName),
+                position = _.pluck(data, ['_id']).indexOf(model.get('_id'));
+
+            if (position === -1) {
+                data.push(model.getShortInfo());
+            } else {
+                data.splice(position, 1, model.getShortInfo());
+            }
+            this.set(arrayName, data);
+            this.save();
+        },
+
+        removeFromArray: function (arrayName, model) {
+            var data = this.get(arrayName),
+                position = _.pluck(data, ['_id']).indexOf(model.get('_id'));
+
+            if (position !== -1) {
+                data.splice(position, 1);
+                this.set(arrayName, data);
+                this.save();
+            }
         }
     });
 

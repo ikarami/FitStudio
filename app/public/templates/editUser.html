@@ -25,10 +25,12 @@
         </label>
     </fieldset>
     <fieldset>
-        <legend data-bind="translate: 'users.classesList'"></legend>
-        <label>
-            <span data-bind="translate: 'common.classes'"></span>
-            <input type="string" data-bind="value: classesList">
+        <legend data-bind="translate: 'common.classes'"></legend>
+        <label data-bind="click: editCourses">
+            <span data-bind="translate: 'common.classesEditable'"></span>
+             <ul data-bind="foreach: coursesList, visible: coursesList().length">
+                <li data-bind="text: name + ' - ' + shortName"></li>
+            </ul>
         </label>
     </fieldset>
     <p>

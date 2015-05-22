@@ -17,6 +17,7 @@
     "common.personalDetails": "Personal details",
     "common.email": "E-mail",
     "common.phone": "Phone",
+    "common.users": "Users",
 
     "common.owner": "Owner",
     "common.balance": "Balance",
@@ -100,7 +101,6 @@
     "resetPassword.successMessage2": "Please check your email.",
     "resetPassword.resetPassword": "Reset my password",
 
-    "users.classesList": "Classes (comma delimited)",
     "users.addUser": "Add user",
     "users.editUser": "Edit user",
     "users.saveUser": "Save user",
