@@ -4,7 +4,8 @@ define(['jquery',
     'knockout',
     'kb',
     'collections/instructors',
-    'text!templates/instructors.html'], function ($, _, Backbone, ko, kb, instructorsCollection, instructorsTemplate) {
+    'locale',
+    'text!templates/instructors.html'], function ($, _, Backbone, ko, kb, instructorsCollection, locale, instructorsTemplate) {
     'use strict';
 
     var InstructorsView = Backbone.View.extend({
@@ -16,6 +17,24 @@ define(['jquery',
             ViewModel = function () {
                 var self = this;
                 self.instructors = kb.collectionObservable(instructorsCollection, {view_model: kb.ViewModel});
+
+                self.sortOptions = [{
+                        field: 'lastName',
+                        displayText: locale.get('common.lastName')
+                    }, {
+                        field: 'firstName',
+                        displayText: locale.get('common.firstName')
+                    }, {
+                        field: 'email',
+                        displayText: locale.get('common.email')
+                    }];
+
+                self.selectedSortOption = ko.observable(self.sortOptions[0]);
+
+                // todo: check if unsubscribing is needed
+                self.selectedSortOption.subscribe(function (value) {
+                    self.instructors.sortAttribute(value.field);
+                });
 
                 self.add = function () {
                     view.trigger('navigate', {
