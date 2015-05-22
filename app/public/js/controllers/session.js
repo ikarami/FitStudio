@@ -2,7 +2,7 @@ define(['underscore', 'jquery'], function (_, $) {
     'use strict';
 
     var Session = function SessionConstructor() {
-        var intervalValue = 15 * 1000, // 5s
+        var intervalValue = 15 * 1000,
             interval,
             intervalHandler;
 
