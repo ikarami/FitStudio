@@ -25,8 +25,18 @@ require(['underscore',
                     checkModelField: 'instructors',
                     triggerOnDependent: 'courseSaved'
                 }, {
+                    on: 'save',
+                    dependency: 'instructors',
+                    triggerOnAll: 'courseRemoved',
+                    checkModelField: 'users',
+                    triggerOnDependent: 'courseSaved'
+                }, {
                     on: 'remove',
                     dependency: 'instructors',
+                    triggerOnAll: 'courseRemoved'
+                }, {
+                    on: 'remove',
+                    dependency: 'users',
                     triggerOnAll: 'courseRemoved'
                 }
             ],

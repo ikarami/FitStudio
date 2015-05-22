@@ -11,6 +11,11 @@ define(['models/baseModel'], function (BaseModel) {
             classes: []
         },
 
+        initialize: function () {
+            this.on('courseSaved', this.saveToArray.bind(this, 'classes'));
+            this.on('courseRemoved', this.removeFromArray.bind(this, 'classes'));
+        },
+
         url: function () {
             // PUT for /users/:id POST for /users/me
             return this.id ? '/users/' + this.id : '/users/me';
