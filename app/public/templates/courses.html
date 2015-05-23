@@ -1,3 +1,14 @@
+<p>
+    <button class="btn btn-primary" data-bind="click: addCourse, translate: 'courses.addCourse'"></button>
+    <button class="btn btn-default" data-bind="click: goToDashboard, translate: 'common.goToDashboard'"></button>
+    <p>
+        <span data-bind="translate: 'common.sortBy'"></span>
+        <select data-bind="options: sortOptions,
+                           optionsText: 'displayText',
+                           value: selectedSortOption"></select>
+    </p>
+</p>
+
 <ul class="list-group" data-bind="foreach: courses">
     <li class="list-group-item">
         <p>
@@ -31,8 +42,3 @@
         <button class="btn btn-danger" data-bind="click: $parent.remove, translate: 'common.remove'"></button>
     </li>
 </ul>
-
-<p>
-    <button class="btn btn-primary" data-bind="click: addCourse, translate: 'courses.addCourse'"></button>
-    <button class="btn btn-default" data-bind="click: goToDashboard, translate: 'common.goToDashboard'"></button>
-</p>
