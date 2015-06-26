@@ -142,6 +142,7 @@ var FitStudio = function () {
      *  the handlers.
      */
     self.initializeServer = function() {
+        app.disable('x-powered-by');
         app.engine('html', require('ejs').renderFile);
         app.logger.log('Views folder: ' + self.viewsPath);
         app.set('views', self.viewsPath);
