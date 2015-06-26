@@ -1,17 +1,42 @@
 define(['jquery',
     'backbone',
     'knockout',
+    'kb',
+    'collections/entries',
+    'moment',
     'text!templates/index.html',
-    'controllers/session'], function ($, Backbone, ko, indexTemplate, sessionController) {
+    'controllers/session'], function ($, Backbone, ko, kb, EntriesCollection, moment, indexTemplate, sessionController) {
     'use strict';
 
     var IndexView = Backbone.View.extend({
         el: $('#content'),
 
         initialize: function () {
-            var view = this;
+            var view = this,
+                entriesCollection = new EntriesCollection();
+
+
             var ViewModel = function () {
                 var self = this;
+
+                self.shiftWeeksBy = ko.observable(0);
+
+                self.previousWeek = function () {
+                    self.shiftWeeksBy(self.shiftWeeksBy()-1);
+                    entriesCollection.setDates({
+                        startDate: moment().add(self.shiftWeeksBy(), 'weeks').startOf('isoWeek'),
+                        endDate: moment().add(self.shiftWeeksBy(), 'weeks').endOf('isoWeek')
+                    });
+                };
+
+                self.nextWeek = function () {
+                    self.shiftWeeksBy(self.shiftWeeksBy()+1);
+                    entriesCollection.setDates({
+                        startDate: moment().add(self.shiftWeeksBy(), 'weeks').startOf('isoWeek'),
+                        endDate: moment().add(self.shiftWeeksBy(), 'weeks').endOf('isoWeek')
+                    });
+                };
+
                 self.logout = function () {
                     sessionController.logout();
                 };
@@ -24,8 +49,16 @@ define(['jquery',
                         title: 'test.modalTitle'
                     });
                 };
+
+
+                self.entries = kb.collectionObservable(entriesCollection);
             };
             this.viewModel = new ViewModel();
+
+            entriesCollection.setDates({
+                startDate: moment().startOf('isoWeek'),
+                endDate: moment().endOf('isoWeek')
+            });
         },
 
         show: function () {

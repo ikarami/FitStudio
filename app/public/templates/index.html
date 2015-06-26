@@ -1,9 +1,19 @@
 <p data-bind="translate: 'index.tagLine'"></p>
 <div class="list-group">
-	<a class="list-group-item" href="#courses" data-bind="translate: 'index.courses'"></a>
-	<a class="list-group-item" href="#instructors" data-bind="translate: 'index.instructors'"></a>
-	<a class="list-group-item" href="#locations" data-bind="translate: 'index.locations'"></a>
-	<a class="list-group-item" href="#pouches" data-bind="translate: 'index.pouches'"></a>
-	<a class="list-group-item" href="#users" data-bind="translate: 'index.users'"></a>
-	<p class="list-group-item"><button class="btn btn-danger" data-bind="click: logout, translate: 'common.logout'"></button>
+    <a class="list-group-item" href="#courses" data-bind="translate: 'index.courses'"></a>
+    <a class="list-group-item" href="#instructors" data-bind="translate: 'index.instructors'"></a>
+    <a class="list-group-item" href="#locations" data-bind="translate: 'index.locations'"></a>
+    <a class="list-group-item" href="#pouches" data-bind="translate: 'index.pouches'"></a>
+    <a class="list-group-item" href="#users" data-bind="translate: 'index.users'"></a>
+    <p class="list-group-item"><button class="btn btn-danger" data-bind="click: logout, translate: 'common.logout'"></button>
+</div>
+
+<button class="btn" data-bind="click: previousWeek, translate: 'common.lastWeek'"></button>
+<span data-bind="text: shiftWeeksBy"></span>
+<button class="btn" data-bind="click: nextWeek, translate: 'common.nextWeek'"></button>
+
+<div class="list-group">
+    <ul data-bind="foreach: entries">
+        <li data-bind="text: courseId() + ' ' + startDate()"></li>
+    </ul>
 </div>

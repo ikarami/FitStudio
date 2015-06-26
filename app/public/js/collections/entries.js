@@ -10,10 +10,26 @@ define(['backbone', 'models/entry', 'controllers/recur', 'moment'], function (Ba
             this.courseId = options.id;
         },
         url: function () {
-            return '/entries/' + this.courseId;
+            var addParamLinkingChar = function addParamLinkingChar (string) {
+                return string.length ? '&' : '?';
+            };
+            var queryParams = '';
+
+            ['startDate', 'endDate'].forEach(function (param) {
+                if (this[param]) {
+                    queryParams += addParamLinkingChar(queryParams) + param + '=' + this[param];
+                }
+            }, this);
+
+            return '/entries/' + this.courseId + queryParams;
         },
-        setDate: function (date) {
-            this.date = date;
+        setDates: function (dates) {
+            if (dates.startDate) {
+                this.startDate = dates.startDate;
+            }
+            if (dates.endDate) {
+                this.endDate = dates.endDate;
+            }
             this.fetch();
         },
 
