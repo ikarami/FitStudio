@@ -19,7 +19,12 @@
     "common.phone": "Telefon",
     "common.users": "Użytkownicy",
     "common.sortBy": "Sortuj według",
-
+    "common.filterBy": "Filtruj",
+    "common.removeFiltering": "Usuń filtrowanie",
+    "common.addOccurence": "Dodaj wystąpienie",
+    "common.occurences": "Wystąpienia",
+    "common.duration": "Czas trwania",
+    "common.weekDays": "Poniedziałek,Wtorek,Środa,Czwartek,Piątek,Sobota,Niedziela",
     "common.owner": "Właściciel",
     "common.balance": "Bilans",
     "common.created": "Utworzono",
@@ -34,6 +39,7 @@
     "common.operations": "operacjach",
 
     "common.classes": "Zajęcia",
+    "common.instructor": "Instruktor",
     "common.instructors": "Instruktorzy",
     "common.locations": "Lokalizacje",
     "common.instructorsEditable": "Instruktorzy (kliknij by edytować)",
@@ -78,6 +84,8 @@
     "courses.saveCourse": "Zapisz zmiany",
     "courses.details": "Detale kursu",
     "courses.listOfAll": "Idź do listy kursów",
+    "courses.timeSchema": "Wybierz jak często odbywać ma się kurs",
+    "courses.generateOccurences": "Generuj wydarzenia",
 
     "instructors.addInstructor": "Dodaj nowego instruktora",
     "instructors.editInstructor": "Edycja instruktora",
@@ -101,6 +109,14 @@
     "resetPassword.successMessage1": "Wiadomość zawierająca link do formularza resetującego hasło została wysłana!",
     "resetPassword.successMessage2": "Prosimy o sprawdzenie Państwa skrzynki emailowej.",
     "resetPassword.resetPassword": "Zresetuj moje hasło",
+
+    "timeSchema.oncePerWeek": "Raz na tydzień",
+    "timeSchema.twiceAWeek": "Dwa razy w tygodniu",
+    "timeSchema.threeTimesAWeek": "Trzy razy na tydzień",
+    "timeSchema.singleEvent": "Pojedyńcze wydarzenie",
+    "timeSchema.oncePerMonthOnADay": "Raz na miesiac we wskazany dzień tygodnia",
+    "timeSchema.oncePerMonthOnADate": "Raz na miesiac we wskazany dzień miesiaca",
+    "timeSchema.numberOfDaysAWeek": "Wiele dni w tygodniu",
 
     "users.addUser": "Dodaj użytkownika",
     "users.editUser": "Edytuj użytkownika",

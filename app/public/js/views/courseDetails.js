@@ -4,7 +4,8 @@ define(['jquery',
     'knockout',
     'kb',
     'collections/courses',
-    'text!templates/courseDetails.html'], function ($, _, Backbone, ko, kb, coursesCollection, courseDetailsTemplate) {
+    'collections/entries',
+    'text!templates/courseDetails.html'], function ($, _, Backbone, ko, kb, coursesCollection, Entries, courseDetailsTemplate) {
     'use strict';
 
     var CourseDetailsView = Backbone.View.extend({
@@ -14,18 +15,20 @@ define(['jquery',
             var view = this, ViewModel;
 
             ViewModel = function () {
-                var self = this, model;
+                var self = this, model, entriesCollection;
 
                 model = coursesCollection.findWhere({_id: args.id});
 
                 self.name = kb.observable(model, 'name');
                 self.shortName = kb.observable(model, 'shortName');
                 self.description = kb.observable(model, 'description');
+                self.duration = kb.observable(model, 'duration');
                 self.instructors = kb.observable(model, 'instructors');
                 self.locations = kb.observable(model, 'locations');
                 self.users = kb.observable(model, 'users');
 
                 self.usersExpanded = ko.observable(false);
+                self.occurencesExpanded = ko.observable(false);
 
                 self.time = kb.observable(model, 'time');
 
@@ -63,6 +66,10 @@ define(['jquery',
                         callback();
                     }
                 };
+
+                entriesCollection = new Entries({id: args.id});
+                entriesCollection.fetch();
+                self.entries = kb.collectionObservable(entriesCollection, {view_model: kb.ViewModel});
             };
             this.viewModel = new ViewModel();
         },

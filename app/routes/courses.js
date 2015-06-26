@@ -47,15 +47,33 @@ module.exports = function (app, models) {
     app.delete('/courses/:id', [app.authChecker], function (req, res) {
         app.logger.log('Deleting course id: ' + req.params.id);
         var accountId = req.session.accountId;
+        var courseId = req.params.id;
 
-        models.Course.findById({accountId: accountId, courseId: req.params.id}, function (course) {
+        models.Course.findById({accountId: accountId, courseId: courseId}, function (course) {
             if (!course) {
                 res.status(404).end();
             } else {
-                course.remove(function (err) {
+                course.remove(function () {
+                    app.logger.log('Deleted course id ' + courseId);
+
+                    //TODO: delete entries in the FUTURE, leave present as they were
+                    models.Entry.findAll({accountId: accountId, courseId: courseId}, function (entries) {
+                        app.logger.log('Deleting entries (' + entries.length + ') corresponding to course id ' + courseId);
+                        if (entries && entries.length) {
+                            entries.forEach(function (entry) {
+                                entry.remove(function (err) {
+                                    if (err) {
+                                        console.log('Error while removing entry: ' + err);
+                                    }
+                                });
+                            });
+                        }
+                    });
+
                     res.status(200).end();
                 });
             }
         });
+
     });
 };

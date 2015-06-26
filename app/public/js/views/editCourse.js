@@ -3,11 +3,15 @@ define(['jquery',
     'backbone',
     'knockout',
     'kb',
+    'config/timeSchemas',
+    'locale',
     'collections/courses',
     'collections/instructors',
     'collections/locations',
+    'collections/entries',
     'models/course',
-    'text!templates/editCourse.html'], function ($, _, Backbone, ko, kb, coursesCollection, instructorsCollection, locationsCollection, CourseModel, editCourseTemplate) {
+    'text!templates/editCourse.html',
+    'timepicker'], function ($, _, Backbone, ko, kb, timeSchemas, locale, coursesCollection, instructorsCollection, locationsCollection, Entries, CourseModel, editCourseTemplate) {
     'use strict';
 
     var EditCourseView = Backbone.View.extend({
@@ -36,7 +40,7 @@ define(['jquery',
             });
 
             ViewModel = function () {
-                var self = this, model;
+                var self = this, model, entriesCollection;
 
                 self.addMode = (args.id === 'new') ? true : false;
 
@@ -51,6 +55,7 @@ define(['jquery',
                 self.regularName = kb.observable(model, 'name');
                 self.shortName = kb.observable(model, 'shortName');
                 self.description = kb.observable(model, 'description');
+                self.duration = kb.observable(model, 'duration');
 
                 self.instructorsList = kb.observable(model, 'instructors');
                 self.locationsList = kb.observable(model, 'locations');
@@ -77,7 +82,19 @@ define(['jquery',
                 self.add = function () {
                     coursesCollection.add(model);
                     model.commit();
+
+                    model.once('save', function saveOccurences(model) {
+                        console.log('editCourse :: add :: saveOccurences');
+                        entriesCollection.each(function (entry) {
+                            entry.set('courseId', model.get('_id'));
+                        });
+                        entriesCollection.invoke('commit');
+                        console.log(entriesCollection.toJSON());
+                        entriesCollection.invoke('save');
+                    });
+
                     model.save({}, {wait: true});
+
                     self.goToList({clean: false});
                 };
 
@@ -106,6 +123,43 @@ define(['jquery',
                         field: 'locations'
                     });
                 };
+
+                entriesCollection = new Entries();
+                self.entriesList = kb.collectionObservable(entriesCollection, {view_model: kb.ViewModel});
+
+                self.addOccurence = function () {
+                    entriesCollection.add({});
+                };
+                self.removeOccurence = function () {
+                    entriesCollection.remove(this.model());
+                };
+
+                self.selectedSchemaConfig = ko.observable();
+                self.selectedSchema = ko.observable();
+                self.timeSchemas = _.without(timeSchemas.map(function (schema) {
+                    if (schema.enabled === true) {
+                        return {
+                            name: schema.name,
+                            displayText: locale.get(schema.descriptionKey)
+                        };
+                    }
+                }), undefined);
+
+                self.selectedSchema.subscribe(function (schema) {
+                    self.selectedSchemaConfig(
+                        _.findWhere(timeSchemas, {name: schema.name})
+                    );
+                });
+
+                self.generateOccurences = function () {
+                    console.log('generateOccurences');
+
+                    entriesCollection.generateBasedOn(self.selectedSchemaConfig(), self.model);
+
+                    self.selectedSchemaConfig().parameters.forEach(function (p) {
+                        console.log(p.value());
+                    });
+                };
             };
             this.viewModel = new ViewModel();
         },
@@ -121,6 +175,10 @@ define(['jquery',
 
         bind: function () {
             ko.applyBindings(this.viewModel, this.el);
+
+            _.each(this.$('[type="time"]'), function (element) {
+                $(element).timepicker({show2400: true, timeFormat: 'H:i'});
+            });
         },
 
         onHide: function () {

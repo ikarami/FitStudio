@@ -19,7 +19,12 @@
     "common.phone": "Phone",
     "common.users": "Users",
     "common.sortBy": "Sort by",
-
+    "common.filterBy": "Filter by",
+    "common.removeFiltering": "Remove filtering",
+    "common.occurences": "Occurences",
+    "common.addOccurence": "Add occurence",
+    "common.duration": "Duration",
+    "common.weekDays": "Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday",
     "common.owner": "Owner",
     "common.balance": "Balance",
     "common.created": "Created",
@@ -34,6 +39,7 @@
     "common.operations": "operations",
 
     "common.classes": "Classes",
+    "common.instructor": "Instructor",
     "common.instructors": "Instructors",
     "common.locations": "Locations",
     "common.instructorsEditable": "Instructors (click to edit)",
@@ -78,6 +84,8 @@
     "courses.saveCourse": "Save Course",
     "courses.details": "Course details",
     "courses.listOfAll": "Go to list of all courses",
+    "courses.timeSchema": "Select a time schema for the course",
+    "course.generateOccurences": "Generate events",
 
     "instructors.addInstructor": "Add Instructor",
     "instructors.editInstructor": "Edit Instructor",
@@ -101,6 +109,14 @@
     "resetPassword.successMessage1": "Link to a password reset form has been sent!",
     "resetPassword.successMessage2": "Please check your email.",
     "resetPassword.resetPassword": "Reset my password",
+
+    "timeSchema.oncePerWeek": "Once per week",
+    "timeSchema.twiceAWeek": "Twice a week",
+    "timeSchema.threeTimesAWeek": "Three times a week",
+    "timeSchema.singleEvent": "Single event",
+    "timeSchema.oncePerMonthOnADay": "Once per month on a day",
+    "timeSchema.oncePerMonthOnADate": "Once per month on a date",
+    "timeSchema.numberOfDaysAWeek": "Number of days per week",
 
     "users.addUser": "Add user",
     "users.editUser": "Edit user",

@@ -1,15 +1,31 @@
-<p>
-    <button class="btn btn-primary" data-bind="click: add, translate: 'instructors.addInstructor'"></button>
-    <button class="btn btn-default" data-bind="click: goToDashboard, translate: 'common.goToDashboard'"></button>
-    <p>
-        <span data-bind="translate: 'common.sortBy'"></span>
-        <select data-bind="options: sortOptions,
-                           optionsText: 'displayText',
-                           value: selectedSortOption"></select>
-    </p>
-</p>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#instructors" data-bind="translate: 'common.instructors'"></a>
+    </div>
 
-<ul class="list-group" data-bind="foreach: instructors">
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <form class="form-inline navbar-form navbar-left">
+            <button class="btn btn-default" data-bind="click: goToDashboard, translate: 'common.goToDashboard'"></button>
+            <button class="btn btn-primary" data-bind="click: add, translate: 'instructors.addInstructor'"></button>
+            <span data-bind="translate: 'common.sortBy'"></span>
+            <select class="form-control" data-bind="options: sortOptions,
+                               optionsText: 'displayText',
+                               value: selectedSortOption"></select>
+        </form>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+<ul style="padding-top: 70px" class="list-group" data-bind="foreach: instructors">
     <li class="list-group-item">
         <p>
             <span data-bind="text: firstName() + ' ' + lastName()"></span>

@@ -1,12 +1,18 @@
 <p>
     <button class="btn btn-primary" data-bind="click: addCourse, translate: 'courses.addCourse'"></button>
     <button class="btn btn-default" data-bind="click: goToDashboard, translate: 'common.goToDashboard'"></button>
-    <p>
+    <form class="form-inline">
         <span data-bind="translate: 'common.sortBy'"></span>
-        <select data-bind="options: sortOptions,
+        <select class="form-control" data-bind="options: sortOptions,
                            optionsText: 'displayText',
                            value: selectedSortOption"></select>
-    </p>
+
+        <span data-bind="translate: 'common.filterBy'"></span>
+        <select class="form-control" data-bind="options: filterOptions,
+                           optionsText: 'displayText',
+                           selectedOptions: selectedFilterOptions" size="5" multiple="true"></select>
+        <button class="btn btn-warning" data-bind="click: removeFiltering, translate: 'common.removeFiltering'"></button>
+    </form>
 </p>
 
 <ul class="list-group" data-bind="foreach: courses">

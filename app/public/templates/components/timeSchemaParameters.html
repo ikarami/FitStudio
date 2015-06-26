@@ -1,0 +1,15 @@
+<ul data-bind="foreach: $data.parameters">
+    <!-- ko if: (inputType !== 'select' && inputType !== 'checkbox') -->
+    <li><span data-bind="text: name"></span><input data-bind="attr: {type: inputType}, value: value"> </li>
+    <!-- /ko -->
+    <!-- ko if: inputType === 'checkbox' -->
+    <li><input type="checkbox" data-bind="checked: value"> <span data-bind="text: name"></span></li>
+    <!-- /ko -->
+    <!-- ko if: inputType === 'select' -->
+    <li><span data-bind="text: name"></span>
+    	<select data-bind="options: $parent.weekDays,
+                               optionsText: 'displayText',
+                               optionsCaption: 'Choose...',
+                               value: value"></select></li>
+    <!-- /ko -->
+</ul>

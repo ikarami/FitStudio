@@ -19,6 +19,7 @@
             <span data-bind="translate: 'common.description'"></span>
             <input type="text" data-bind="value: description">
         </label><br/>
+
         <label data-bind="click: editInstructors">
             <span data-bind="translate: 'common.instructorsEditable'"></span>
             <ul data-bind="foreach: instructorsList, visible: instructorsList().length">
@@ -32,13 +33,55 @@
             </ul>
         </label>
     </fieldset>
-    <fieldset>
+    <fieldset data-bind="visible: addMode">
+        <legend data-bind="translate: 'common.time'"></legend>
+
+        <label>
+            <span data-bind="translate: 'common.duration'"></span>
+            <input type="number" min="0" data-bind="value: duration">
+        </label><br/>
+        <label>
+            <span data-bind="translate: 'common.time'"></span>
+            <input type="time" min="0" data-bind="value: time">
+        </label><br/>
+
+
+
+        <label>
+            <span data-bind="translate: 'courses.timeSchema'"></span>
+            <select data-bind="options: timeSchemas,
+                               optionsText: 'displayText',
+                               optionsCaption: 'Choose...',
+                               value: selectedSchema"></select>
+        </label><br />
+
+        <label data-bind="visible: selectedSchemaConfig, component: {
+            name: 'timeSchemaParameters',
+            params: {config: selectedSchemaConfig, entriesList: entriesList}
+            }">
+        </label>
+
+        <button class="btn btn-default" data-bind="click: generateOccurences, visible: selectedSchemaConfig, translate: 'course.generateOccurences'"></button>
+
+        <label data-bind="visible: selectedSchema">
+            <ul data-bind="foreach: entriesList, visible: entriesList().length">
+                <li>
+                    <input type="datetime" data-bind="value: startDate">
+                    <input type="datetime" data-bind="value: endDate">
+                    <input type="text" data-bind="value: comments">
+                    <button data-bind="click: $root.removeOccurence, translate: 'common.remove'"></button>
+                </li>
+            </ul>
+        </label>
+    </fieldset>
+    <!-- <fieldset>
         <legend data-bind="translate: 'common.time'"></legend>
         <label>
             <span data-bind="translate: 'common.time'"></span>
-            <input type="string" data-bind="value: time">
+            <input type="date" data-bind="value: time">
+            <input type="time">
         </label>
-    </fieldset>
+    </fieldset>-->
     <p>
         <button class="btn btn-success" data-bind="click: add, visible: addMode, translate: 'courses.addCourse'"></button>
         <button class="btn btn-success" data-bind="click: save, visible: !addMode, translate: 'courses.saveCourse'"></button>

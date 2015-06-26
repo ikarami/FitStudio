@@ -53,7 +53,7 @@ module.exports = function (app, models) {
             if (!location) {
                 res.status(404).end();
             } else {
-                location.remove(function (err) {
+                location.remove(function () {
                     res.status(200).end();
                 });
             }

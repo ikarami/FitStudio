@@ -129,6 +129,7 @@ var FitStudio = function () {
         self.models = {
             Account: require('./models/Account')(app.logger, mongoose, nodemailer, self.mailConfig),
             Course: require('./models/Course')(app.logger, mongoose),
+            Entry: require('./models/Entry')(app.logger, mongoose),
             Instructor: require('./models/Instructor')(app.logger, mongoose),
             Location: require('./models/Location')(app.logger, mongoose),
             Pouch: require('./models/Pouch')(app.logger, mongoose),
