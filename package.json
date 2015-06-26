@@ -6,7 +6,6 @@
     "node": ">= 0.12.0",
     "npm": ">= 2.7.0"
   },
-  "dependencies": {},
   "devDependencies": {
     "body-parser": "^1.12.4",
     "connect": "^3.3.5",
@@ -15,6 +14,7 @@
     "express": "^4.7.4",
     "express-session": "^1.7.2",
     "jade": "^1.5.0",
+    "lodash-node": "^3.9.3",
     "mongoose": "4.0.2",
     "morgan": "^1.2.2",
     "nodemailer": "^1.1.1",
