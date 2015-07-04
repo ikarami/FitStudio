@@ -1,4 +1,9 @@
-define(['backbone', 'models/entry', 'controllers/recur', 'moment'], function (Backbone, EntryModel, recur, moment) {
+define(['backbone',
+        'models/entry',
+        'collections/courses',
+        'controllers/recur',
+        'moment'
+], function (Backbone, EntryModel, coursesCollection, recur, moment) {
     'use strict';
 
     var EntriesCollection = Backbone.Collection.extend({
@@ -8,7 +13,30 @@ define(['backbone', 'models/entry', 'controllers/recur', 'moment'], function (Ba
             options = options || {id: 'me'};
 
             this.courseId = options.id;
+
+            this.on('add', this.decorateWithCourseInformation);
+            coursesCollection.on('change add', this.decorateWithCourseInformation);
+
+            this.decorateWithCourseInformation();
         },
+
+        decorateWithCourseInformation: function () {
+            var courseInfo;
+            this.toArray().forEach(function (entry) {
+                var course = coursesCollection.get(entry.get('courseId'));
+                if (course) {
+                    courseInfo = {
+                        name: course.get('name')
+                    };
+                } else {
+                    courseInfo = {
+                        name: ''
+                    };
+                }
+                entry.set('courseInfo', courseInfo);
+            });
+        },
+
         url: function () {
             var addParamLinkingChar = function addParamLinkingChar (string) {
                 return string.length ? '&' : '?';
@@ -23,6 +51,11 @@ define(['backbone', 'models/entry', 'controllers/recur', 'moment'], function (Ba
 
             return '/entries/' + this.courseId + queryParams;
         },
+
+        comparator: function (model) {
+            return new Date(model.get('startDate')).getTime();
+        },
+
         setDates: function (dates) {
             if (dates.startDate) {
                 this.startDate = dates.startDate;
@@ -30,6 +63,7 @@ define(['backbone', 'models/entry', 'controllers/recur', 'moment'], function (Ba
             if (dates.endDate) {
                 this.endDate = dates.endDate;
             }
+
             this.fetch();
         },
 
@@ -63,8 +97,6 @@ define(['backbone', 'models/entry', 'controllers/recur', 'moment'], function (Ba
                     endDate: l + ' ' + moment(model.get('time'), 'H:mm').add(model.get('duration'), 'm').format('H:mm')
                 });
             }.bind(this));
-
-
         }
     });
 

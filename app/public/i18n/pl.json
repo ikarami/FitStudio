@@ -35,6 +35,9 @@
     "common.city": "Miasto",
     "common.code": "Kod pocztowy",
 
+    "common.nextWeek": "Następny tydzień",
+    "common.lastWeek": "Poprzedni tydzień",
+
     "common.basedOn": "bazując na",
     "common.operations": "operacjach",
 

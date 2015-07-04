@@ -3,9 +3,10 @@ define(['jquery',
     'knockout',
     'kb',
     'collections/entries',
+    'collections/courses',
     'moment',
     'text!templates/index.html',
-    'controllers/session'], function ($, Backbone, ko, kb, EntriesCollection, moment, indexTemplate, sessionController) {
+    'controllers/session'], function ($, Backbone, ko, kb, EntriesCollection, coursesCollection, moment, indexTemplate, sessionController) {
     'use strict';
 
     var IndexView = Backbone.View.extend({
@@ -49,7 +50,6 @@ define(['jquery',
                         title: 'test.modalTitle'
                     });
                 };
-
 
                 self.entries = kb.collectionObservable(entriesCollection);
             };

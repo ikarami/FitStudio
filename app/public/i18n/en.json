@@ -35,6 +35,9 @@
     "common.city": "City",
     "common.code": "Code",
 
+    "common.nextWeek": "Next week",
+    "common.lastWeek": "Last week",
+
     "common.basedOn": "based on",
     "common.operations": "operations",
 

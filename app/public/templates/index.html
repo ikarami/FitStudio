@@ -12,8 +12,9 @@
 <span data-bind="text: shiftWeeksBy"></span>
 <button class="btn" data-bind="click: nextWeek, translate: 'common.nextWeek'"></button>
 
-<div class="list-group">
-    <ul data-bind="foreach: entries">
-        <li data-bind="text: courseId() + ' ' + startDate()"></li>
-    </ul>
+<div class="list-group" data-bind="foreach: entries">
+    <a class="list-group-item" data-bind="attr: {href: '#entries/' + $data._id()}">
+      <span data-bind="text: $data.courseInfo().name"></span>
+      <span data-bind="text: new Date(startDate())"></span>
+    </a>
 </div>
