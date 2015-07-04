@@ -100,7 +100,9 @@ module.exports = function (logger, mongoose) {
                 lastName: data.lastName,
                 email: data.email || '',
                 phone: data.phone || '',
-                classes: data.classes || []
+                classes: data.classes || [],
+                missedUsers: data.missedUsers || [],
+                actualUsers: data.actualUsers || [],
             }, function (err) {
                 if (err) {
                     logger.error('Entry :: update :: error occurred: ' + err);
