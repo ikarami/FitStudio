@@ -38,10 +38,16 @@
                     </ul>
                 </dd>
                 <dt data-bind="translate: 'common.occurences'"></dt>
-                <dd data-bind="click: function() {occurencesExpanded(!occurencesExpanded()); }">
-                    <p data-bind="visible: !occurencesExpanded() || !entries().length, text: entries().length"></p>
-                    <ul data-bind="visible: occurencesExpanded() && entries().length, foreach: entries" class="list-unstyled">
-                        <li data-bind="text: ($index() + 1) + ': ' + $data.startDate() + ' ' + $data.comments()"></li>
+                <dd>
+                    <span data-bind="visible: !occurencesExpanded() || !entries().length, text: entries().length"></span>
+                    <button class="btn btn-default" data-bind="click: function() {occurencesExpanded(true)}, visible: !occurencesExpanded() && entries().length, translate: 'common.showDetails'"></button>
+                    <button class="btn btn-default" data-bind="click: function () {occurencesExpanded(false)}, visible: occurencesExpanded(), translate: 'common.hideDetails'"></button>
+                    <ul data-bind="visible: occurencesExpanded() && entries().length, foreach: entries()" class="list-unstyled">
+                        <li>
+                            <span data-bind="text: ($index() + 1) + ' ' + $data.courseInfo().name"></span>
+                            <span data-bind="text: new Date(startDate())"></span>
+                            <a data-bind="href: '#entries/' + $data.courseId() + '/' + $data._id(), translate: 'common.details'" ></a>
+                        </li>
                     </ul>
                 </dd>
             </dl>

@@ -51,7 +51,19 @@ define(['jquery',
                     });
                 };
 
-                self.entries = kb.collectionObservable(entriesCollection);
+                self.entries = kb.collectionObservable(entriesCollection);/*, {filters: function (model) {
+                    if (!model) {
+                        return false;
+                    }
+                    var st = new Date(entriesCollection.startDate).getTime();
+                    var end = new Date(entriesCollection.endDate).getTime();
+                    if (st < new Date(model.get('startDate')).getTime() &&
+                        end > new Date(model.get('endDate')).getTime()) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }});*/
             };
             this.viewModel = new ViewModel();
 

@@ -33,6 +33,22 @@ module.exports = function (app, models) {
         }
     });
 
+    app.get('/entries/:courseId/:entryId', [app.authChecker], function (req, res) {
+        var data = {
+            accountId: req.session.accountId,
+            courseId: req.params.courseId,
+            entryId: req.params.entryId
+        };
+
+        models.Entry.findById(data, function (entry) {
+            if (!entry) {
+                res.status(404).end();
+            } else {
+                res.send(entry);
+            }
+        });
+    });
+
     app.post('/entries/:courseId/:entryId', [app.authChecker], function (req, res) {
         var data = req.body;
         data.accountId = req.session.accountId;

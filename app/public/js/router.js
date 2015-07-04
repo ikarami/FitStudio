@@ -4,20 +4,28 @@ define(['backbone',
     'views/login',
     'views/register',
     'views/forgotPassword',
+
     'views/courses',
     'views/courseDetails',
     'views/editCourse',
+
+    'views/entryDetails',
+
     'views/instructors',
     'views/instructorDetails',
     'views/editInstructor',
+
     'views/locations',
     'views/editLocation',
+
     'views/pouches',
     'views/pouchDetails',
     'views/editPouch',
+
     'views/users',
     'views/userDetails',
     'views/editUser',
+
     'collectionsController',
     'controllers/session',
     'collections/users',
@@ -34,6 +42,7 @@ define(['backbone',
     CoursesView,
     CourseDetailsView,
     EditCourseView,
+    EntryDetailsView,
     InstructorsView,
     InstructorDetailsView,
     EditInstructorView,
@@ -66,6 +75,7 @@ define(['backbone',
             courses: 'courses',
             'courses/:id': 'courseDetails',
             'courses/:id/edit': 'editCourse',
+            'entries/:courseId/:id': 'entryDetails',
             instructors: 'instructors',
             'instructors/:id': 'instructorDetails',
             'instructors/:id/edit': 'editInstructors',
@@ -170,6 +180,10 @@ define(['backbone',
 
         editCourse: function (id) {
             this.changeView(new EditCourseView({id: id}));
+        },
+
+        entryDetails: function (courseId, entryId) {
+            this.changeView(new EntryDetailsView({courseId: courseId, id: entryId}));
         },
 
         instructors: function () {

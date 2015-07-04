@@ -1,0 +1,56 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h1 class="panel-title" data-bind="translate: 'entry.details'"></h1>
+    </div>
+    <div class="panel-body">
+        <p>
+            <span data-bind="text: courseName"></span> - <span data-bind="text: comments"></span>
+        </p>
+        <p>
+            <span data-bind="text: startDate"></span> - <span data-bind="text: endDate"></span>
+        </p>
+
+        <p>
+            <p data-bind="translate: 'entry.subscribedUsers'"></p>
+            <div data-bind="foreach: courseUsers" class="list-group">
+                <div class="list-group-item">
+                    <span data-bind="text: firstName + ' ' + lastName"></span>
+                    <div class="pull-right">
+                        <a data-bind="click: $root.markAsPresent, translate: 'entry.markAsPresent'"></a>
+                        <a data-bind="click: $root.markAsMissed, translate: 'entry.markAsMissed'"></a>
+                    </div>
+                </div>
+            </div>
+        </p>
+
+        <p>
+            <dl class="dl-horizontal">
+                <dt data-bind="translate: 'entry.actualInstructors'"></dt>
+                <dd>
+                    <ul data-bind="foreach: actualInstructors" class="list-unstyled">
+                        <li data-bind="text: ($index() + 1) + ': ' + $data.firstName + ' ' + $data.lastName"></li>
+                    </ul>
+                </dd>
+
+                <dt data-bind="translate: 'entry.actualUsers'"></dt>
+                <dd>
+                    <ul data-bind="foreach: actualUsers" class="list-unstyled">
+                        <li data-bind="text: ($index() + 1) + ': ' + $data.firstName + ' ' + $data.lastName"></li>
+                    </ul>
+                </dd>
+
+                <dt data-bind="translate: 'entry.missedUsers'"></dt>
+                <dd>
+                    <ul data-bind="foreach: missedUsers" class="list-unstyled">
+                        <li data-bind="text: ($index() + 1) + ': ' + $data.firstName + ' ' + $data.lastName"></li>
+                    </ul>
+                </dd>
+            </dl>
+        </p>
+        <br />
+        <p>
+            <button class="btn btn-default" data-bind="click: goToDashboard, translate: 'common.goToDashboard'"></button>
+            <button class="btn btn-danger pull-right" data-bind="click: remove, translate: 'common.remove'"></button>
+        </p>
+    </div>
+</div>

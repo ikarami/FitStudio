@@ -37,6 +37,8 @@
 
     "common.nextWeek": "Następny tydzień",
     "common.lastWeek": "Poprzedni tydzień",
+    "common.showDetails": "Pokaż detale",
+    "common.hideDetails": "Ukryj detale",
 
     "common.basedOn": "bazując na",
     "common.operations": "operacjach",
@@ -89,6 +91,14 @@
     "courses.listOfAll": "Idź do listy kursów",
     "courses.timeSchema": "Wybierz jak często odbywać ma się kurs",
     "courses.generateOccurences": "Generuj wydarzenia",
+
+    "entry.details": "Detale wydarzenia",
+    "entry.actualInstructors": "Instruktorzy",
+    "entry.actualUsers": "Obecni kursanci",
+    "entry.missedUsers": "Nieobecni kursanci",
+    "entry.subscribedUsers": "Zapisani kursanci",
+    "entry.markAsPresent": "Oznacz jako obecny",
+    "entry.markAsMissed": "Oznacz jako nieobecny",
 
     "instructors.addInstructor": "Dodaj nowego instruktora",
     "instructors.editInstructor": "Edycja instruktora",

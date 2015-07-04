@@ -18,7 +18,7 @@ define(['models/baseModel'], function (BaseModel) {
 
         url: function () {
             // PUT for /entries/:courseId/:_id POST for /entries/:courseId/me
-            return '/entries/' + this.get('courseId') + '/' + (this.id ? this.get('courseId') : 'me');
+            return '/entries/' + this.get('courseId') + '/' + (this.get('id') ? this.get('id') : 'me');
         }
     });
 

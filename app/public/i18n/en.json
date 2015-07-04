@@ -37,6 +37,8 @@
 
     "common.nextWeek": "Next week",
     "common.lastWeek": "Last week",
+    "common.showDetails": "Show details",
+    "common.hideDetails": "Hide details",
 
     "common.basedOn": "based on",
     "common.operations": "operations",
@@ -89,6 +91,14 @@
     "courses.listOfAll": "Go to list of all courses",
     "courses.timeSchema": "Select a time schema for the course",
     "course.generateOccurences": "Generate events",
+
+    "entry.details": "Entry details",
+    "entry.actualInstructors": "Actual instructors",
+    "entry.actualUsers": "Actual users",
+    "entry.missedUsers": "Missed users",
+    "entry.subscribedUsers": "Subscribed users",
+    "entry.markAsPresent": "Mark present",
+    "entry.markAsMissed": "Mark missed",
 
     "instructors.addInstructor": "Add Instructor",
     "instructors.editInstructor": "Edit Instructor",

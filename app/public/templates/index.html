@@ -13,7 +13,7 @@
 <button class="btn" data-bind="click: nextWeek, translate: 'common.nextWeek'"></button>
 
 <div class="list-group" data-bind="foreach: entries">
-    <a class="list-group-item" data-bind="attr: {href: '#entries/' + $data._id()}">
+    <a class="list-group-item" data-bind="href: '#entries/' + $data.courseId() + '/' + $data._id()">
       <span data-bind="text: $data.courseInfo().name"></span>
       <span data-bind="text: new Date(startDate())"></span>
     </a>
