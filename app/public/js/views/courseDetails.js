@@ -5,7 +5,7 @@ define(['jquery',
     'kb',
     'collections/courses',
     'collections/entries',
-    'text!templates/courseDetails.html'], function ($, _, Backbone, ko, kb, coursesCollection, Entries, courseDetailsTemplate) {
+    'text!templates/courseDetails.html'], function ($, _, Backbone, ko, kb, coursesCollection, EntriesCollection, courseDetailsTemplate) {
     'use strict';
 
     var CourseDetailsView = Backbone.View.extend({
@@ -67,9 +67,9 @@ define(['jquery',
                     }
                 };
 
-                entriesCollection = new Entries({id: args.id});
-                entriesCollection.fetch();
+                entriesCollection = new EntriesCollection(null, {courseId: args.id});
                 self.entries = kb.collectionObservable(entriesCollection, {view_model: kb.ViewModel});
+                entriesCollection.fetch();
             };
             this.viewModel = new ViewModel();
         },

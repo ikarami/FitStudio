@@ -9,10 +9,10 @@ define(['backbone',
     var EntriesCollection = Backbone.Collection.extend({
         model: EntryModel,
 
-        initialize: function (options) {
-            options = options || {id: 'me'};
+        initialize: function (models, options) {
+            options = options || {courseId: 'me'};
 
-            this.courseId = options.id;
+            this.courseId = options.courseId;
 
             this.on('add', this.decorateWithCourseInformation);
             coursesCollection.on('change add', this.decorateWithCourseInformation);
@@ -64,6 +64,7 @@ define(['backbone',
                 this.endDate = dates.endDate;
             }
 
+            //this.fetch({remove: false});
             this.fetch();
         },
 
