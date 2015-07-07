@@ -11,7 +11,11 @@
         </p>
 
         <p>
-            <p data-bind="translate: 'entry.subscribedUsers'"></p>
+            <div>
+                <span data-bind="translate: 'entry.subscribedUsers'"></span>
+                <span class="btn btn-default btn-xs pull-right" data-bind="translate: 'entry.addUser', click: addUser"></span>
+            </div>
+            <br/>
             <div data-bind="foreach: courseUsers" class="list-group">
                 <div class="list-group-item">
                     <span data-bind="text: firstName + ' ' + lastName"></span>
@@ -32,17 +36,33 @@
                     </ul>
                 </dd>
 
-                <dt data-bind="translate: 'entry.actualUsers'"></dt>
+                <dt>
+                    <span data-bind="translate: 'entry.actualUsers'"></span>
+                    <span data-bind="text: '(' + actualUsers().length + ')'"></span>
+                </dt>
                 <dd>
                     <ul data-bind="foreach: actualUsers" class="list-unstyled">
-                        <li data-bind="text: ($index() + 1) + ': ' + $data.firstName + ' ' + $data.lastName"></li>
+                        <li>
+                            <span data-bind="text: ($index() + 1) + ': ' + firstName + ' ' + lastName"></span>
+                            <div class="pull-right">
+                                <a data-bind="click: $root.removeFromActualUsers, translate: 'common.remove'"></a>
+                            </div>
+                        </li>
                     </ul>
                 </dd>
 
-                <dt data-bind="translate: 'entry.missedUsers'"></dt>
+                <dt>
+                    <span data-bind="translate: 'entry.missedUsers'"></span>
+                    <span data-bind="text: '(' + missedUsers().length + ')'"></span>
+                </dt>
                 <dd>
                     <ul data-bind="foreach: missedUsers" class="list-unstyled">
-                        <li data-bind="text: ($index() + 1) + ': ' + $data.firstName + ' ' + $data.lastName"></li>
+                        <li>
+                            <span data-bind="text: ($index() + 1) + ': ' + firstName + ' ' + lastName"></span>
+                            <div class="pull-right">
+                                <a data-bind="click: $root.removeFromMissedUsers, translate: 'common.remove'"></a>
+                            </div>
+                        </li>
                     </ul>
                 </dd>
             </dl>

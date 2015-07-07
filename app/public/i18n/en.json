@@ -65,6 +65,7 @@
     "modal.selectInstructors": "Please select instructors",
     "modal.selectCourses": "Please select courses",
     "modal.selectLocations": "Please select location",
+    "modal.selectUsers": "Please select users",
 
     "login": "Login",
     "login.unable": "<strong>Unable to login!</strong> Check your credentials and try again.",
@@ -92,6 +93,7 @@
     "courses.timeSchema": "Select a time schema for the course",
     "course.generateOccurences": "Generate events",
 
+    "entry.addUser": "Add user",
     "entry.details": "Entry details",
     "entry.actualInstructors": "Actual instructors",
     "entry.actualUsers": "Actual users",

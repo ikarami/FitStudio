@@ -65,6 +65,7 @@
     "modal.selectInstructors": "Wybierz instruktorów",
     "modal.selectCourses": "Wybierz kursy",
     "modal.selectLocations": "Wybierz lokalizację",
+    "modal.selectUsers": "Wybierz kursantów",
 
     "login": "Logowanie",
     "login.unable": "<strong>Nie można się zalogować!</strong> Sprawdź podane dane i spróbuj jeszcze raz.",
@@ -92,6 +93,7 @@
     "courses.timeSchema": "Wybierz jak często odbywać ma się kurs",
     "courses.generateOccurences": "Generuj wydarzenia",
 
+    "entry.addUser": "Dodaj kursanta",
     "entry.details": "Detale wydarzenia",
     "entry.actualInstructors": "Instruktorzy",
     "entry.actualUsers": "Obecni kursanci",

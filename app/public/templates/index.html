@@ -7,11 +7,12 @@
     <a class="list-group-item" href="#users" data-bind="translate: 'index.users'"></a>
     <p class="list-group-item"><button class="btn btn-danger" data-bind="click: logout, translate: 'common.logout'"></button>
 </div>
-
-<button class="btn" data-bind="click: previousWeek, translate: 'common.lastWeek'"></button>
-<span data-bind="text: shiftWeeksBy"></span>
-<button class="btn" data-bind="click: nextWeek, translate: 'common.nextWeek'"></button>
-
+<div>
+    <button class="btn" data-bind="click: previousWeek, translate: 'common.lastWeek'"></button>
+    <span data-bind="text: shiftWeeksBy"></span>
+    <button class="btn" data-bind="click: nextWeek, translate: 'common.nextWeek'"></button>
+</div>
+<br/>
 <div class="list-group" data-bind="foreach: entries">
     <a class="list-group-item" data-bind="href: '#entries/' + $data.courseId() + '/' + $data._id()">
       <span data-bind="text: $data.courseInfo().name"></span>
