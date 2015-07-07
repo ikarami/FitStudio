@@ -16,9 +16,24 @@ define(['jquery',
                 var self = this;
 
                 self.selected = ko.observableArray([]);
-                self.content = ko.observableArray([]);
+                self._content = ko.observableArray([]);
+                self.filtering = ko.observable(false);
                 self.type = ko.observable('');
                 self.limit = ko.observable(0);
+
+                self.searchString = ko.observable('');
+
+                self.filteredContent = ko.computed(function() {
+                    var searchString = self.searchString().toLowerCase().trim();
+                    if (!searchString || searchString.length < 3) {
+                        return self._content();
+                    } else {
+                        return ko.utils.arrayFilter(self._content(), function(item) {
+                            // todo: add error handling
+                            return item.label.toLowerCase().indexOf(searchString) !== -1;
+                        });
+                    }
+                });
 
                 self.withinLimit = ko.computed(function () {
                     var limit = self.limit();
@@ -58,10 +73,12 @@ define(['jquery',
             }
 
             this.checkArgs(args);
-            this.viewModel.content(args.content);
+            this.viewModel._content(args.content);
             this.viewModel.type(args.type);
             this.viewModel.selected(args.selected);
             this.viewModel.limit(args.limit);
+            this.viewModel.filtering(args.filtering);
+            this.viewModel.searchString('');
 
             if (args.title) {
                 this.viewModel.title(locale.get(args.title));
