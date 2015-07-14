@@ -25,6 +25,7 @@ define(['jquery',
 
                 self.filteredContent = ko.computed(function() {
                     var searchString = self.searchString().toLowerCase().trim();
+
                     if (!searchString || searchString.length < 3) {
                         return self._content();
                     } else {

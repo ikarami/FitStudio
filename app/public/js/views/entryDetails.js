@@ -177,7 +177,11 @@ define(['jquery',
                 };
 
                 self.addUser = function () {
-                    var alreadyAddedIds = _.pluck(self._courseUsers(), '_id');
+                    var alreadyAddedIds = _.union(
+                        _.pluck(self._courseUsers(), '_id'),
+                        _.pluck(self.actualUsers(), '_id'),
+                        _.pluck(self.missedUsers(), '_id')
+                    );
                     view.trigger('modal', {
                         content: _.compact(usersCollection.map(function (item) {
                             if (alreadyAddedIds.indexOf(item.get('_id')) === -1) {
