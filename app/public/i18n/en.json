@@ -94,6 +94,7 @@
     "course.generateOccurences": "Generate events",
 
     "entry.addUser": "Add user",
+    "entry.addInstructor": "Add instructor",
     "entry.details": "Entry details",
     "entry.actualInstructors": "Actual instructors",
     "entry.actualUsers": "Actual users",

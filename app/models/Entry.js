@@ -85,7 +85,7 @@ module.exports = function (logger, mongoose) {
             comments: data.comments || '',
             missedUsers: data.missedUsers || [],
             actualUsers: data.actualUsers || [],
-            instructors: data.instructors || []
+            actualInstructors: data.actualInstructors || []
         });
 
         course.save(callback);
@@ -103,6 +103,7 @@ module.exports = function (logger, mongoose) {
                 classes: data.classes || [],
                 missedUsers: data.missedUsers || [],
                 actualUsers: data.actualUsers || [],
+                actualInstructors: data.actualInstructors || []
             }, function (err) {
                 if (err) {
                     logger.error('Entry :: update :: error occurred: ' + err);

@@ -18,7 +18,7 @@
             <br/>
             <div data-bind="foreach: courseUsers" class="list-group">
                 <div class="list-group-item">
-                    <span data-bind="text: firstName + ' ' + lastName"></span>
+                    <a data-bind="text: firstName + ' ' + lastName, click: $parent.showUser"></a>
                     <div class="pull-right">
                         <a data-bind="click: $root.markAsPresent, translate: 'entry.markAsPresent'"></a>
                         <a data-bind="click: $root.markAsMissed, translate: 'entry.markAsMissed'"></a>
@@ -29,10 +29,20 @@
 
         <p>
             <dl class="dl-horizontal">
-                <dt data-bind="translate: 'entry.actualInstructors'"></dt>
+                <dt>
+                    <div>
+                        <span data-bind="translate: 'entry.actualInstructors'"></span>
+                        <span class="btn btn-default btn-xs pull-right" data-bind="translate: 'entry.addInstructor', click: addInstructor"></span>
+                    </div>
+                </dt>
                 <dd>
                     <ul data-bind="foreach: actualInstructors" class="list-unstyled">
-                        <li data-bind="text: ($index() + 1) + ': ' + $data.firstName + ' ' + $data.lastName"></li>
+                        <li>
+                            <a data-bind="text: ($index() + 1) + ': ' + firstName + ' ' + lastName, click: $parent.showInstructor"></a>
+                            <div class="pull-right">
+                                <a data-bind="click: $root.removeInstructor, translate: 'common.remove'"></a>
+                            </div>
+                        </li>
                     </ul>
                 </dd>
 
@@ -43,7 +53,7 @@
                 <dd>
                     <ul data-bind="foreach: actualUsers" class="list-unstyled">
                         <li>
-                            <span data-bind="text: ($index() + 1) + ': ' + firstName + ' ' + lastName"></span>
+                            <a data-bind="text: ($index() + 1) + ': ' + firstName + ' ' + lastName, click: $parent.showUser"></a>
                             <div class="pull-right">
                                 <a data-bind="click: $root.removeFromActualUsers, translate: 'common.remove'"></a>
                             </div>
@@ -58,7 +68,7 @@
                 <dd>
                     <ul data-bind="foreach: missedUsers" class="list-unstyled">
                         <li>
-                            <span data-bind="text: ($index() + 1) + ': ' + firstName + ' ' + lastName"></span>
+                            <a data-bind="text: ($index() + 1) + ': ' + firstName + ' ' + lastName, click: $parent.showUser"></a>
                             <div class="pull-right">
                                 <a data-bind="click: $root.removeFromMissedUsers, translate: 'common.remove'"></a>
                             </div>

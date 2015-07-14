@@ -5,8 +5,10 @@ define(['jquery',
     'kb',
     'collections/courses',
     'collections/users',
+    'collections/instructors',
     'models/entry',
-    'text!templates/entryDetails.html'], function ($, _, Backbone, ko, kb, coursesCollection, usersCollection, EntryModel, entryDetailsTemplate) {
+    'text!templates/entryDetails.html'
+], function ($, _, Backbone, ko, kb, coursesCollection, usersCollection, instructorsCollection, EntryModel, entryDetailsTemplate) {
     'use strict';
 
     var EntryDetailsView = Backbone.View.extend({
@@ -21,10 +23,19 @@ define(['jquery',
                         args.selected.forEach(function (id) {
                             var model = usersCollection.findWhere({_id: id});
                             if (model) {
-                                view.viewModel.markAsPresent(model.getShortInfo()) ;
+                                view.viewModel.markAsPresent(model.getShortInfo());
                             }
                         });
 
+                    }
+                } else if (args.field === 'courseInstructors') {
+                    if (args.selected && args.selected.length) {
+                        args.selected.forEach(function (id) {
+                            var model = instructorsCollection.findWhere({_id: id});
+                            if (model) {
+                                view.viewModel.addToActualInstructors(model.getShortInfo());
+                            }
+                        });
                     }
                 }
             });
@@ -84,6 +95,21 @@ define(['jquery',
                     model.save();
                 };
 
+                self.addToActualInstructors = function (data) {
+                    var actualInstructors = model.get('actualInstructors');
+                    actualInstructors = actualInstructors.slice();
+                    actualInstructors.push(data);
+                    model.set('actualInstructors', actualInstructors);
+                    model.save();
+                };
+
+                self.removeInstructor = function (data) {
+                    var actualInstructors = model.get('actualInstructors');
+                    actualInstructors = _.without(actualInstructors, data);
+                    model.set('actualInstructors', actualInstructors);
+                    model.save();
+                };
+
                 self.markAsMissed = function (data) {
                     var missedUsers = model.get('missedUsers');
                     missedUsers = missedUsers.slice();
@@ -135,6 +161,21 @@ define(['jquery',
                     }
                 };
 
+                self.addInstructor = function () {
+                    var alreadyAddedIds = _.pluck(self.actualInstructors(), '_id');
+                    view.trigger('modal', {
+                        content: _.compact(instructorsCollection.map(function (item) {
+                            if (alreadyAddedIds.indexOf(item.get('_id')) === -1) {
+                                return {value: item.get('_id'), label: item.get('firstName') + ' ' + item.get('lastName')};
+                            }
+                        })),
+                        type: 'list',
+                        title: 'modal.selectInstructors',
+                        field: 'courseInstructors',
+                        filtering: true
+                    });
+                };
+
                 self.addUser = function () {
                     var alreadyAddedIds = _.pluck(self._courseUsers(), '_id');
                     view.trigger('modal', {
@@ -148,6 +189,22 @@ define(['jquery',
                         field: 'courseUsers',
                         filtering: true
                     });
+                };
+
+                self.showInstructor = function () {
+                    if (this._id) {
+                        view.trigger('navigate', {
+                            route: '#instructors/' + this._id
+                        });
+                    }
+                };
+
+                self.showUser = function () {
+                    if (this._id) {
+                        view.trigger('navigate', {
+                            route: '#users/' + this._id
+                        });
+                    }
                 };
             };
             this.viewModel = new ViewModel();
