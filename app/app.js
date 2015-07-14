@@ -133,6 +133,7 @@ var FitStudio = function () {
             Instructor: require('./models/Instructor')(app.logger, mongoose),
             Location: require('./models/Location')(app.logger, mongoose),
             Pouch: require('./models/Pouch')(app.logger, mongoose),
+            Subscription: require('./models/Subscription')(app.logger, mongoose),
             User: require('./models/User')(app.logger, mongoose),
         };
     };
