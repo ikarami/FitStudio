@@ -108,12 +108,10 @@ var FitStudio = function () {
     /*  ================================================================  */
 
     self.initializeDB = function () {
-        //db.addUser('​fit4studio_test1','​SecretPassword1')
         // ComposeNokia
 
         // Connect to the Database
-        mongoose.connect('mongodb://fit4studio_test1:SecretPassword1@kahana.mongohq.com:10003/fit4studio_test1');
-        //mongoose.connect('mongodb://localhost/test');
+        mongoose.connect('mongodb://localhost/test');
 
         self.db = mongoose.connection;
         self.db.on('error', console.error.bind(console, 'DB connection error: '));
