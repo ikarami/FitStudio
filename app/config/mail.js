@@ -4,7 +4,7 @@ module.exports = function () {
     return {
         service: 'Gmail',
         auth: {
-            user: 'przemek.banka@gmail.com',
+            user: 'email-address',
             pass: ''
         }
     };
